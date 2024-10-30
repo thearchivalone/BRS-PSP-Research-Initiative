@@ -1,0 +1,27 @@
+idstring "LPK\x00"
+
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	# The start and offset of every file contained within can be found with this; they're all stored in the file
+	set START_POINT 0x0c
+	set START_SHIFT 0x04
+	math START_SHIFT * i
+	math START_POINT + START_SHIFT
+	
+	goto START_POINT
+	get CURRENT_FILE_START long
+	
+	set OFFSET_SHIFT NUMBER_OF_FILES
+	math OFFSET_SHIFT * 0x04
+	math OFFSET_SHIFT + START_POINT
+	
+	goto OFFSET_SHIFT
+	get OFFSET long
+	
+	goto CURRENT_FILE_START
+	getdstring MAGIC_NUMBER 0x04
+	
+	set FILE i
+	log FILE CURRENT_FILE_START OFFSET
+next i

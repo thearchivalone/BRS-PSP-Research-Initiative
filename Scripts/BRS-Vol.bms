@@ -1,0 +1,16 @@
+# RTDP is a proprietary archiving format used in several games made by imageepoch such as
+# Black Rock Shooter - The Game and their Arc series
+# Ported directly from the code of this project: https://www.romhacking.net/utilities/815/
+
+idstring "RTDP"
+get XORKEY long
+get NUMBER_OF_FILES long
+
+goto 0x20
+
+for i = 0 < NUMBER_OF_FILES
+	getdstring FILE 0x20
+	get OFFSET long
+	get SIZE long
+	log FILE OFFSET SIZE
+next i
