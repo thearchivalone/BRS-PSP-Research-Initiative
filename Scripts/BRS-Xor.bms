@@ -1,53 +1,35 @@
 # Copyright 2024 - Brad D
-# See LICENSE for copyright information. 
+# See LICENSE for copyright information.
 # Please include this header and that license for any derivative works.
+# NOTE: Only the documentation, tools and anything that's not directly a part of the game's data fall under this copyright. I don't claim any ownership of the game or any of its assets
 
 # Just decode files with all known decoder keys to see which ones produce the correct results;
 # I plan to clean this up later
 get SIZE asize
 
 if SIZE != 0
-	getdstring MAGIC_NUMBER 0x04
+	getdstring MAGIC_NUMBER 0x08 # some of the magic numbers take up 16 bytes (example: PTMD-XP)
 
 # Key 0x55 - mostly for directories but can have issues with scripts
-set XORKEY 0x55
+set XORKEY "0x55"
 set FILE decoded-55
 
 filexor XORKEY 0
 append
 log FILE 0 SIZE
 
-# Key 0x75 - Opposite of 0x55 but almost identical in many situations
-set XORKEY 0x75
-set FILE decoded-75
-
-filexor XORKEY 0
-append
-log FILE 0 SIZE
-
-# Key 0x2f - This one doesn't come up often but is here just in case
-set XORKEY 0x2f
-set FILE decoded-2f
-
-filexor XORKEY 0
-log FILE 0 SIZE
-
-if MAGIC_NUMBER == "PTMD"
-	# Key 0x16 - PTMD file specific encryption
-	set OFFSET 0x04 # Move to this position due to MAGIC_NUMBER being needed
-	set HEADER "PTMD"
-	set FILE decoded-16
+if MAGIC_NUMBER == "PTMD" | MAGIC_NUMBER == "PTM" | MAGIC_NUMBER == "PTMD-XP"
+	# Key 0x26 - PTMD file specific encryption
+	set XORKEY 0x26
+	set FILE decoded-26
 
 	goto OFFSET
-	set XORKEY 0x16
-
 	filexor XORKEY 0
 	log FILE 0 SIZE
-
-	# Key 0x36 - PTMD file specific encryption
-	set XORKEY 0x36
-	set HEADER "PTMD"
-	set FILE decoded-36
+	
+	# Key 0x28 - PTMD file specific encryption
+	set XORKEY 0x28
+	set FILE decoded-28
 
 	goto OFFSET
 	filexor XORKEY 0
