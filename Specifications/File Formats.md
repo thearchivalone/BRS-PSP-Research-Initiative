@@ -1,3 +1,8 @@
+# Found File Formats
+
+This documentation is mostly here to help structure, describe and name the various types of files/data found within the game
+
+=================================================================
 * Tentative Name: Rudimentary Typed Data Pack
 * Type: Data archive
 * Extension: .vol
@@ -100,8 +105,8 @@
 	* Aren't always audio but instead encrypted archive files or other formats depending on what is needed within the structure
 	
 ===================================================================
-* Tentative Name: It's Not Some Magic
-* Extension: None known
+* Tentative Name: Internal Node Structure Model
+* Extension: .mdl
 * Header: INSM
 * Purpose: Unknown
 * Notes:
@@ -110,8 +115,8 @@
 	* 0x20 - Start of offset list for other formats associated with this
 	
 ===================================================================
-* Tentative Name: It's Not Some magic Again
-* Extension: None known
+* Tentative Name: Internal Node Structure Animation
+* Extension: .anm
 * Header: INSA
 * Purpose: Unknown
 * Notes:
@@ -206,14 +211,16 @@
 	* Currently Unknown
 	
 ==================================================================
-* Tentative Name: BMS eXtensible Container Block
-* Extension: None known
+* Tentative Name: BRS eXtensible Contancorous Binary
+* Type: Data
+* Extension: .bin
 * Header: BXCB
 * Notes:
-	* These can be found in VOL archives after 0x55 decryption but it's unknown what they do right now
+	* Param1.bin and Param2.bin files contain this data
 
 ==================================================================
 * Tentative: Effective Format Pack
+* Type: Container
 * Extension: .efp
 * Header: EFP
 * Purpose: Either points to an mdl somewhere else in the structure or contains the data to create the mdl file

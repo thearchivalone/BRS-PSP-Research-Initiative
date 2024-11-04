@@ -17,20 +17,3 @@ set FILE decoded-55
 filexor XORKEY 0
 append
 log FILE 0 SIZE
-
-if MAGIC_NUMBER == "PTMD" | MAGIC_NUMBER == "PTM" | MAGIC_NUMBER == "PTMD-XP"
-	# Key 0x26 - PTMD file specific encryption
-	set XORKEY 0x26
-	set FILE decoded-26
-
-	goto OFFSET
-	filexor XORKEY 0
-	log FILE 0 SIZE
-	
-	# Key 0x28 - PTMD file specific encryption
-	set XORKEY 0x28
-	set FILE decoded-28
-
-	goto OFFSET
-	filexor XORKEY 0
-	log FILE 0 SIZE

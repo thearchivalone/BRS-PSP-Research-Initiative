@@ -6,249 +6,57 @@
 # This tool's source code was great help figuring out this format: https://www.romhacking.net/utilities/815/
 
 # Associate arrays with a hard index here
-set XORKEYS_1 0
-set XORKEYS_2 1
-set FILE_SIZES 2
-set FILE_OFFSETS 3
-set FILE_NAMES 4
-set P1_NAMES 5
-set P2_NAMES 6
+set FILE_SIZES 0
+set FILE_OFFSETS 1
+set FILE_NAMES 2
 
-set STRING_SIZE 32
+# Do some base level stuff based on the file extension
+get FILE_TYPE EXTENSION
 
-idstring "RTDP"
-get EOF_POSITION long
-get NUMBER_OF_FILES long
+if FILE_TYPE == "VOL" | FILE_TYPE == "vol"
+	idstring "RTDP"
+	get ENCRYPTED_DATA_OFFSET long
+	get NUMBER_OF_FILES long
 
-get VOL_SIZE long
+	get VOL_SIZE long
+	get XORKEY byte # There may only be one single XORKEY afterall
 
-# create an array of XORKeys since these 4 bytes should apply to the decription algorithm
-for i = 0 < 4 # the total bytes here
-	getdstring KEY 0x01
-	putarray XORKEYS_1 i KEY
-next i
+	# Build an array of Filenames from the list
+	goto 0x20 # Where the list starts
+	savepos CURSOR_POSITION
+	for i = 0 < NUMBER_OF_FILES
+		goto CURSOR_POSITION
+		getdstring FILE 0x20 # These are 32-bytes
+		get SIZE long
+		get OFFSET long
+		savepos CURSOR_POSITION
+		putarray FILE_NAMES i FILE
+		putarray FILE_OFFSETS i OFFSET
+		putarray FILE_SIZES i SIZE
+	next i
+else
+	set XORKEY "0x55" # found in the main VOL files
+	get VOL_SIZE asize
+endif
 
-goto EOF_POSITION
+# Do some math to get the size of the encrypted section; I've been going about this system all wrong so far
+set ENCRYPTED_DATA_SIZE VOL_SIZE
+math ENCRYPTED_DATA_SIZE - ENCRYPTED_DATA_OFFSET
+get FILE FILENAME
 
-getdstring REVERSE_OFFSET 0x01 # this is a decimal value stored as hex used in the decription process that doesn't have a direct effect in the main VOL archive
-set CURSOR_POSITION EOF_POSITION # Reset CURSOR_POSITION so we can iterate through the bytes for keys
+# Make the FILE unique so we know what the section actually is
+set ENCRYPTED_DATA_FILE "encrypted-"
+string ENCRYPTED_DATA_FILE + FILE
+log ENCRYPTED_DATA_FILE ENCRYPTED_DATA_OFFSET ENCRYPTED_DATA_SIZE
 
-# Create a second array of XORKeys
-for i = 0 < 16
-	math CURSOR_POSITION + 1
-	goto CURSOR_POSITION
-	getdstring KEY 0x01
-	putarray XORKEYS_2 i KEY
-	sortarray XORKEYS_2
-next i
+open "" ENCRYPTED_DATA_FILE
+filexor XORKEY ENCRYPTED_DATA_FILE
 
-goto EOF_POSITION
-set CURSOR_POSITION EOF_POSITION
-
-# Start reading and storing important values into arrays so they can be used when decrypting files from the decryption list (if it exists) in a future step
-for i = 0 < NUMBER_OF_FILES
-	set SHIFTER 0x04
-
-	if i == 0
-		# Get correct start position for read; they vary between files, so use an arbitrary number and iterate until you hit a usable value
-		for j = 1 < 1000
-			math CURSOR_POSITION - SHIFTER
-			goto CURSOR_POSITION
-			get VALUE long
-			if VALUE != 0
-				break
-			endif
-		next j
-	else
-		math CURSOR_POSITION - SHIFTER
-	endif
-
-	goto CURSOR_POSITION
-	
-	get SIZE long
-	putarray FILE_SIZES i SIZE
-	goto CURSOR_POSITION
-	
-	math CURSOR_POSITION - SHIFTER
-	goto CURSOR_POSITION
-	
-	get OFFSET long
-	putarray FILE_OFFSETS i OFFSET
-	
-	# Grab the filename next
-	math CURSOR_POSITION - STRING_SIZE
-	goto CURSOR_POSITION
-	getdstring FILE STRING_SIZE
-	putarray FILE_NAMES i FILE
-	
-	# Set a flag for special files
-	if FILE == "param1.bin" | FILE == "param2.bin"
-		set USE_PARAM_FILE 1
-	endif
-next i
-
-# Write all of the files
+# Now we cycle through the FILE_NAMES list and extract each file
 for i = 0 < NUMBER_OF_FILES
 	getarray FILE FILE_NAMES i
 	getarray OFFSET FILE_OFFSETS i
 	getarray SIZE FILE_SIZES i
+	goto OFFSET
 	log FILE OFFSET SIZE
 next i
-
-# Get sizes of the XORKeys Arrays so we can iterate through them
-getarray XK1_SIZE XORKEYS_1 -0x80000000
-getarray XK2_SIZE XORKEYS_2 -0x80000000
-
-# Finished with the VOL, so decrypt it
-get FILE FILENAME
-set KEYS XORKEYS_1
-set KEY_SIZE XK1_SIZE
-callfunction decrypt
-
-# Start processing special files based on flags
-if USE_PARAM_FILE == 1
-	set FILE param2.bin
-	callfunction decrypt_files_from_list 1
-	set FILE param1.bin
-	callfunction decrypt_files_from_list 1
-endif
-
-startfunction decrypt_files_from_list
-	open "" FILE
-	get SIZE asize
-	
-	# Create a backup copy just in case we make a mistake or need to run this again
-	set BACKUP FILE
-	string BACKUP + "-backup"
-	log BACKUP 0 SIZE
-	
-	# Check if file has list inside of it before continuing further
-	goto 0x00
-	get BYTE byte
-	if BYTE == 0
-		# param1 and param2 have similar structures but are read differently, so check which one before continuing
-		if FILE == "param1.bin"
-			set FILES P1_NAMES
-			# Start reading the file line by line until we hit our REVERSE_OFFSET; it will always be at a specific offset
-			goto EOF_POSITION
-			savepos CURSOR_POSITION
-
-			# Get correct start position for read; they vary between files, so use an arbitrary number and iterate until you hit a usable value
-			# This is also dependent on which param file is used; param2.bin will always have a different but similar structure
-			for j = 0 < 1000
-				math CURSOR_POSITION - 1
-				goto CURSOR_POSITION
-				getdstring BYTE 0x01
-				if BYTE == REVERSE_OFFSET
-					math CURSOR_POSITION - 16 # Go to real end and move one extra byte over so that next step starts with a 0 value
-					goto CURSOR_POSITION
-					set EOF_POSITION CURSOR_POSITION
-					break
-				endif
-			next j
-		
-			callfunction read_decryption_list 1
-			set P1_NAMES FILES
-			set FILES P1_NAMES
-			callfunction process_decryption_list
-		elseif FILE == "param2.bin"
-			set FILES P2_NAMES
-			set CURSOR_POSITION 0x00
-			math CURSOR_POSITION + 0x0c # move cursor to where 0x37 will always be found
-			goto CURSOR_POSITION
-			for j = 0 < 1000
-				getdstring BYTE 0x01
-				if BYTE != REVERSE_OFFSET
-					math CURSOR_POSITION + 16
-					goto CURSOR_POSITION
-				else
-					set EOF_POSITION CURSOR_POSITION
-					break
-				endif
-			next j
-			
-			callfunction read_decryption_list 1
-			set P2_NAMES FILES
-			set FILES P2_NAMES
-			callfunction process_decryption_list
-		endif
-	endif
-endfunction
-
-startfunction read_decryption_list
-	goto EOF_POSITION
-	set CURSOR_POSITION EOF_POSITION
-
-	# 37 becomes important here; some conversion needs to be done to use it and then we'll need to pad it with bytes to make the offset correct
-	string REVERSE_OFFSET b REVERSE_OFFSET # convert to a byte value that is exactly 37 instead of the decimal equivalent of 0x37 (which is 7)
-	math REVERSE_OFFSET + 0x03 # to make the offset 40 (0x28)
-	
-	# Like above, we need to find where everything starts by reading individual bytes backwards
-	for i = 0 < 1000
-		math CURSOR_POSITION - 1
-		goto CURSOR_POSITION
-		get BYTE byte
-		if BYTE != 0
-			# Correct the Cursor Position; this will always be off by a set amount
-			math CURSOR_POSITION + 0x02
-			goto CURSOR_POSITION
-			break
-		endif
-	next i
-		
-	# Start reading the files into their respective array so we can open the files and keep decrypting them without needing to reopen the lists
-	for i = 1 < NUMBER_OF_FILES
-		set IDX i
-		math IDX - 1
-		math CURSOR_POSITION - REVERSE_OFFSET
-		goto CURSOR_POSITION
-		
-		getdstring FILE STRING_SIZE
-		goto CURSOR_POSITION
-		putarray FILES IDX FILE
-	next i
-	# add a final piece of padding to make the file lists align
-	putarray FILES -1 "BMS"
-endfunction
-
-startfunction process_decryption_list
-	# Open the new file and then decrypt it will all of the keys
-	for i = 0 < NUMBER_OF_FILES
-		getarray FILE1 FILE_NAMES i
-		getarray FILE2 FILES i
-		getarray SIZE FILE_SIZES i
-		
-		if FILE2 == FILE1
-			open "" FILE2
-			set FILE FILE2
-			set KEYS XORKEYS_2
-			set KEY_SIZE XK2_SIZE
-			callfunction decrypt
-		endif
-	next i
-endfunction
-
-startfunction decrypt
-	set KEY_BINARY ""
-	set PREV_KEY ""
-	get SIZE asize
-	for i = 0 < KEY_SIZE
-		set KEY_FILE ""
-		string KEY_FILE + FILE
-		getarray KEY KEYS i
-		filexor KEY FILE
-		string KEY_BINARY b KEY
-		set KEY_STRING ""
-	
-		# No point in writing anything that will be the original; XOR 0 = Original file
-		if KEY_BINARY != 0 & KEY_BINARY != 37 & KEY != PREV_KEY
-			string KEY_STRING + "0x"
-			string KEY_STRING + KEY_BINARY
-			string KEY_STRING + "-"
-			string KEY_STRING + KEY_FILE
-			log KEY_STRING 0 SIZE
-		endif
-		
-		string PREV_KEY = KEY
-	next i
-endfunction
