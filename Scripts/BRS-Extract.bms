@@ -1,0 +1,124 @@
+# Copyright 2024 - Brad D
+# See LICENSE for copyright information.
+# Please include this header and that license for any derivative works.
+# NOTE: Only the documentation, tools and anything that's not directly a part of the game's data fall under this copyright. I don't claim any ownership of the game or any of its assets
+#
+# This tool's source code was great help figuring out this format: https://www.romhacking.net/utilities/815/
+
+# Associate arrays with a hard index here
+set FILE_SIZES 0
+set FILE_OFFSETS 1
+set FILE_NAMES 2
+
+# Do some base level stuff based on the file extension
+get FILE_TYPE EXTENSION
+
+if FILE_TYPE == "VOL" | FILE_TYPE == "vol"
+	callfunction extract_vol
+elseif FILE_TYPE == "LPK" | FILE_TYPE == "lpk"
+	callfunction extract_lpk
+elseif FILE_TYPE == "BIN" | FILE_TYPE == "bin"
+	goto 0x00
+	callfunction extract_bin
+elseif FILE_TYPE == "GZ" | FILE_TYPE == "gz"
+	callfunction extract_gzip
+elseif FILE_TYPE == "ZZZ" | FILE_TYPE == "zzz"
+	callfunction extract_zlib
+endif
+
+startfunction extract_vol
+	idstring "RTDP"
+	get ENCRYPTED_DATA_OFFSET long
+	get NUMBER_OF_FILES long
+
+	get VOL_SIZE long
+	get XORKEY byte # There may only be one single XORKEY afterall
+
+	# Build an array of Filenames from the list
+	goto 0x20 # Where the list starts
+	savepos CURSOR_POSITION
+	for i = 0 < NUMBER_OF_FILES
+		goto CURSOR_POSITION
+		getdstring FILE 0x20 # These are 32-bytes
+		get SIZE long
+		get OFFSET long
+		savepos CURSOR_POSITION
+		putarray FILE_NAMES i FILE
+		putarray FILE_OFFSETS i OFFSET
+		putarray FILE_SIZES i SIZE
+	next i
+
+	# Do some math to get the size of the encrypted section; I've been going about this system all wrong so far
+	set ENCRYPTED_DATA_SIZE VOL_SIZE
+	math ENCRYPTED_DATA_SIZE - ENCRYPTED_DATA_OFFSET
+	get FILE FILENAME
+
+	# Make the FILE unique so we know what the section actually is
+	set ENCRYPTED_DATA_FILE "encrypted-"
+	string ENCRYPTED_DATA_FILE + FILE
+	log ENCRYPTED_DATA_FILE ENCRYPTED_DATA_OFFSET ENCRYPTED_DATA_SIZE
+
+	open "" ENCRYPTED_DATA_FILE
+	filexor XORKEY ENCRYPTED_DATA_FILE
+
+	# Now we cycle through the FILE_NAMES list and extract each file
+	for i = 0 < NUMBER_OF_FILES
+		getarray FILE FILE_NAMES i
+		getarray OFFSET FILE_OFFSETS i
+		getarray SIZE FILE_SIZES i
+		goto OFFSET
+		log FILE OFFSET SIZE
+	next i
+endfunction
+
+startfunction extract_lpk
+	idstring "LPK\x00"
+
+	get NUMBER_OF_FILES long
+
+	for i = 0 < NUMBER_OF_FILES
+		# The start and offset of every file contained within can be found with this; they're all stored in the file
+		set START_POINT 0x0c
+		set START_SHIFT 0x04
+		math START_SHIFT * i
+		math START_POINT + START_SHIFT
+
+		goto START_POINT
+		get CURRENT_FILE_START long
+
+		set OFFSET_SHIFT NUMBER_OF_FILES
+		math OFFSET_SHIFT * 0x04
+		math OFFSET_SHIFT + START_POINT
+
+		goto OFFSET_SHIFT
+		get OFFSET long
+
+		goto CURRENT_FILE_START
+		getdstring MAGIC_NUMBER 0x04
+
+		set FILE i
+		log FILE CURRENT_FILE_START OFFSET
+	next i
+endfunction
+
+# These can be a variety of things, so let's check what the MAGIC_NUMBER looks like before we continue
+startfunction extract_bin
+	idstring "\x1F\x8B\x08\x00"
+	callfunction extract_gzip
+endfunction
+
+startfunction extract_gzip
+	comtype gzip
+	get SIZE asize
+	get FILE FILENAME
+	clog FILE 0 SIZE SIZE
+endfunction
+
+startfunction extract_zlib
+	idstring "CZAA"
+	get SIZE long
+	get ZSIZE asize
+	comtype zlib_noerror
+	get FILE FILENAME
+	clog FILE 0 SIZE SIZE
+endfunction
