@@ -106,6 +106,8 @@
 * Purpose: Unknown
 * Notes:
 	* Can house model data (converting extension to .mdl can allow viewing as a model in 3D software but isn't guaranteed to work)
+* Structure:
+	* 0x20 - Start of offset list for other formats associated with this
 	
 ===================================================================
 * Tentative Name: It's Not Some magic Again
@@ -114,6 +116,8 @@
 * Purpose: Unknown
 * Notes:
 	* Seems related to models, interface and anything graphics related but needs further research
+* Structure:
+	* 0x1c - Offset to File string
 	
 ==================================================================
 * Tentative Name: Easily, my Favorite Container
@@ -175,6 +179,57 @@
 * Structure:
 	* 0x04 (2 bytes) - U ID
 	* 0x08 - X ID + 0x01
+
+==================================================================
+* Tentative Name: bRS scrIPTING BMS
+* Extension: .bms
+* Header: bscr
+* Purpose: The core scripting language for handling a variety of tasks that don't need to be performed using C / C++.
+* Notes:
+	* Anywhere there's a blank .bms file inside of an archive (especially within VOL files), expect there to be game scripting somewhere within (probably encrypted too)
+	* The .bms file essentially acts as a memory object container that gets populated only when that particular script is needed by the game while the player is playing it
+	* Some of these are persistent across the entire game, others are volatile (as in get destroyed and replaced by other types of data), dependent on what their core functions are
+* Structure:
+	* 0x04 - 32-byte script file string name; first byte begins with a $ (0x24) character followed by a blank space and then the full name of the bms file in the archive to write the script to
+	* 0x34 - Offset to scripting payload (You'll see a large chunk of text that includes multiple filenames from this directory and things like _INIT_ACTION_FROM here
+	* 0x38 - Offset from the address that 0x3c leads to; Use this to move to where EDXD starts
+	* 0x3c - Script File Offset in VOL (can be used as the size when writing to file)
+	
+==================================================================
+* Tentative Name: Everything Does eXtensive Duties
+* Extension: .edx
+* Header: EDXD
+* Purpose: An extension of the BMS format, allowing for extra scripting beyond the file size allocated for those files
+* Notes:
+	* This one is subject to change but it looks like these can be found in the VOL archives and act as a memory object for containing the scripting data within the .edx file
+* Structure:
+	* Currently Unknown
+	
+==================================================================
+* Tentative Name: BMS eXtensible Container Block
+* Extension: None known
+* Header: BXCB
+* Notes:
+	* These can be found in VOL archives after 0x55 decryption but it's unknown what they do right now
+
+==================================================================
+* Tentative: Effective Format Pack
+* Extension: .efp
+* Header: EFP
+* Purpose: Either points to an mdl somewhere else in the structure or contains the data to create the mdl file
+* Notes:
+	* .efp file in VOL archive is not 0x55 encrypted; it uses a different encryption key that possibly isn't in the VOL itself
+* Structure:
+	* 0x18 - 24-byte mdl string name associated here
+
+==================================================================
+* Tentative: Panic Punching Protection Gang
+* Extension: None known
+* Header: PPHD, PPTN, PPPG, PPVA
+* Purpose: Currently Unknown
+* Notes:
+	* Named after the PPPG header I found
+	* These all seem to be linked together in multiple VOL archives in a set structure
 
 ==================================================================
 * Further Notes:
