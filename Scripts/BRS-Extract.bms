@@ -10,20 +10,37 @@ set FILE_SIZES 0
 set FILE_OFFSETS 1
 set FILE_NAMES 2
 
+# This is overkill but since some files may have weird structures or offsets, we can use this globally to always start our code in the correct location
+set ARBITRARY_NUMBER 10000
+
 # Do some base level stuff based on the file extension
 get FILE_TYPE EXTENSION
 
-if FILE_TYPE == "VOL" | FILE_TYPE == "vol"
+# Convert FILE_TYPE to lowercase so we only need to check for one variation
+string FILE_TYPE l FILE_TYPE
+
+if FILE_TYPE == "vol"
 	callfunction extract_vol
-elseif FILE_TYPE == "LPK" | FILE_TYPE == "lpk"
-	callfunction extract_lpk
-elseif FILE_TYPE == "BIN" | FILE_TYPE == "bin"
+elseif FILE_TYPE == "lpk"
+	idstring "LPK\x00"
+	get NUMBER_OF_FILES long
 	goto 0x00
+	callfunction extract_lpk 1 NUMBER_OF_FILES
+elseif FILE_TYPE == "bin"
+	print "FILE_TYPE: %FILE_TYPE%"
 	callfunction extract_bin
-elseif FILE_TYPE == "GZ" | FILE_TYPE == "gz"
+elseif FILE_TYPE == "gz"
 	callfunction extract_gzip
-elseif FILE_TYPE == "ZZZ" | FILE_TYPE == "zzz"
-	callfunction extract_zlib
+elseif FILE_TYPE == "zzz"
+	# This is to cover the chance that a Zlib compressed archive doesn't have the CZAA MAGIC_NUMBER
+	getdstring MAGIC_NUMBER 0x04
+	if MAGIC_NUMBER == "CZAA"
+		get SIZE long
+	endif
+	goto 0x00
+	callfunction extract_zlib 1 SIZE
+elseif FILE_TYPE == "at3"
+	callfunction extract_riff
 endif
 
 startfunction extract_vol
@@ -61,7 +78,7 @@ startfunction extract_vol
 	open "" ENCRYPTED_DATA_FILE
 	filexor XORKEY ENCRYPTED_DATA_FILE
 
-	# Now we cycle through the FILE_NAMES list and extract each file
+	# Now we cycle through the FILE_NAMES list and extract each individual file using our arrays from before
 	for i = 0 < NUMBER_OF_FILES
 		getarray FILE FILE_NAMES i
 		getarray OFFSET FILE_OFFSETS i
@@ -72,17 +89,10 @@ startfunction extract_vol
 endfunction
 
 startfunction extract_lpk
-	idstring "LPK\x00"
-
-	get NUMBER_OF_FILES long
-
+	set START_POINT 0x0c
+	set START_SHIFT 0x04
 	for i = 0 < NUMBER_OF_FILES
 		# The start and offset of every file contained within can be found with this; they're all stored in the file
-		set START_POINT 0x0c
-		set START_SHIFT 0x04
-		math START_SHIFT * i
-		math START_POINT + START_SHIFT
-
 		goto START_POINT
 		get CURRENT_FILE_START long
 
@@ -93,32 +103,268 @@ startfunction extract_lpk
 		goto OFFSET_SHIFT
 		get OFFSET long
 
-		goto CURRENT_FILE_START
-		getdstring MAGIC_NUMBER 0x04
-
 		set FILE i
-		log FILE CURRENT_FILE_START OFFSET
+		math START_POINT + START_SHIFT
+		callfunction file_builder 1 FILE CURRENT_FILE_START OFFSET
 	next i
+endfunction
+
+# Build files with correct extensions to make it easier to know what is what; will add as needed
+startfunction file_builder
+	goto CURRENT_FILE_START
+	getdstring MAGIC_NUMBER 0x04
+	if MAGIC_NUMBER == "PTMD" | MAGIC_NUMBER == "PTM"
+		set EXTENSION ".ptm"
+	elseif MAGIC_NUMBER == "LPK"
+		set EXTENSION ".lpk"
+	elseif MAGIC_NUMBER == "INSA"
+		set EXTENSION ".anm"
+	elseif MAGIC_NUMBER == "INSM"
+		# Check which INSM type this is; there's two different versions based on what is found at the address pointed to at 0x34
+		goto 0x34
+		get EMBEDDED_OFFSET long
+		goto EMBEDDED_OFFSET
+		getdstring TMP 0x04
+		if TMP == "INSA"
+			set EXTENSION == ".cam"
+		else
+			set EXTENSION == ".mdl"
+		endif
+	elseif MAGIC_NUMBER == "bscr"
+		set EXTENSION == ".bms"
+	elseif MAGIC_NUMBER == "EFP"
+		set EXTENSION == ".efp"
+	elseif MAGIC_NUMBER == "BXCB"
+		set EXTENSION == ".bin"
+	elseif MAGIC_NUMBER == "EDXD"
+		set EXTENSION == ".edx"
+	elseif MAGIC_NUMBER == "PPHD"
+		set EXTENSION == ".phd"
+	elseif MAGIC_NUMBER == "RIFF"
+		set EXTENSION == ".at3"
+	elseif MAGIC_NUMBER == "RTDP"
+		set EXTENSION == ".vol"
+	elseif MAGIC_NUMBER == "CZAA"
+		set EXTENSION == ".zzz"
+	elseif MAGIC_NUMBER == "PDK"
+		set EXTENSION == ".pdk"
+	elseif MAGIC_NUMBER == "XTC"
+		set EXTENSION == ".xtc"
+	elseif MAGIC_NUMBER == "SDOa"
+		set EXTENSION == ".sdoa"
+	elseif MAGIC_NUMBER == "XBN"
+		set EXTENSION == ".xbn"
+	elseif MAGIC_NUMBER == "EFC"
+		set EXTENSION == ".efc"
+	else
+		goto CURRENT_FILE_START
+		get MAGIC_NUMBER byte
+		if MAGIC_NUMBER == 0x1f # Sort of hack since only a single GZip version exists in the files
+			set EXTENSION ".gz"
+		elseif MAGIC_NUMBER < 0x1f # Using this as sort of a grab bag of padding and debug data
+			set EXTENSION ".pbd"
+		else
+			set EXTENSION == "-check-me"
+		endif
+	endif
+	string FILE + EXTENSION
+	log FILE CURRENT_FILE_START OFFSET
 endfunction
 
 # These can be a variety of things, so let's check what the MAGIC_NUMBER looks like before we continue
 startfunction extract_bin
-	idstring "\x1F\x8B\x08\x00"
-	callfunction extract_gzip
+	goto 0x00
+	getdstring MAGIC_NUMBER 0x04
+	if MAGIC_NUMBER == "LPK"
+		get NUMBER_OF_FILES long
+		print "NUMBER_OF_FILES: %NUMBER_OF_FILES%"
+		goto 0x00
+		callfunction extract_lpk 1 NUMBER_OF_FILES
+	elseif MAGIC_NUMBER == "CZAA"
+		get SIZE long
+		goto 0x00
+		callfunction extract_zlib 1 SIZE
+	elseif MAGIC_NUMBER == "RIFF"
+		callfunction extract_riff
+	else
+		goto 0x00
+		get MAGIC_NUMBER short
+		if MAGIC_NUMBER == 0x1f8b
+			callfunction extract_gzip
+		endif
+	endif
 endfunction
 
 startfunction extract_gzip
 	comtype gzip
 	get SIZE asize
-	get FILE FILENAME
+	get FILE BASENAME
 	clog FILE 0 SIZE SIZE
 endfunction
 
+# Since these are standard ZLIB compressed archives with a special header, offzip really isn't needed at all
+# Note: This doesn't account for the possibility for multiple embedded archives; will only add if needed
 startfunction extract_zlib
-	idstring "CZAA"
-	get SIZE long
+	# Search for Zlib MAGIC_NUMBER byte by byte in case the archive has a different offset for some reason
+	savepos CURSOR_POSITION
+	for i = 0 < ARBITRARY_NUMBER
+		goto CURSOR_POSITION
+		get BYTE byte
+		if BYTE != 0x78
+			math CURSOR_POSITION + 1
+		else
+			set OFFSET CURSOR_POSITION
+			break
+		endif
+	next i
+
+	# The encryption key for the data is found in the final byte
+	goto SEEK_END
+	savepos CRC_END
+	math CRC_END - 0x04
+	goto CRC_END
+	getdstring CRC_KEY 0x04
+
+	# Get the current file size; offset the compressed data so there's no errors thrown or the size of the decompressed data is wrong
 	get ZSIZE asize
-	comtype zlib_noerror
-	get FILE FILENAME
-	clog FILE 0 SIZE SIZE
+	math ZSIZE - OFFSET
+
+	# zlib_noerror will hide most possible bugs here but most errors will hopefully just be false due to this being a simple customized version
+	comtype zlib_noerror CRC_KEY
+	get FILE BASENAME
+	clog FILE OFFSET ZSIZE SIZE
+endfunction
+
+startfunction extract_riff
+	print "Use VGMStream or any other audio conversion tool that supports the Atrac3 codec"
+endfunction
+
+# Used this for guidance: http://www.topherlee.com/software/pcm-tut-wavformat.html
+# This is an experimental conversion implementation (cause why not). It converts the original at3's from the game into the proper format but doesn't play properly; I think it may be due to the audio using a proprietary Sony codec that only works on their hardware.
+
+startfunction extract_riff_experimental
+	goto 0x00
+	savepos CURSOR_POSITION
+
+	# These values don't exist on the rom, so we'll need to stub them in with defaults so we can build a real audio file from everything here
+	set FORMAT_LENGTH long 16
+	set AUDIO_CHANNELS short 2
+	set SAMPLE_RATE long 176400
+	set CHANNEL_BPS_RATE short 4
+
+	# Manually set certain memory locations for the format to convert correctly
+	set FL_POSITION 0x10
+	set AT_POSITION 0x14
+	set CH_POSITION 0x16
+	set SR_POSITION 0x1c
+	set CBR_POSITION 0x20
+	set BPS_POSITION 0x22
+	set DS_POSITION 0x24
+
+	getdstring MAGIC_NUMBER 0x04 # "RIFF"
+	get SIZE long
+	math SIZE + 8 # To get the same as the actual file size
+	getdstring AUDIO_FORMAT 0x04
+	getdstring FORMAT_CHUNK 0x03
+	get NULL byte
+	savepos CURSOR_POSITION
+	savepos FL_POSITION
+
+	# Use this to eventually move to the correct data location
+	get FACT_OFFSET long
+	savepos CURSOR_POSITION
+
+	get UNKNOWN short
+
+	get AUDIO_TYPE short
+	get AUDIO_SAMPLE_RATE long
+	get UNKNOWN byte
+	get AUDIO_BITS_PER_SAMPLE byte
+	get UNKNOWN short
+
+	# Move to fact header location
+	set TMP_POSITION CURSOR_POSITION
+	math TMP_POSITION + FACT_OFFSET
+	goto TMP_POSITION
+
+	savepos CURSOR_POSITION
+	savepos FH_POSITION
+	getdstring FACT_HEADER 0x04
+	get DATA_OFFSET long
+
+	set TMP_POSITION CURSOR_POSITION
+	math TMP_POSITION + DATA_OFFSET
+	goto TMP_POSITION
+	savepos CURSOR_POSITION
+
+	# Move to data header location
+	get DATA_OFFSET long
+	math DATA_OFFSET / 0xff
+	set TMP_POSITION CURSOR_POSITION
+	math TMP_POSITION + DATA_OFFSET
+	goto TMP_POSITION
+	savepos CURSOR_POSITION
+	savepos DH_POSITION
+
+	getdstring DATA_HEADER 0x04
+	get DATA_SIZE long
+	savepos CURSOR_POSITION
+	goto SEEK_END
+	savepos DE_POSITION
+
+	# Store the DATA section into an array
+	goto DH_POSITION
+	set DS_OFFSET DE_POSITION
+	math DS_OFFSET - DH_POSITION
+	savepos CURSOR_POSITION
+	for i = 0 < DS_OFFSET
+		goto CURSOR_POSITION
+		get BYTE byte
+		putarray DATA_ARRAY i BYTE
+		savepos CURSOR_POSITION
+	next i
+
+	# Make the MEMORY_FILE Whole
+	log MEMORY_FILE 0 SIZE
+
+	# Start making edits to the MEMORY_FILE so that it has the correct information we need
+	putvarchr MEMORY_FILE AT_POSITION AUDIO_TYPE short
+	putvarchr MEMORY_FILE CH_POSITION AUDIO_CHANNELS short
+	putvarchr MEMORY_FILE FL_POSITION FORMAT_LENGTH long
+	putvarchr MEMORY_FILE AC_POSITION 25 short
+	putvarchr MEMORY_FILE CBR_POSITION CHANNEL_BPS_RATE short
+	putvarchr MEMORY_FILE BPS_POSITION AUDIO_BITS_PER_SAMPLE short
+	putvarchr MEMORY_FILE SR_POSITION SAMPLE_RATE long
+
+	# Fill the whole fact section with the DATA section
+	goto SEEK_END
+	savepos FD_OFFSET
+	math FD_OFFSET - DS_POSITION
+	goto FH_POSITION
+	savepos CURSOR_POSITION
+
+	# Null this entire section before filling with data
+	for i = 0 < FD_OFFSET
+		goto CURSOR_POSITION
+		putvarchr MEMORY_FILE CURSOR_POSITION 0 byte
+		math CURSOR_POSITION + 1
+	next i
+
+	goto DS_POSITION
+	savepos CURSOR_POSITION
+	for i = 0 < DS_OFFSET
+		goto CURSOR_POSITION
+		getarray BYTE DATA_ARRAY i
+		putvarchr MEMORY_FILE CURSOR_POSITION BYTE byte
+		math CURSOR_POSITION + 1
+	next i
+
+	# Winging this hard. We're writing raw data to file adding the pieces that were missing and moving what's available to the right locations for the format to work on Windows or any other platform
+	get FILE BASENAME
+	set EXTENSION ".wav"
+	string FILE + EXTENSION
+	log FILE 0 4
+	math SIZE - 4
+	append
+	log FILE 4 SIZE MEMORY_FILE
 endfunction

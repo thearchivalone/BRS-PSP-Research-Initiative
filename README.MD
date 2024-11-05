@@ -15,9 +15,12 @@ This repository will host my findings and various scripts, tools and documentati
 
 * [7-zip](https://www.7-zip.org/) - for extracting data from Gzip compressed binary files and GZ extension files
 
-* [Offzip](https://aluigi.altervista.org/mytoolz/offzip.zip) - for extracting data from ZZZ archives (haven't found an alternative way for these yet)
-
 * [Vgmstream-cli](https://github.com/vgmstream/vgmstream) - for converting at3 files into a user playable format
+
+=====================================================================
+## Optional Tools
+
+* [Offzip](https://aluigi.altervista.org/mytoolz/offzip.zip) - for extracting data from ZZZ archives; extraction script should work with all of these without issues now
 
 =====================================================================
 ## Current TODO

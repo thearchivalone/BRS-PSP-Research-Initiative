@@ -49,12 +49,9 @@ This documentation is mostly here to help structure, describe and name the vario
 * Header: PTMD, PTM, PTMD-XP
 * Purpose: General use data format for basically everything
 * Notes:
-	* Cloak and Dagger archive files
-	* These aren't all a specific format, file type or possibly even a single archive; instead, they can be compressed with different encryption keys than everything else and have different real MAGIC_NUMBERS (examples: vrkb seems to be some kind of ASCII art hidden within the menus or FP, which I'm not sure what this is)
-	* PTMD-XP archives seem to heavily exist within the gallery and anywhere that has heavy usage of interface elements, but I haven't really looked too far into them
-	* Not all are hidden encrypted files; some can be pure padding, others can have human readable text and can contain file names or variable data
+	* Not 100% sure what these are for yet but they seem to be variable
 * Structure:
-	* Unknown due to varying nature of these files
+	* Currently Unknown
 
 ==================================================================
 * Tentative Name: just BIN files
@@ -77,7 +74,7 @@ This documentation is mostly here to help structure, describe and name the vario
 	* Each container wrapped with SC
 * Structure:
 	* 0x04 - Internal Container list start
-	* 0x20 - Internal Container list end
+	* 0x24 - Internal Container list end
 	* 0x24 - Main Container end
 		* Each internal container list data takes up 8-bytes with the first 4-bytes being the start point and last 4-bytes being the end
 		* Every end can become the start point of the next stored data (hence why these begin and end with the SC header)
@@ -88,13 +85,18 @@ This documentation is mostly here to help structure, describe and name the vario
 * Extension: None known
 * Header: SSCR
 * Purpose: Not fully known but these seem to be an extension of SC and contain much of the Scripted data.
-	
+
 ==================================================================
 * Tentative Name: Playing Donkey Kong
-* Extension: None known
+* Type: Data / Container
+* Extension: .pdk
 * Header: PDK
-* Purpose: Unknown.
-	
+* Purpose: Stores difficulty related data
+* Notes:
+	* Found primarily within the Minigames structures
+* Structure:
+	* Currently Unknown
+
 ==================================================================
 * Name: RIFF Container Format
 * Extension: .at3
@@ -102,27 +104,30 @@ This documentation is mostly here to help structure, describe and name the vario
 * Notes:
 	* These are often just standard audio containers with most of the music, voice lines and sound effects compressed within
 	* Can easily be extracted and converted to a standard playable format using [VGMstream](https://github.com/vgmstream/vgmstream) (or similar other converters)
-	* Aren't always audio but instead encrypted archive files or other formats depending on what is needed within the structure
-	
+
 ===================================================================
 * Tentative Name: Internal Node Structure Model
-* Extension: .mdl
+* Type: Data
+* Extension: .mdl (if PTMD is found within)
 * Header: INSM
-* Purpose: Unknown
+* Purpose: Stores model data
 * Notes:
 	* Can house model data (converting extension to .mdl can allow viewing as a model in 3D software but isn't guaranteed to work)
 * Structure:
 	* 0x20 - Start of offset list for other formats associated with this
-	
+
 ===================================================================
 * Tentative Name: Internal Node Structure Animation
+* Type: Data
 * Extension: .anm
 * Header: INSA
-* Purpose: Unknown
+* Purpose: Stores animation data
 * Notes:
-	* Seems related to models, interface and anything graphics related but needs further research
+	* Can be embedded inside of an INSM container
 * Structure:
 	* 0x1c - Offset to File string
+
+==================================================================
 	
 ==================================================================
 * Tentative Name: Easily, my Favorite Container
@@ -231,7 +236,7 @@ This documentation is mostly here to help structure, describe and name the vario
 
 ==================================================================
 * Tentative: Panic Punching Protection Gang
-* Extension: None known
+* Extension: .phd
 * Header: PPHD, PPTN, PPPG, PPVA
 * Purpose: Currently Unknown
 * Notes:
