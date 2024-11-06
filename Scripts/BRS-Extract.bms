@@ -27,7 +27,6 @@ elseif FILE_TYPE == "lpk"
 	goto 0x00
 	callfunction extract_lpk 1 NUMBER_OF_FILES
 elseif FILE_TYPE == "bin"
-	print "FILE_TYPE: %FILE_TYPE%"
 	callfunction extract_bin
 elseif FILE_TYPE == "gz"
 	callfunction extract_gzip
@@ -156,6 +155,8 @@ startfunction file_builder
 		set EXTENSION == ".xbn"
 	elseif MAGIC_NUMBER == "EFC"
 		set EXTENSION == ".efc"
+	elseif MAGIC_NUMBER == "SC"
+		set EXTENSION == ".sc"
 	else
 		goto CURRENT_FILE_START
 		get MAGIC_NUMBER byte
@@ -177,7 +178,6 @@ startfunction extract_bin
 	getdstring MAGIC_NUMBER 0x04
 	if MAGIC_NUMBER == "LPK"
 		get NUMBER_OF_FILES long
-		print "NUMBER_OF_FILES: %NUMBER_OF_FILES%"
 		goto 0x00
 		callfunction extract_lpk 1 NUMBER_OF_FILES
 	elseif MAGIC_NUMBER == "CZAA"
@@ -188,8 +188,8 @@ startfunction extract_bin
 		callfunction extract_riff
 	else
 		goto 0x00
-		get MAGIC_NUMBER short
-		if MAGIC_NUMBER == 0x1f8b
+		get MAGIC_NUMBER byte
+		if MAGIC_NUMBER == 0x1f
 			callfunction extract_gzip
 		endif
 	endif
@@ -199,6 +199,17 @@ startfunction extract_gzip
 	comtype gzip
 	get SIZE asize
 	get FILE BASENAME
+	# This is a bit of a hack to cover the archive files in multiple locations so they extract with the proper extension
+	string TMP = FILE
+	string TMP % "_"
+	if TMP == "FCHR" | TMP == "FEVT" | TMP == "MAP" # For FLD
+		string FILE + ".SC"
+	elseif TMP == "GLR" | TMP == "MINI" | TMP == "IF" | TMP == "MENU" # For Gallery
+		string FILE + ".LPK"
+	elseif TMP == "BMG" # For Minigames
+		string FILE + ".PDK"
+	endif
+
 	clog FILE 0 SIZE SIZE
 endfunction
 

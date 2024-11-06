@@ -242,13 +242,24 @@ This documentation is mostly here to help structure, describe and name the vario
 	* Param1.bin and Param2.bin files contain this data
 
 ==================================================================
-* Tentative: Panic Punching Protection Gang
+* Tentative Name: Panic Punching Protection Gang
+* Type: Data
 * Extension: .phd
 * Header: PPHD, PPTN, PPPG, PPVA
 * Purpose: Currently Unknown
 * Notes:
 	* Named after the PPPG header I found
 	* These all seem to be linked together in multiple VOL archives in a set structure
+
+==================================================================
+* Tentative Name: Something That Can Map
+* Extension: .bin, .sm
+* Header: STCM
+* Purpose: Stores stage and map data
+* Notes:
+	* Originally found in decrypted and extracted Map VOLs under `GAMEDATA\BTL\MAP`
+* Structure:
+	* Currently Unknown
 
 ==================================================================
 * Further Notes:
