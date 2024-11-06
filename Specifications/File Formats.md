@@ -14,19 +14,15 @@ This documentation is mostly here to help structure, describe and name the vario
 	* Lower case files (example: pack.vol from SYSTEM.VOL) are suspicious files that need to be examined further (this applies to all file types)
 	* These are also hidden data files (must be decrypted); the names of the files listed and anything past the EOF section can be encrypted data (hence some of the weird file names and / or specific sizes of files within their respective archives)
 * Structure:
-	* 0x04 - Unknown value at this time
-	* 0x08 - Number of files within the archive
-	* 0x0c - Total file size of archive (very important for decryption; after extracting the data, run BRS-Xor.bms script on the VOL file and you'll see what I mean)
-	* 0x10 - 0x14 - There are at least 3 individual XOR encryption keys in this one byte although some archives may use different keys; they are almost always going to be here and 0x55 is the main one for the vast majority of encrypted files
+	* 0x04 - Offset to Encrypted Data Section (varies per archive)
+	* 0x08 - Number of files within the archive (extremely important for decryption)
+	* 0x0c - Total file size of archive (not that important now that decryption has been figured out)
+	* 0x10 - The first byte here seems to be the main encryption key for everything; the other bytes might be backups
 	* 0x20 - File list starts here; each name takes up 32 bytes
 	* For every file listed, it follows this structure (offset used instead of specific address and begins 32 bytes after the start)
-		* 0x04 - Data Offset within the archive
-		* 0x08 - Extracted file size
-		* File list sizes vary per archive but they consistently use a single 16-byte section that begins and ends with 0x37 (EOF section from here on) 
-			* This section also consists of single bytes that are all probably extra XOR encryption keys (minus 0x37)
-			* Example: Several PTMDs that are nested fairly deep in the structure use "0x65 0x65" (ee) for at least part of their encryption. 
-				0x28 seems to be the only one from the original that's omitted here, so it's very possible that one is never used
-		
+		* 0x04 - Data Offset from the start of the Encrypted Data Section
+		* 0x08 - Data Size after extraction; may be compressed in some instances but so far that has been on a file by file basis within nested archives
+
 =================================================================
 * Tentative Name: Let's Play Kid
 * Type: Data archive
@@ -41,7 +37,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Structure:
 	* 0x04 - Number of files within the archive
 	* 0x0c - List of all file offsets and sizes within the archive. See BRS-LPK.bms for how this particle section is structured. There's some math involved
-	
+
 ==================================================================
 * Tentative Name: Plot Thickens, My Dear
 * Type: Variable
@@ -61,7 +57,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Purpose: Similar to PTMD's purpose but more often than not are data listings and GZip compressed archives
 * Structure:
 	* Varies depending on use case
-	
+
 ==================================================================
 * Tentative Name: Stacked Container
 * Type: Container / Data archive
@@ -78,7 +74,7 @@ This documentation is mostly here to help structure, describe and name the vario
 	* 0x24 - Main Container end
 		* Each internal container list data takes up 8-bytes with the first 4-bytes being the start point and last 4-bytes being the end
 		* Every end can become the start point of the next stored data (hence why these begin and end with the SC header)
-	
+
 ==================================================================
 * Tentative Name: Super Stacked ContaineR
 * Type: Container
@@ -99,22 +95,34 @@ This documentation is mostly here to help structure, describe and name the vario
 
 ==================================================================
 * Name: RIFF Container Format
+* Type: Data
 * Extension: .at3
 * Header: RIFF (with multiple other sub headers depending on format of audio encoded within)
+* Purpose: Stores Atrac3 (also known as Sony Minidisc) compressed lossless WAV audio; applies to all audio in game
 * Notes:
-	* These are often just standard audio containers with most of the music, voice lines and sound effects compressed within
-	* Can easily be extracted and converted to a standard playable format using [VGMstream](https://github.com/vgmstream/vgmstream) (or similar other converters)
+	* Format isn't natively supported on any platform that's not a Sony game console or music player
+	* Must be converted to WAV format to listen to or use
+	* Probably cannot be converted back for modding without issues; multiple sources recommend just rebuilding from scratch before replacing audio in game due to Sony not releasing official information about the codec and various games using different versions of the format with some studios further customizing it on a per game basis
+* Structure:
+	* See the `extract_riff_experimental` section of `BRS-Extract.bms` for a general idea of the structure; it's pretty messy compared to a normal RIFF-WAVE audio file
+
+==================================================================
+* Tentative Name: Internal Node Structure Model
+* Type: Data
+* Extension: .cam (if INSA structures are found)
+* Header: INSM
+* Purpose: Stores model data
+* Structure:
+	* 0x34 - Address of INSA structure
 
 ===================================================================
 * Tentative Name: Internal Node Structure Model
 * Type: Data
-* Extension: .mdl (if PTMD is found within)
+* Extension: .mdl (if PTMD or alternative structures are found within)
 * Header: INSM
 * Purpose: Stores model data
-* Notes:
-	* Can house model data (converting extension to .mdl can allow viewing as a model in 3D software but isn't guaranteed to work)
 * Structure:
-	* 0x20 - Start of offset list for other formats associated with this
+	* 0x34 - Address of PTMD or alternative structures
 
 ===================================================================
 * Tentative Name: Internal Node Structure Animation
@@ -125,10 +133,8 @@ This documentation is mostly here to help structure, describe and name the vario
 * Notes:
 	* Can be embedded inside of an INSM container
 * Structure:
-	* 0x1c - Offset to File string
+	* 0x1c - Offset to File Name 32-byte string
 
-==================================================================
-	
 ==================================================================
 * Tentative Name: Easily, my Favorite Container
 * Type: Container
@@ -232,7 +238,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Notes:
 	* .efp file in VOL archive is not 0x55 encrypted; it uses a different encryption key that possibly isn't in the VOL itself
 * Structure:
-	* 0x18 - 24-byte mdl string name associated here
+	* 0x18 - 24-byte linked INSM mdl name string
 
 ==================================================================
 * Tentative: Panic Punching Protection Gang
@@ -245,7 +251,6 @@ This documentation is mostly here to help structure, describe and name the vario
 
 ==================================================================
 * Further Notes:
-	* There are quite a few other types (such as cam, anm, edb and edx),  but the majority of those are top level and may or may not need specific tools to extract and use
 	* This document is subject to change as more research is done
 
 ==================================================================
@@ -255,4 +260,4 @@ This documentation is mostly here to help structure, describe and name the vario
 
 *Please include this header and that license for any derivative works.*
 
-*NOTE: Only the documentation, tools and anything that's not directly a part of the game's data fall under this copyright. I don't claim any ownership of the game or any of its assets* 
+*NOTE: Only the documentation, tools and anything that's not directly a part of the game's data fall under this copyright. I don't claim any ownership of the game or any of its assets*
