@@ -10,4 +10,4 @@ Use these files to extract data from the game's ROM. These are subject to change
 
 *See LICENSE for copyright information.*
 
-*Please include this header and that license for any derivative works.* 
+*Please include this header and that license for any derivative works.*

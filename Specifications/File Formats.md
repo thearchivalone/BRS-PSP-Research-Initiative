@@ -107,6 +107,17 @@ This documentation is mostly here to help structure, describe and name the vario
 	* See the `extract_riff_experimental` section of `BRS-Extract.bms` for a general idea of the structure; it's pretty messy compared to a normal RIFF-WAVE audio file
 
 ==================================================================
+* Tentative: Effective Format Pack
+* Type: Container
+* Extension: .efp
+* Header: EFP
+* Purpose: Stores multiple internal INSM mdl structures
+* Structure:
+	* 0x18 - 24-byte internal INSM mdl name string
+	* 0x30 - Address of internal INSM mdl structure
+	* See below for rest of structure
+
+==================================================================
 * Tentative Name: Internal Node Structure Model
 * Type: Data
 * Extension: .cam (if INSA structures are found)
@@ -132,8 +143,9 @@ This documentation is mostly here to help structure, describe and name the vario
 * Purpose: Stores animation data
 * Notes:
 	* Can be embedded inside of an INSM container
+	* 24-byte name string found at Offset -0x20 from start when embedded
 * Structure:
-	* 0x1c - Offset to File Name 32-byte string
+	* Currently Unknown
 
 ==================================================================
 * Tentative Name: Easily, my Favorite Container
@@ -228,17 +240,6 @@ This documentation is mostly here to help structure, describe and name the vario
 * Header: BXCB
 * Notes:
 	* Param1.bin and Param2.bin files contain this data
-
-==================================================================
-* Tentative: Effective Format Pack
-* Type: Container
-* Extension: .efp
-* Header: EFP
-* Purpose: Either points to an mdl somewhere else in the structure or contains the data to create the mdl file
-* Notes:
-	* .efp file in VOL archive is not 0x55 encrypted; it uses a different encryption key that possibly isn't in the VOL itself
-* Structure:
-	* 0x18 - 24-byte linked INSM mdl name string
 
 ==================================================================
 * Tentative: Panic Punching Protection Gang
