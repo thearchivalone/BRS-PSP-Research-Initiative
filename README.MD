@@ -13,7 +13,7 @@ This repository will host my findings and various scripts, tools and documentati
 
 * [HxD](https://mh-nexus.de/en/hxd/) - for reading the binaries and figuring out the structures of the game's internal workings
 
-* [7-zip](https://www.7-zip.org/) - for extracting data from Gzip compressed binary files and GZ extension files
+* [7-zip](https://www.7-zip.org/) - for extracting the game disc mostly. All of the main archive types can be extracted with BRS-extract.bms without the need of external tools.
 
 * [Vgmstream-cli](https://github.com/vgmstream/vgmstream) - for converting at3 files into a user playable format
 
@@ -23,6 +23,17 @@ This repository will host my findings and various scripts, tools and documentati
 * [Offzip](https://aluigi.altervista.org/mytoolz/offzip.zip) - for extracting data from ZZZ archives; extraction script should work with all of these without issues now
 
 =====================================================================
+## Navigating This Repository
+
+The folder structure is meant to be pretty straight forward, but here's what they represent:
+
+* Disc Map - To help find specific files on the disc without having to fully navigate each directory. If a file is an archive or container, the "Contents" of them will be listed once extracted (unless unnecessary).
+
+* Scripts - QuickBMS scripts can be found here. See accompanying README in the directory and notes in the script if you need to learn how to use them. Also, feel free to open an issue and / or pull request (if you want to improve the documentation) if they're not clear enough.
+
+* Specifications - The documentation here is meant to be more for tool makers, modders and developers. It's all technical and deals heavily with memory structures of different formats, encryption, etc.
+
+=====================================================================
 ## Current TODO
 
 - [ ] Automate and document the full extraction process
@@ -30,6 +41,7 @@ This repository will host my findings and various scripts, tools and documentati
 - [ ] Document the full disc structure
 
 - [ ] Set up tools for rebuilding the data structure for use in game
+
 =====================================================================
 
 *Copyright 2024 - Brad D*
