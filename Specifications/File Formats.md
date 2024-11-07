@@ -47,7 +47,8 @@ This documentation is mostly here to help structure, describe and name the vario
 * Notes:
 	* Not 100% sure what these are for yet but they seem to be variable
 * Structure:
-	* Currently Unknown
+	* 0x08 - This looks like it may be some kind of ID
+	* 0x0c - Offset from Header / Size of file (can be around 0x400 less than what Windows shows the file size to be, possibly due to padding)
 
 ==================================================================
 * Tentative Name: just BIN files
@@ -112,9 +113,11 @@ This documentation is mostly here to help structure, describe and name the vario
 * Extension: .efp
 * Header: EFP
 * Purpose: Stores multiple internal INSM mdl structures
+* Notes:
+	* Can contain multiple INSM mdls and PTMD ptms embedded with names
 * Structure:
-	* 0x18 - 24-byte internal INSM mdl name string
-	* 0x30 - Address of internal INSM mdl structure
+	* 0x18 - 24-byte first internal INSM mdl or PTMD ptm name string
+	* 0x30 - Address of first internal INSM mdl structure
 	* See below for rest of structure
 
 ==================================================================
@@ -124,7 +127,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Header: INSM
 * Purpose: Stores model data
 * Structure:
-	* 0x34 - Address of INSA structure
+	* 0x34 - Offset of INSA structure from Header
 
 ===================================================================
 * Tentative Name: Internal Node Structure Model
@@ -133,7 +136,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Header: INSM
 * Purpose: Stores model data
 * Structure:
-	* 0x34 - Address of PTMD or alternative structures
+	* 0x34 - Offset of PTMD or alternative structures from Header
 
 ===================================================================
 * Tentative Name: Internal Node Structure Animation
@@ -143,9 +146,9 @@ This documentation is mostly here to help structure, describe and name the vario
 * Purpose: Stores animation data
 * Notes:
 	* Can be embedded inside of an INSM container
-	* 24-byte name string found at Offset -0x20 from start when embedded
+	* 24-byte name string found at Offset -0x18 from start when embedded
 * Structure:
-	* Currently Unknown
+	* 0x1c - Offset from Header / Size of file
 
 ==================================================================
 * Tentative Name: Easily, my Favorite Container
@@ -218,7 +221,7 @@ This documentation is mostly here to help structure, describe and name the vario
 	* The .bms file essentially acts as a memory object container that gets populated only when that particular script is needed by the game while the player is playing it
 	* Some of these are persistent across the entire game, others are volatile (as in get destroyed and replaced by other types of data), dependent on what their core functions are
 * Structure:
-	* 0x04 - 32-byte script file string name; first byte begins with a $ (0x24) character followed by a blank space and then the full name of the bms file in the archive to write the script to
+	* 0x04 - 32-byte script file string name; first byte begins with any Ascii character followed by a blank space and then the full name of the bms file in the archive to write the script to
 	* 0x34 - Offset to scripting payload (You'll see a large chunk of text that includes multiple filenames from this directory and things like _INIT_ACTION_FROM here
 	* 0x38 - Offset from the address that 0x3c leads to; Use this to move to where EDXD starts
 	* 0x3c - Script File Offset in VOL (can be used as the size when writing to file)

@@ -40,6 +40,8 @@ elseif FILE_TYPE == "zzz"
 	callfunction extract_zlib 1 SIZE
 elseif FILE_TYPE == "at3"
 	callfunction extract_riff
+elseif FILE_TYPE == "efp"
+	callfunction extract_efp
 endif
 
 startfunction extract_vol
@@ -59,23 +61,25 @@ startfunction extract_vol
 		get SIZE long
 		get OFFSET long
 		savepos CURSOR_POSITION
+
 		putarray FILE_NAMES i FILE
 		putarray FILE_OFFSETS i OFFSET
 		putarray FILE_SIZES i SIZE
 	next i
+
+	# Clean up the arrays we just made so that duplicates don't get written (for user convenience mostly)
+	callfunction clean_array 1 FILE_NAMES FILE_OFFSETS FILE_SIZES
 
 	# Do some math to get the size of the encrypted section; I've been going about this system all wrong so far
 	set ENCRYPTED_DATA_SIZE VOL_SIZE
 	math ENCRYPTED_DATA_SIZE - ENCRYPTED_DATA_OFFSET
 	get FILE FILENAME
 
-	# Make the FILE unique so we know what the section actually is
-	set ENCRYPTED_DATA_FILE "encrypted-"
-	string ENCRYPTED_DATA_FILE + FILE
-	log ENCRYPTED_DATA_FILE ENCRYPTED_DATA_OFFSET ENCRYPTED_DATA_SIZE
+	# Use a temporary file to store the encrypted data section so that it automatically is removed once decryption is finished
+	log TEMPORARY_FILE ENCRYPTED_DATA_OFFSET ENCRYPTED_DATA_SIZE
 
-	open "" ENCRYPTED_DATA_FILE
-	filexor XORKEY ENCRYPTED_DATA_FILE
+	open "" TEMPORARY_FILE
+	filexor XORKEY TEMPORARY_FILE
 
 	# Now we cycle through the FILE_NAMES list and extract each individual file using our arrays from before
 	for i = 0 < NUMBER_OF_FILES
@@ -83,7 +87,43 @@ startfunction extract_vol
 		getarray OFFSET FILE_OFFSETS i
 		getarray SIZE FILE_SIZES i
 		goto OFFSET
-		log FILE OFFSET SIZE
+		if FILE != "NOOP"
+			log FILE OFFSET SIZE
+		endif
+	next i
+endfunction
+
+startfunction clean_array
+	set NAMES FILE_NAMES
+	set OFFSETS FILE_OFFSETS
+	set SIZES FILE_SIZES
+	set PREV_FILE ""
+
+	# Replace all of the duplicates with NOOP so that we can skip writing those files
+	sortarray NAMES
+	for i = 0 < NUMBER_OF_FILES
+		getarray FILE NAMES i
+		if FILE == PREV_FILE
+			putarray TMP -1 FILE
+		endif
+		string PREV_FILE = FILE
+	next i
+
+	getarray TMP_SIZE TMP -0x80000000
+	set NAMES FILE_NAMES # Reset this array to original so we can edit it
+
+	for i = 0 < TMP_SIZE
+		getarray TMP_FILE TMP i
+		for j = 0 < NUMBER_OF_FILES
+			getarray FILE NAMES j
+			getarray OFFSET OFFSETS j
+			getarray SIZE SIZES j
+
+			if FILE == TMP_FILE
+				putarray FILE_NAMES j "NOOP"
+				break
+			endif
+		next j
 	next i
 endfunction
 
@@ -162,10 +202,8 @@ startfunction file_builder
 		get MAGIC_NUMBER byte
 		if MAGIC_NUMBER == 0x1f # Sort of hack since only a single GZip version exists in the files
 			set EXTENSION ".gz"
-		elseif MAGIC_NUMBER < 0x1f # Using this as sort of a grab bag of padding and debug data
-			set EXTENSION ".pbd"
 		else
-			set EXTENSION == "-check-me"
+			set EXTENSION ".pbd"
 		endif
 	endif
 	string FILE + EXTENSION
@@ -244,6 +282,89 @@ startfunction extract_zlib
 	comtype zlib_noerror CRC_KEY
 	get FILE BASENAME
 	clog FILE OFFSET ZSIZE SIZE
+endfunction
+
+startfunction extract_efp
+	set OFFSET 0x30
+
+	# INSMs always have either an INSA or PTMD embed in them, so skip extracting them by 1 (may need to update if multiple embeds are found)
+	set SKIP_PTMD 0
+	set SKIP_ANM 0
+
+	# Start reading line by line until we hit one of our MAGIC_NUMBER's
+	for i = 0 < ARBITRARY_NUMBER
+		goto OFFSET
+		getdstring MAGIC_NUMBER 0x04
+
+		set NAME_OFFSET OFFSET
+		set EMBEDDED_OFFSET OFFSET
+		math NAME_OFFSET - 0x18
+		goto NAME_OFFSET
+		getdstring NAME 0x1c # so we move past the MAGIC_NUMBER for the rest of the steps
+
+		if MAGIC_NUMBER == "PTMD"
+			set SIZE_OFFSET 0x0c
+			if SKIP_PTMD == 0
+				callfunction extract_ptmd 1 NAME OFFSET EMBEDDED_OFFSET SIZE_OFFSET
+			else
+				set SKIP_PTMD 0
+			endif
+		elseif MAGIC_NUMBER == "INSM"
+			math EMBEDDED_OFFSET + 0x34
+			goto EMBEDDED_OFFSET
+			get EMBEDDED_OFFSET long
+			math EMBEDDED_OFFSET + OFFSET
+			goto EMBEDDED_OFFSET
+
+			# Now determine which type of model this is by the embedded magic number found at this location
+			getdstring ENCRYPTED_MAGIC_NUMBER 0x04
+			if ENCRYPTED_MAGIC_NUMBER == "PTMD"
+				set SIZE_OFFSET 0x0c
+				set SKIP_PTMD 1
+			else
+				set SIZE_OFFSET 0x1c
+				set SKIP_ANM 1
+			endif
+			callfunction extract_insm 1 NAME OFFSET EMBEDDED_OFFSET SIZE_OFFSET
+		elseif MAGIC_NUMBER == "INSA"
+			set SIZE_OFFSET 0x1c
+			if SKIP_ANM == 0
+				callfunction extract_anm 1 NAME OFFSET EMBEDDED_OFFSET SIZE_OFFSET
+			else
+				set SKIP_ANM 0
+			endif
+		endif
+		set NAME ""
+		math OFFSET + 16
+	next i
+endfunction
+
+startfunction extract_insm
+	math SIZE_OFFSET + EMBEDDED_OFFSET
+	goto SIZE_OFFSET
+	get SIZE long
+	math EMBEDDED_OFFSET - OFFSET
+	math SIZE + EMBEDDED_OFFSET
+
+	log NAME OFFSET SIZE
+	math OFFSET + SIZE
+endfunction
+
+startfunction extract_anm
+	math SIZE_OFFSET + EMBEDDED_OFFSET
+	goto SIZE_OFFSET
+	get SIZE long
+	log NAME OFFSET SIZE
+	math OFFSET + SIZE
+endfunction
+
+startfunction extract_ptmd
+	math SIZE_OFFSET + EMBEDDED_OFFSET
+	goto SIZE_OFFSET
+	get SIZE long
+	log NAME OFFSET SIZE
+	math OFFSET + SIZE
+	goto OFFSET
 endfunction
 
 startfunction extract_riff
