@@ -40,12 +40,10 @@ This documentation is mostly here to help structure, describe and name the vario
 
 ==================================================================
 * Tentative Name: Plot Thickens, My Dear
-* Type: Variable
+* Type: Data
 * Extension: .ptm
 * Header: PTMD, PTM, PTMD-XP
-* Purpose: General use data format for basically everything
-* Notes:
-	* Not 100% sure what these are for yet but they seem to be variable
+* Purpose: General purpose data type related to visual assets
 * Structure:
 	* 0x08 - This looks like it may be some kind of ID
 	* 0x0c - Offset from Header / Size of file (can be around 0x400 less than what Windows shows the file size to be, possibly due to padding)
@@ -54,10 +52,20 @@ This documentation is mostly here to help structure, describe and name the vario
 * Tentative Name: just BIN files
 * Type: Variable
 * Extension: .bin
-* Header: variable
-* Purpose: Similar to PTMD's purpose but more often than not are data listings and GZip compressed archives
+* Header: Variable
+* Purpose: Generic data format type that can be used for anything and be any other file type
 * Structure:
 	* Varies depending on use case
+
+==================================================================
+* Tentative Name: CUTe and INnocent
+* Type: Data archive
+* Extension: .bin
+* Header: LPK
+* Purpose: Store Boss specific LPK data
+* Notes:
+	* Uses some duplicate structures as LPK but is considered a separate File Type due to being unique
+* Structure:
 
 ==================================================================
 * Tentative Name: Stacked Container
@@ -200,13 +208,11 @@ This documentation is mostly here to help structure, describe and name the vario
 	* 0x18 - X ID
 	
 ==================================================================
-* Tentative Name: the Unknown
-* Extension: None known
-* Header: Variable 4-byte with a single Ascii Character
-* Purpose: Separates PTMD and other Interface data inside of their LPK archives.
-* Notes:
-	* This contains game data
-	* Not sure what all it does but it seems to be one of the most important elements of the interface structure
+* Tentative Name: Probably Bad Data
+* Type: Debug
+* Extension: .pbd
+* Header: Variable 4-byte with at least one single Ascii Character
+* Purpose: Contain data that could be anything, but most likely is debug related or for padding between elements in a container
 * Structure:
 	* 0x04 (2 bytes) - U ID
 	* 0x08 - X ID + 0x01
@@ -216,10 +222,6 @@ This documentation is mostly here to help structure, describe and name the vario
 * Extension: .bms
 * Header: bscr
 * Purpose: The core scripting language for handling a variety of tasks that don't need to be performed using C / C++.
-* Notes:
-	* Anywhere there's a blank .bms file inside of an archive (especially within VOL files), expect there to be game scripting somewhere within (probably encrypted too)
-	* The .bms file essentially acts as a memory object container that gets populated only when that particular script is needed by the game while the player is playing it
-	* Some of these are persistent across the entire game, others are volatile (as in get destroyed and replaced by other types of data), dependent on what their core functions are
 * Structure:
 	* 0x04 - 32-byte script file string name; first byte begins with any Ascii character followed by a blank space and then the full name of the bms file in the archive to write the script to
 	* 0x34 - Offset to scripting payload (You'll see a large chunk of text that includes multiple filenames from this directory and things like _INIT_ACTION_FROM here
@@ -230,9 +232,7 @@ This documentation is mostly here to help structure, describe and name the vario
 * Tentative Name: Everything Does eXtensive Duties
 * Extension: .edx
 * Header: EDXD
-* Purpose: An extension of the BMS format, allowing for extra scripting beyond the file size allocated for those files
-* Notes:
-	* This one is subject to change but it looks like these can be found in the VOL archives and act as a memory object for containing the scripting data within the .edx file
+* Purpose: Unsure what this is for as of now
 * Structure:
 	* Currently Unknown
 	

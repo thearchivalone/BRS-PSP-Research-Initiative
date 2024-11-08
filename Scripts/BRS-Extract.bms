@@ -67,9 +67,6 @@ startfunction extract_vol
 		putarray FILE_SIZES i SIZE
 	next i
 
-	# Clean up the arrays we just made so that duplicates don't get written (for user convenience mostly)
-	callfunction clean_array 1 FILE_NAMES FILE_OFFSETS FILE_SIZES
-
 	# Do some math to get the size of the encrypted section; I've been going about this system all wrong so far
 	set ENCRYPTED_DATA_SIZE VOL_SIZE
 	math ENCRYPTED_DATA_SIZE - ENCRYPTED_DATA_OFFSET
@@ -90,40 +87,6 @@ startfunction extract_vol
 		if FILE != "NOOP"
 			log FILE OFFSET SIZE
 		endif
-	next i
-endfunction
-
-startfunction clean_array
-	set NAMES FILE_NAMES
-	set OFFSETS FILE_OFFSETS
-	set SIZES FILE_SIZES
-	set PREV_FILE ""
-
-	# Replace all of the duplicates with NOOP so that we can skip writing those files
-	sortarray NAMES
-	for i = 0 < NUMBER_OF_FILES
-		getarray FILE NAMES i
-		if FILE == PREV_FILE
-			putarray TMP -1 FILE
-		endif
-		string PREV_FILE = FILE
-	next i
-
-	getarray TMP_SIZE TMP -0x80000000
-	set NAMES FILE_NAMES # Reset this array to original so we can edit it
-
-	for i = 0 < TMP_SIZE
-		getarray TMP_FILE TMP i
-		for j = 0 < NUMBER_OF_FILES
-			getarray FILE NAMES j
-			getarray OFFSET OFFSETS j
-			getarray SIZE SIZES j
-
-			if FILE == TMP_FILE
-				putarray FILE_NAMES j "NOOP"
-				break
-			endif
-		next j
 	next i
 endfunction
 
@@ -224,6 +187,8 @@ startfunction extract_bin
 		callfunction extract_zlib 1 SIZE
 	elseif MAGIC_NUMBER == "RIFF"
 		callfunction extract_riff
+	elseif MAGIC_NUMBER == "EFC"
+		callfunction extract_efc
 	else
 		goto 0x00
 		get MAGIC_NUMBER byte
@@ -365,6 +330,9 @@ startfunction extract_ptmd
 	log NAME OFFSET SIZE
 	math OFFSET + SIZE
 	goto OFFSET
+endfunction
+
+startfunction extract_efc
 endfunction
 
 startfunction extract_riff
