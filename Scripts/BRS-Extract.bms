@@ -33,11 +33,15 @@ elseif FILE_TYPE == "gz"
 elseif FILE_TYPE == "zzz"
 	# This is to cover the chance that a Zlib compressed archive doesn't have the CZAA MAGIC_NUMBER
 	getdstring MAGIC_NUMBER 0x04
+	goto 0x00
+	get BYTE byte
 	if MAGIC_NUMBER == "CZAA"
 		get SIZE long
+		callfunction extract_zlib 1 SIZE
+	elseif BYTE == 0x78
+		get SIZE asize
+		callfunction extract_zlib 1 SIZE
 	endif
-	goto 0x00
-	callfunction extract_zlib 1 SIZE
 elseif FILE_TYPE == "at3"
 	callfunction extract_riff
 elseif FILE_TYPE == "efp"
@@ -183,7 +187,7 @@ startfunction extract_bin
 		callfunction extract_lpk 1 NUMBER_OF_FILES
 	elseif MAGIC_NUMBER == "CZAA"
 		get SIZE long
-		goto 0x00
+		goto 0x10
 		callfunction extract_zlib 1 SIZE
 	elseif MAGIC_NUMBER == "RIFF"
 		callfunction extract_riff
@@ -272,7 +276,7 @@ startfunction extract_efp
 			if SKIP_PTMD == 0
 				callfunction extract_ptmd 1 NAME OFFSET EMBEDDED_OFFSET SIZE_OFFSET
 			else
-				set SKIP_PTMD 0
+				math SKIP_PTMD - 1
 			endif
 		elseif MAGIC_NUMBER == "INSM"
 			math EMBEDDED_OFFSET + 0x34
@@ -285,7 +289,14 @@ startfunction extract_efp
 			getdstring ENCRYPTED_MAGIC_NUMBER 0x04
 			if ENCRYPTED_MAGIC_NUMBER == "PTMD"
 				set SIZE_OFFSET 0x0c
-				set SKIP_PTMD 1
+				if SKIP_PTMD == 0
+					# These two models are each followed by an extra PTMD file that isn't embedded, named or attached to anything else, so skip it unless it's needed
+					if (NAME == "ef_a_b10004_cut_m.mdl" | NAME == "ef_h_b010130_cut_m.mdl")
+						set SKIP_PTMD 2
+					else
+						set SKIP_PTMD 1
+					endif
+				endif
 			else
 				set SIZE_OFFSET 0x1c
 				set SKIP_ANM 1
@@ -310,7 +321,6 @@ startfunction extract_insm
 	get SIZE long
 	math EMBEDDED_OFFSET - OFFSET
 	math SIZE + EMBEDDED_OFFSET
-
 	log NAME OFFSET SIZE
 	math OFFSET + SIZE
 endfunction
