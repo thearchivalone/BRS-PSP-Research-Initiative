@@ -32,9 +32,10 @@ elseif FILE_TYPE == "gz"
 	callfunction extract_gzip
 elseif FILE_TYPE == "zzz"
 	# This is to cover the chance that a Zlib compressed archive doesn't have the CZAA MAGIC_NUMBER
-	getdstring MAGIC_NUMBER 0x04
 	goto 0x00
 	get BYTE byte
+	goto 0x00
+	getdstring MAGIC_NUMBER 0x04
 	if MAGIC_NUMBER == "CZAA"
 		get SIZE long
 		callfunction extract_zlib 1 SIZE

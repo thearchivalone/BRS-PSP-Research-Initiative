@@ -62,6 +62,7 @@ if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
 		if ($download_vgms -eq '1') {
 			Write-Output "Downloading VgmStream"
 			Invoke-WebRequest -Uri $vgmstream_url -OutFile $output\$vgmstream_zip
+			Write-Output "Preparing VgmStream"
 			Expand-Archive -Path $output\$vgmstream_zip -DestinationPath $output
 			Remove-Item -Path $output\$vgmstream_zip
 		}
@@ -74,7 +75,7 @@ if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
 
 Start-Sleep $sleep
 
-Write-Output "Extracting Top-Level Archives"
+Write-Output "Extracting and decrypting game archives. This process can take awhile"
 
 if (!(Test-Path -Path $audio_dir -PathType Container)) {
 	New-Item -Path . -Name $audio_dir -ItemType Directory | Out-Null
@@ -88,26 +89,32 @@ if (!(Test-Path -Path $models_dir -PathType Container)) {
 
 $models_dir = Get-Item -Path $models_dir | % { $_.FullName }
 
-foreach ($item in (Get-ChildItem -Path $game_dir -Force -Recurse | % { $_.FullName } )) {
+foreach ($item in (Get-ChildItem -Path $game_dir -Force -Recurse | % { $_.FullName })) {
 	$ext = (Split-Path -Path $item -Leaf).Split(".")[1]
 	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
-	if (($ext -eq 'VOL') -Or ($ext -eq 'ZZZ') -Or ($ext -eq 'BIN')) {
+	if (($ext -eq 'VOL') -Or ($ext -eq 'ZZZ') -Or ($ext -eq 'BIN') -Or ($ext -eq 'GZ')) {
 		if (!($item -like '*ITM*ZZZ') -And !($dir -like '*INSDIR*') -And !$($dir -like '*SYSDIR*') -And !($item -like '*UMD*')) {
 			& $quickbms_command -Y $extraction_script $item $dir
 		}
+	}
+	# Copy the sound folder over so they get converted 
+	if ($item -like '*SOUND*') {
+		$sound_dir = $extraction_dir + "\PSP_GAME\USRDIR\GAMEDATA\SOUND"
+		New-Item -Path $sound_dir -Force -ItemType Directory | Out-null
+		Copy-Item -Path $item -Destination $sound_dir
 	}
 }
 
 Start-Sleep $sleep
 
-Write-Output "Extracting internal archives and converting audio files"
+Write-Output "Extracting internal archives and ripping asset files out"
 
 foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
 	$dir = Split-Path $item -Parent
 	$file = Split-Path $item -Leaf
 	$extract = $file + '_extract'
 	$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
-	# Generate a UID for audio so that all converted files can be placed in Audio directory if they have are named the same on disc
+	# Generate a UID for assets so that each one will be copied over to the Assets directory. The user can decide if they want to keep all of them since they aren't too big in size
 	$guid = New-Guid
 	$audio = (Split-Path -Path $file -Leaf).Split(".")[0]
 	$audio = $audio + '-' + $guid + '.wav'
@@ -163,7 +170,7 @@ Write-Output "Removing empty folders"
 
 Get-ChildItem -Path $extraction_dir -Force -Recurse -Directory |
 	Sort-Object -Property FullName -Descending |
-	Where-Object { $($_ | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
+	Where-Object { $($item | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
 	Remove-Item
 
 cd $cwd
