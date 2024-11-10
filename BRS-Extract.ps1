@@ -25,6 +25,8 @@ $vgmstream_command = Get-Item -Path $vgmstream_command | % { $_.FullName }
 $extraction_script = "Scripts\BRS-Extract.bms"
 $extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
 
+$archive_types += @("vol", "bin", "zzz", "gz", "efp", "lpk")
+
 $sleep = 2
 
 Write-Output "Checking If Required Extraction Tools Are Available"
@@ -77,6 +79,67 @@ Start-Sleep $sleep
 
 Write-Output "Extracting and decrypting game archives. This process can take awhile"
 
+foreach ($item in (Get-ChildItem -Path $game_dir -Force -Recurse | % { $_.FullName })) {
+	$ext = (Split-Path -Path $item -Leaf).Split(".")[1]
+	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	foreach ($arc in $archive_types) {
+		if ($ext -eq $arc) {
+			if (!($item -like '*ITM*ZZZ') -And !($dir -like '*INSDIR*') -And !$($dir -like '*SYSDIR*') -And !($item -like '*UMD*')) {
+				& $quickbms_command -Y $extraction_script $item $dir
+			}
+		}
+	}
+	# Copy the sound folder over so they get converted 
+	if (($item -like '*SOUND*') -And ($ext -eq 'at3')) {
+		$sound_dir = $extraction_dir + "\PSP_GAME\USRDIR\GAMEDATA\SOUND"
+		New-Item -Path $sound_dir -Force -ItemType Directory | Out-null
+		Copy-Item -Path $item -Destination $sound_dir
+	}
+}
+
+Start-Sleep $sleep
+
+Write-Output "Recursively extracting archives"
+
+Function Extract-Internals {
+	(Get-ChildItem -Path . -Force -Recurse -File | % { $_.FullName } ) | ForEach-Object -Parallel {
+		$file = Split-Path $_ -Leaf
+		$dir = Split-Path $_ -Parent
+		$extract = $file + '_extract'
+		$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
+		foreach ($arc in $archive_types) {
+			if (($ext -eq $arc)) {
+				& $quickbms_command -Y $extraction_script $file $extract
+				cd $extract
+				Extract-Internals
+			} else {
+				break
+			}
+		}
+	}
+}
+
+foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
+	$dir = Split-Path $item -Parent
+	$file = Split-Path $item -Leaf
+	$extract = $file + '_extract'
+	$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
+
+	cd $dir
+	foreach ($arc in $archive_types) {
+		if (($ext -eq $arc)) {
+			& $quickbms_command -Y $extraction_script $file $extract
+			cd $extract
+			Extract-Internals
+		}
+	}
+	cd $cwd
+}
+
+Start-Sleep $sleep
+
+Write-Output "Preparing asset extraction"
+
 if (!(Test-Path -Path $audio_dir -PathType Container)) {
 	New-Item -Path . -Name $audio_dir -ItemType Directory | Out-Null
 }
@@ -89,51 +152,9 @@ if (!(Test-Path -Path $models_dir -PathType Container)) {
 
 $models_dir = Get-Item -Path $models_dir | % { $_.FullName }
 
-foreach ($item in (Get-ChildItem -Path $game_dir -Force -Recurse | % { $_.FullName })) {
-	$ext = (Split-Path -Path $item -Leaf).Split(".")[1]
-	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
-	if (($ext -eq 'VOL') -Or ($ext -eq 'ZZZ') -Or ($ext -eq 'BIN') -Or ($ext -eq 'GZ')) {
-		if (!($item -like '*ITM*ZZZ') -And !($dir -like '*INSDIR*') -And !$($dir -like '*SYSDIR*') -And !($item -like '*UMD*')) {
-			& $quickbms_command -Y $extraction_script $item $dir
-		}
-	}
-	# Copy the sound folder over so they get converted 
-	if ($item -like '*SOUND*') {
-		$sound_dir = $extraction_dir + "\PSP_GAME\USRDIR\GAMEDATA\SOUND"
-		New-Item -Path $sound_dir -Force -ItemType Directory | Out-null
-		Copy-Item -Path $item -Destination $sound_dir
-	}
-}
-
 Start-Sleep $sleep
 
-Write-Output "Extracting internal archives and ripping asset files out"
-
-foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
-	$dir = Split-Path $item -Parent
-	$file = Split-Path $item -Leaf
-	$extract = $file + '_extract'
-	$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
-	# Generate a UID for assets so that each one will be copied over to the Assets directory. The user can decide if they want to keep all of them since they aren't too big in size
-	$guid = New-Guid
-	$audio = (Split-Path -Path $file -Leaf).Split(".")[0]
-	$audio = $audio + '-' + $guid + '.wav'
-
-	$model = (Split-Path -Path $file -Leaf).Split(".")[0]
-	$model = $model + '-' + $guid + '.mdl'
-
-	cd $dir
-	if ($ext -eq "at3") {
-		& $vgmstream_command $file -o $audio
-		Move-Item -Path $audio -Destination $audio_dir
-	} elseif (($ext -eq "mdl") -Or ($ext -eq "md")) {
-		Copy-Item -Path $file -Destination $model
-		Move-Item -Path $model -Destination $models_dir
-	} else {
-		& $quickbms_command -Y $extraction_script $file $extract
-	}
-	cd $cwd
-}
+Write-Output "Extracting and converting assets"
 
 foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
 	$dir = Split-Path $item -Parent
@@ -149,17 +170,13 @@ foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | %
 	$model = (Split-Path -Path $file -Leaf).Split(".")[0]
 	$model = $model + '-' + $guid + '.mdl'
 
-	if ($dir -like '_extract') {
-		cd $dir
-		if ($ext -eq "at3") {
-			& $vgmstream_command $file -o $audio
-			Move-Item -Path $audio -Destination $audio_dir
-		} elseif (($ext -eq "mdl") -Or ($ext -eq "md")) {
-			Copy-Item -Path $file -Destination $model
-			Move-Item -Path $model -Destination $models_dir
-		} else {
-			& $quickbms_command -Y $extraction_script $file $extract
-		}
+	cd $dir
+	if ($ext -eq "at3") {
+		& $vgmstream_command $file -o $audio
+		Move-Item -Path $audio -Destination $audio_dir
+	} elseif (($ext -eq "mdl") -Or ($ext -eq "md")) {
+		Copy-Item -Path $file -Destination $model
+		Move-Item -Path $model -Destination $models_dir
 	}
 	cd $cwd
 }
@@ -170,10 +187,12 @@ Write-Output "Removing empty folders"
 
 Get-ChildItem -Path $extraction_dir -Force -Recurse -Directory |
 	Sort-Object -Property FullName -Descending |
-	Where-Object { $($item | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
+	Where-Object { $($_ | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
 	Remove-Item
 
 cd $cwd
+
+Start-Sleep $sleep
 
 Write-Output "Extraction finished."
 Write-Output "Models, Audio and other extracted assets can be found in the Assets folder"
