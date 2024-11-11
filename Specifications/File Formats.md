@@ -143,8 +143,12 @@ This documentation is mostly here to help structure, describe and name the vario
 * Extension: .mdl (if PTMD or alternative structures are found within)
 * Header: INSM
 * Purpose: Stores model data
+* Notes:
+	* Vertex Stride: 0x0c (first section); 0x14 (second section)
 * Structure:
 	* 0x34 - Offset of PTMD or alternative structures from Header
+	* 0x28 - Start position of First Data section
+	* 0x2c - Offset from 0x28 to get to the Second Data Section
 
 ===================================================================
 * Tentative Name: Internal Node Structure Animation
