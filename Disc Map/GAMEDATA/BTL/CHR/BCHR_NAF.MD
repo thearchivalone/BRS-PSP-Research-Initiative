@@ -134,9 +134,19 @@
 
 * chr_m_naf00_btl3000.anm
 
-* eb105.efp
+* eb105.efp - (NOTE: This file may have been mislabeled when the archive was made; Header is EFC and not EFP like most of the `.efp` archives)
+
+	* Contents
+
+		* ef_a_kml.ptm
 
 * eb105050.efc
+
+	* Contents
+
+		* eb105050.esb
+
+		* ef_a_wa_a_m.mdl
 
 ## 00EX.VOL
 
@@ -272,7 +282,17 @@
 
 * eb105.efp
 
+	* Contents
+
+		* ef_a_kml.ptm
+
 * eb105050.efc
+
+	* Contents
+
+		* eb105050.esb
+
+		* ef_a_wa_a_m.mdl
 
 ## 00EXFA.VOL
 
@@ -319,6 +339,84 @@
 	* _btl9014_all.anm
 
 * eb_naf_105150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_kiz1_m.anm
+
+		* ef_a_b100150_kiz1_m.mdl
+
+		* ef_a_b100150_kiz2_m.anm
+
+		* ef_a_b100150_kiz2_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100150_znb2_m.anm
+
+		* ef_a_b100150_znb2_m.mdl
+
+		* ef_a_b100150_znb3_m.anm
+
+		* ef_a_b100150_znb3_m.mdl
+
+		* ef_a_b100150_znm1_m.anm
+
+		* ef_a_b100150_znm1_m.mdl
+
+		* ef_a_b100150_znm2_m.anm
+
+		* ef_a_b100150_znm2_m.mdl
+
+		* ef_a_b100150_znm3_m.anm
+
+		* ef_a_b100150_znm3_m.mdl
+
+		* ef_a_b100151_line_m.anm
+
+		* ef_a_b100151_line_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr_gra_02.ptm
+
+		* ef_a_scr.ptm
+
+		* line08_m.anm
+
+		* line08_m.mdl
+
+		* smoke04.ptm
+
+		* t_gl_001.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sw_001.mdl
 
 * fin_naf
 
@@ -378,7 +476,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -433,6 +531,84 @@
 	* _btl9014_all.anm
 
 * eb_naf_105150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_kiz1_m.anm
+
+		* ef_a_b100150_kiz1_m.mdl
+
+		* ef_a_b100150_kiz2_m.anm
+
+		* ef_a_b100150_kiz2_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100150_znb2_m.anm
+
+		* ef_a_b100150_znb2_m.mdl
+
+		* ef_a_b100150_znb3_m.anm
+
+		* ef_a_b100150_znb3_m.mdl
+
+		* ef_a_b100150_znm1_m.anm
+
+		* ef_a_b100150_znm1_m.mdl
+
+		* ef_a_b100150_znm2_m.anm
+
+		* ef_a_b100150_znm2_m.mdl
+
+		* ef_a_b100150_znm3_m.anm
+
+		* ef_a_b100150_znm3_m.mdl
+
+		* ef_a_b100151_line_m.anm
+
+		* ef_a_b100151_line_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr_gra_02.ptm
+
+		* ef_a_scr.ptm
+
+		* line08_m.anm
+
+		* line08_m.mdl
+
+		* smoke04.ptm
+
+		* t_gl_001.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sw_001.mdl
 
 * fin_naf
 
@@ -610,7 +786,17 @@
 
 * eb105.efp
 
+	* Contents
+
+		* ef_a_kml.ptm
+
 * eb105050.efc
+
+	* Contents
+
+		* eb105050.esb
+
+		* ef_a_wa_a_m.mdl
 
 ## 00SBFA.VOL
 
@@ -657,6 +843,84 @@
 	* _btl9014_all.anm
 
 * eb_naf_105150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_kiz1_m.anm
+
+		* ef_a_b100150_kiz1_m.mdl
+
+		* ef_a_b100150_kiz2_m.anm
+
+		* ef_a_b100150_kiz2_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100150_znb2_m.anm
+
+		* ef_a_b100150_znb2_m.mdl
+
+		* ef_a_b100150_znb3_m.anm
+
+		* ef_a_b100150_znb3_m.mdl
+
+		* ef_a_b100150_znm1_m.anm
+
+		* ef_a_b100150_znm1_m.mdl
+
+		* ef_a_b100150_znm2_m.anm
+
+		* ef_a_b100150_znm2_m.mdl
+
+		* ef_a_b100150_znm3_m.anm
+
+		* ef_a_b100150_znm3_m.mdl
+
+		* ef_a_b100151_line_m.anm
+
+		* ef_a_b100151_line_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr_gra_02.ptm
+
+		* ef_a_scr.ptm
+
+		* line08_m.anm
+
+		* line08_m.mdl
+
+		* smoke04.ptm
+
+		* t_gl_001.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sw_001.mdl
 
 * fin_naf
 
@@ -716,7 +980,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -742,7 +1006,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 

@@ -32,6 +32,50 @@
 
 * eb210.efp
 
+	* Contents
+
+		* awa_064.ptm
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b209001_bash_m.anm
+
+		* ef_a_b209001_bash_m.mdl
+
+		* ef_a_tubua.ptm
+
+		* fire6_64.ptm
+
+		* glow25_016.ptm
+
+		* locator.mdl
+
+		* smoke19.ptm
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sp_001.anm
+
+		* t_sp_001.mdl
+
+		* t_sp_002.anm
+
+		* t_sp_002.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
+
 * param
 
 	* 1.bin

@@ -120,13 +120,32 @@ This documentation is mostly here to help structure, describe and name the vario
 * Type: Container
 * Extension: .efp
 * Header: EFP
-* Purpose: Stores multiple internal INSM mdl structures
+* Purpose: Stores multiple different types of data inside, most of which seem to be related to effects
 * Notes:
 	* Can contain multiple INSM mdls and PTMD ptms embedded with names
 * Structure:
 	* 0x18 - 24-byte first internal INSM mdl or PTMD ptm name string
 	* 0x30 - Address of first internal INSM mdl structure
-	* See below for rest of structure
+
+==================================================================
+* Tentative Name: Easily, my Favorite Container
+* Type: Container
+* Extension: .efc
+* Header: EFC
+* Purpose: Exactly the same as EFP's with one difference.
+* Notes:
+	* Difference: Includes an embedded ESB file with only a size, a name and some data
+	* These also exist in very small quantities
+
+==================================================================
+* Tentative  Name: Effective Stealthy Binary
+* Type: Data
+* Extension: .esb
+* Header: None
+* Notes:
+	* Consistently found as one of the last embedded objects inside of what would otherwise be an EFP
+* Structure:
+	* 0x00 (2 bytes) - Size of data
 
 ==================================================================
 * Tentative Name: Internal Node Structure Model
@@ -158,15 +177,6 @@ This documentation is mostly here to help structure, describe and name the vario
 * Structure:
 	* 0x1c - Offset from Header / Size of file
 
-==================================================================
-* Tentative Name: Easily, my Favorite Container
-* Type: Container
-* Extension: .efc
-* Header: EFC
-* Purpose: Just effects and scripting related containers
-* Notes:
-	* These can have other data types within but often are found wherever INSM and INSA files are found.
-	
 ==================================================================
 * Tentative Name: Extensible Text Container
 * Type: Container

@@ -150,6 +150,102 @@
 
 * eb101.efp
 
+	* Contents
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101001_hit_m.anm
+
+		* ef_a_b101001_hit_m.mdl
+
+		* ef_a_b101001_muzz_m.anm
+
+		* ef_a_b101001_muzz_m.mdl
+
+		* ef_a_b101001_wa1_m.anm
+
+		* ef_a_b101001_wa1_m.mdl
+
+		* ef_a_b101002_wa1_m.anm
+
+		* ef_a_b101002_wa1_m.mdl
+
+		* ef_a_b101003_fire1.ptm
+
+		* ef_a_b101003_fire2.ptm
+
+		* ef_a_b101003_hit1_m.anm
+
+		* ef_a_b101003_hit1_m.mdl
+
+		* ef_a_b101003_ken_m.anm
+
+		* ef_a_b101003_ken_m.mdl
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b101003_tuki_m.anm
+
+		* ef_a_b101003_tuki_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b101004_fire_m.anm
+
+		* ef_a_b101004_fire_m.mdl
+
+		* ef_a_b101004_tama_m.anm
+
+		* ef_a_b101004_tama_m.mdl
+
+		* ef_a_b101005_zan1_m.anm
+
+		* ef_a_b101005_zan1_m.mdl
+
+		* ef_a_b101006_fire_m.anm
+
+		* ef_a_b101006_fire_m.mdl
+
+		* ef_a_b101006_lasa_m.anm
+
+		* ef_a_b101006_lasa_m.mdl
+
+		* ef_a_b101006_pika_m.anm
+
+		* ef_a_b101006_pika_m.mdl
+
+		* ef_a_b101071_fire1.ptm
+
+		* ef_a_b101071_fire2.ptm
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_hikari12_a_m.anm
+
+		* ef_a_hikari12_a_m.mdl
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_tubua.ptm
+
+		* fire01_m.anm
+
+		* fire01_m.mdl
+
+* fire03_m.mdl
+
 ## 00EX.VOL
 
 * btl_maz
@@ -300,6 +396,102 @@
 
 * eb101.efp
 
+	* Contents
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101001_hit_m.anm
+
+		* ef_a_b101001_hit_m.mdl
+
+		* ef_a_b101001_muzz_m.anm
+
+		* ef_a_b101001_muzz_m.mdl
+
+		* ef_a_b101001_wa1_m.anm
+
+		* ef_a_b101001_wa1_m.mdl
+
+		* ef_a_b101002_wa1_m.anm
+
+		* ef_a_b101002_wa1_m.mdl
+
+		* ef_a_b101003_fire1.ptm
+
+		* ef_a_b101003_fire2.ptm
+
+		* ef_a_b101003_hit1_m.anm
+
+		* ef_a_b101003_hit1_m.mdl
+
+		* ef_a_b101003_ken_m.anm
+
+		* ef_a_b101003_ken_m.mdl
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b101003_tuki_m.anm
+
+		* ef_a_b101003_tuki_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b101004_fire_m.anm
+
+		* ef_a_b101004_fire_m.mdl
+
+		* ef_a_b101004_tama_m.anm
+
+		* ef_a_b101004_tama_m.mdl
+
+		* ef_a_b101005_zan1_m.anm
+
+		* ef_a_b101005_zan1_m.mdl
+
+		* ef_a_b101006_fire_m.anm
+
+		* ef_a_b101006_fire_m.mdl
+
+		* ef_a_b101006_lasa_m.anm
+
+		* ef_a_b101006_lasa_m.mdl
+
+		* ef_a_b101006_pika_m.anm
+
+		* ef_a_b101006_pika_m.mdl
+
+		* ef_a_b101071_fire1.ptm
+
+		* ef_a_b101071_fire2.ptm
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_hikari12_a_m.anm
+
+		* ef_a_hikari12_a_m.mdl
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_tubua.ptm
+
+		* fire01_m.anm
+
+		* fire01_m.mdl
+
+		* fire03_m.mdl
+
 ## 00EXFA.VOL
 
 * chr_b_maz00
@@ -325,6 +517,78 @@
 	* _btl9005_all.anm
 
 * eb_maz_101150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_scr.ptm
+
+		* exp01_064.ptm
+
+		* flare_v01_064.ptm
+
+		* glow25_016.ptm
+
+		* smoke19.ptm
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv2.anm
+
+		* t_mzu_uv2.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_mzu_uv4.anm
+
+		* t_mzu_uv4.mdl
+
+		* t_mzu_uv5.anm
+
+		* t_mzu_uv5.mdl
+
+		* t_mzu_uv7.anm
+
+		* t_mzu_uv7.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sph_002.anm
+
+		* t_sph_002.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
+
+		* t_sw_003.mdl
+
+		* t_th_001.anm
+
+		* t_th_001.mdl
+
+		* t_wa_001.mdl
+
+		* t_wa_02.ptm
+
+		* t_wind_uv1.anm
+
+		* t_wind_uv1.mdl
 
 * fin_maz
 
@@ -390,7 +654,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -425,6 +689,78 @@
 	* _btl9005_all.anm
 
 * eb_maz_101150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_scr.ptm
+
+		* exp01_064.ptm
+
+		* flare_v01_064.ptm
+
+		* glow25_016.ptm
+
+		* smoke19.ptm
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv2.anm
+
+		* t_mzu_uv2.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_mzu_uv4.anm
+
+		* t_mzu_uv4.mdl
+
+		* t_mzu_uv5.anm
+
+		* t_mzu_uv5.mdl
+
+		* t_mzu_uv7.anm
+
+		* t_mzu_uv7.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sph_002.anm
+
+		* t_sph_002.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
+
+		* t_sw_003.mdl
+
+		* t_th_001.anm
+
+		* t_th_001.mdl
+
+		* t_wa_001.mdl
+
+		* t_wa_02.ptm
+
+		* t_wind_uv1.anm
+
+		* t_wind_uv1.mdl
 
 * fin_maz
 
@@ -618,6 +954,102 @@
 
 * eb101.efp
 
+	* Contents
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101001_hit_m.anm
+
+		* ef_a_b101001_hit_m.mdl
+
+		* ef_a_b101001_muzz_m.anm
+
+		* ef_a_b101001_muzz_m.mdl
+
+		* ef_a_b101001_wa1_m.anm
+
+		* ef_a_b101001_wa1_m.mdl
+
+		* ef_a_b101002_wa1_m.anm
+
+		* ef_a_b101002_wa1_m.mdl
+
+		* ef_a_b101003_fire1.ptm
+
+		* ef_a_b101003_fire2.ptm
+
+		* ef_a_b101003_hit1_m.anm
+
+		* ef_a_b101003_hit1_m.mdl
+
+		* ef_a_b101003_ken_m.anm
+
+		* ef_a_b101003_ken_m.mdl
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b101003_tuki_m.anm
+
+		* ef_a_b101003_tuki_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b101004_fire_m.anm
+
+		* ef_a_b101004_fire_m.mdl
+
+		* ef_a_b101004_tama_m.anm
+
+		* ef_a_b101004_tama_m.mdl
+
+		* ef_a_b101005_zan1_m.anm
+
+		* ef_a_b101005_zan1_m.mdl
+
+		* ef_a_b101006_fire_m.anm
+
+		* ef_a_b101006_fire_m.mdl
+
+		* ef_a_b101006_lasa_m.anm
+
+		* ef_a_b101006_lasa_m.mdl
+
+		* ef_a_b101006_pika_m.anm
+
+		* ef_a_b101006_pika_m.mdl
+
+		* ef_a_b101071_fire1.ptm
+
+		* ef_a_b101071_fire2.ptm
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99931_bash_m.anm
+
+		* ef_a_b99931_bash_m.mdl
+
+		* ef_a_hikari12_a_m.anm
+
+		* ef_a_hikari12_a_m.mdl
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_tubua.ptm
+
+		* fire01_m.anm
+
+		* fire01_m.mdl
+
+		* fire03_m.mdl
+
 ## 00SBFA.VOL
 
 * chr_b_maz00
@@ -643,6 +1075,78 @@
 	* _btl9005_all.anm
 
 * eb_maz_101150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_scr.ptm
+
+		* exp01_064.ptm
+
+		* flare_v01_064.ptm
+
+		* glow25_016.ptm
+
+		* smoke19.ptm
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv2.anm
+
+		* t_mzu_uv2.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_mzu_uv4.anm
+
+		* t_mzu_uv4.mdl
+
+		* t_mzu_uv5.anm
+
+		* t_mzu_uv5.mdl
+
+		* t_mzu_uv7.anm
+
+		* t_mzu_uv7.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sph_002.anm
+
+		* t_sph_002.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
+
+		* t_sw_003.mdl
+
+		* t_th_001.anm
+
+		* t_th_001.mdl
+
+		* t_wa_001.mdl
+
+		* t_wa_02.ptm
+
+		* t_wind_uv1.anm
+
+		* t_wind_uv1.mdl
 
 * fin_maz
 
@@ -706,7 +1210,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -736,7 +1240,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 

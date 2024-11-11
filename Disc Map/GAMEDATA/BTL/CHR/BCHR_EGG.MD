@@ -38,6 +38,12 @@
 
 * eb200.efp
 
+	* Contents
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
 * egg00
 
 	* .bms

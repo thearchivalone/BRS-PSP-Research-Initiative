@@ -45,7 +45,7 @@ elseif FILE_TYPE == "zzz"
 	endif
 elseif FILE_TYPE == "at3"
 	callfunction extract_riff
-elseif FILE_TYPE == "efp"
+elseif FILE_TYPE == "efp" | FILE_TYPE == "efc"
 	callfunction extract_efp
 endif
 
@@ -170,6 +170,8 @@ startfunction file_builder
 		get MAGIC_NUMBER byte
 		if MAGIC_NUMBER == 0x1f # Sort of hack since only a single GZip version exists in the files
 			set EXTENSION ".gz"
+		elseif MAGIC_NUMBER == 0x0c
+			set EXTENSION == ".esb"
 		else
 			set EXTENSION ".pbd"
 		endif
@@ -193,7 +195,7 @@ startfunction extract_bin
 	elseif MAGIC_NUMBER == "RIFF"
 		callfunction extract_riff
 	elseif MAGIC_NUMBER == "EFC"
-		callfunction extract_efc
+		callfunction extract_efp
 	else
 		goto 0x00
 		get MAGIC_NUMBER byte
@@ -292,7 +294,7 @@ startfunction extract_efp
 				set SIZE_OFFSET 0x0c
 				if SKIP_PTMD == 0
 					# These two models are each followed by an extra PTMD file that isn't embedded, named or attached to anything else, so skip it unless it's needed
-					if (NAME == "ef_a_b10004_cut_m.mdl" | NAME == "ef_h_b010130_cut_m.mdl")
+					if (NAME == "ef_a_b10004_cut_m.mdl" | NAME == "ef_h_b010130_cut_m.mdl" | NAME == "ef_a_s01_ball_m.mdl")
 						set SKIP_PTMD 2
 					else
 						set SKIP_PTMD 1
@@ -310,6 +312,36 @@ startfunction extract_efp
 			else
 				set SKIP_ANM 0
 			endif
+		else
+			# Check if an esb file is embedded with a crazy hack since they only have a name and a size to distinguish their section but are always found at the very end of the EFC file
+			get NAME FILENAME
+			string NAME - ".efc"
+			string NAME + ".esb"
+			get SIZE asize
+			set START SIZE
+			math START - 0x20
+			goto START
+			savepos CURSOR_POSITION
+			for j = START > 0
+				goto CURSOR_POSITION
+				getdstring READ 0x04
+				if READ == ".esb"
+					savepos CURSOR_POSITION
+					set CURSOR_POSITION TMP
+					math TMP + 0x10
+					goto TMP
+					set CURSOR_POSITION TMP
+					get SIZE_OFFSET short
+					set OFFSET CURSOR_POSITION
+					log NAME OFFSET SIZE_OFFSET
+					break
+				endif
+				set TMP CURSOR_POSITION
+				math TMP - 0x04
+				goto TMP
+				savepos CURSOR_POSITION
+			next j - 1
+			break
 		endif
 		set NAME ""
 		math OFFSET + 16
@@ -341,9 +373,6 @@ startfunction extract_ptmd
 	log NAME OFFSET SIZE
 	math OFFSET + SIZE
 	goto OFFSET
-endfunction
-
-startfunction extract_efc
 endfunction
 
 startfunction extract_riff
