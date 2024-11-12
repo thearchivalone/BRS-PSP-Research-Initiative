@@ -1,85 +1,20 @@
-idstring "INSM"
+#Copyright 2024 - Brad D
+#See LICENSE for copyright information.
+#Please include this header and that license for any derivative works.
+#
+# Just a simple script for finding vertex data inside of various file formats; all are of the float type and typically come in patterns of 4-7 lines with break in a section
 
-# Start getting some known variables
-set EMBED_START 0x34 # to get embedded section if it exists
-set DATA_START 0x28
-set VERTEX_OFFSET 0x2c
-set CHUNK 0x04
 get SIZE asize
-set ARBITRARY_NUMBER 10000000000
-set VERTEX_STRIDE 0x1c # Distance between Vertex Buffers
-
-# Recursively replace known locations with their values since those are address locations in the ROM
-goto EMBED_START
-get EMBED_START long
-
-goto DATA_START
-get DATA_START long
-
-goto VERTEX_OFFSET
-get VERTEX_OFFSET long
-
-# Do some math to get where the first data section ends so we can access the rest of the Vertex Data in the next section
-set VERTEX_START VERTEX_OFFSET
-math VERTEX_START + DATA_START
-
-# Get the total size of the VERTEX_DATA section
-set VERTEX_DATA_SIZE EMBED_START
-math VERTEX_DATA_SIZE - DATA_START
-
-set TRIS VERTEX_DATA_SIZE
-math TRIS / VERTEX_STRIDE
-
-# Get the amount of lines to part before moving to next triangle
-set LINES VERTEX_STRIDE
+set CHUNK 0x04
+set LINES SIZE
 math LINES / CHUNK
-
-# Start the parsing here
-goto DATA_START
+goto 0
 savepos CUR_POS
-
-# Create a Vertex Array to house the data
-set SHIFT VERTEX_OFFSET
-set START_POS CUR_POS
-math SHIFT + START_POS
-
-for i = TRIS > 0
-	if CUR_POS > EMBED_START | CUR_POS == EMBED_START | START_POS > VERTEX_OFFSET | START_POS == VERTEX_OFFSET
-		break
-	endif
-	print "TRI: %i%"
+for i = 0 < LINES
 	goto CUR_POS
-	for k = 0 < 4
-		get WHAT long
-		string T = WHAT
-		string T b T
-		if T != "00000010"
-			#print "CURRENT_OFFSET: %CUR_POS% ==== WHAT: %T%"
-			print "WHAT: %T%"
-		else
-			savepos START_POS # So that we can come back to the chunk right after
-			goto SHIFT
-			set CUR_POS SHIFT
-			# Reset SHIFT so it doesn't stack the offsets
-			set SHIFT VERTEX_OFFSET
-			math SHIFT + START_POS
-		endif
-		set TMP CUR_POS
-		math TMP + CHUNK
-		set CUR_POS TMP
-	next k
-	for k = 0 < 4
-		get VERTEX float
-		if VERTEX > -257 & VERTEX < 257
-			#print "CURRENT_OFFSET: %CUR_POS% ==== VERTEX: %VERTEX%"
-			print "VERTEX: %VERTEX%"
-		else
-			math k - 1
-			math VERTEX_OFFSET - CHUNK
-		endif
-		set TMP CUR_POS
-		math TMP + CHUNK
-		set CUR_POS TMP
-	next k
-	set CUR_POS START_POS
-next i - 1
+	get VERTEX float
+	savepos CUR_POS
+	if VERTEX > -257 & VERTEX < 257 # Vertex data is primarily between -0xff and 0xff despite being stored in 4-byte chunks
+		print "CUR_POS: %CUR_POS% <=> VERTEX: %VERTEX%"
+	endif
+next i

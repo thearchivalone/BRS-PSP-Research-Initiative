@@ -25,9 +25,9 @@ $vgmstream_command = Get-Item -Path $vgmstream_command | % { $_.FullName }
 $extraction_script = "Scripts\BRS-Extract.bms"
 $extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
 
-$archive_types += @("vol", "bin", "zzz", "gz", "efp", "lpk", "efc")
+$archive_types += @("vol", "zzz", "gz")
 
-$sleep = 2
+$sleep = 3
 
 Write-Output "Checking If Required Extraction Tools Are Available"
 
@@ -40,12 +40,6 @@ Write-Output "Checking QuickBMS"
 if ((Get-Command $quickbms_command -ErrorAction SilentlyContinue) -eq $null)
 {
 	$download_qbms = 1
-}
-
-Write-Output "Checking VgmStream"
-if ((Get-Command $vgmstream_command -ErrorAction SilentlyContinue) -eq $null)
-{
-	$download_vgms = 1
 }
 
 if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
@@ -70,129 +64,191 @@ if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
 		}
 	}
 	else {
-		Write-Output "Please download QuickBMS and VgmStream and place them inside of the Tools directory; then run this script again"
+		Write-Output "Please download QuickBMS and place it inside of the Tools directory; then run this script again"
 		exit
 	}
 }
 
 Start-Sleep $sleep
 
-Write-Output "Extracting and decrypting game archives. This process can take awhile"
+Function Delete {
+	Write-Output "Removing extracted files. Please wait"
+	Start-Sleep $sleep
+	Remove-Item $extraction_dir -Force -Recurse
+}
 
-foreach ($item in (Get-ChildItem -Path $game_dir -Force -Recurse | % { $_.FullName })) {
-	$ext = (Split-Path -Path $item -Leaf).Split(".")[1]
-	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
-	foreach ($arc in $archive_types) {
-		if ($ext -eq $arc) {
-			if (!($item -like '*ITM*ZZZ') -And !($dir -like '*INSDIR*') -And !$($dir -like '*SYSDIR*') -And !($item -like '*UMD*')) {
-				& $quickbms_command -Y $extraction_script $item $dir
-			}
+Function Clean {
+	Write-Output "Cleaning up. Please wait"
+	Start-Sleep $sleep
+	Get-ChildItem -Path $extraction_dir -Force -Recurse -Directory |
+		Sort-Object -Property FullName -Descending |
+		Where-Object { $($_ | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
+		Remove-Item
+
+	foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse | % { $_.FullName })) {
+		if ($item -like "*TEMP*") {
+			Remove-Item $Item -Force
 		}
-	}
-	# Copy the sound folder over so they get converted 
-	if (($item -like '*SOUND*') -And ($ext -eq 'at3')) {
-		$sound_dir = $extraction_dir + "\PSP_GAME\USRDIR\GAMEDATA\SOUND"
-		New-Item -Path $sound_dir -Force -ItemType Directory | Out-null
-		Copy-Item -Path $item -Destination $sound_dir
 	}
 }
 
-Start-Sleep $sleep
-
-Write-Output "Recursively extracting archives"
-
-Function Extract-Internals {
-	(Get-ChildItem -Path . -Force -Recurse -File | % { $_.FullName } ) | ForEach-Object -Parallel {
-		$file = Split-Path $_ -Leaf
-		$dir = Split-Path $_ -Parent
-		$extract = $file + '_extract'
-		$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
+Function Extract_Internals {
+	Write-Output "Extracting embedded archives. Please wait"
+	Start-Sleep $sleep
+	foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse | % { $_.FullName })) {
+		$ext = (Split-Path -Path $item -Leaf).Split(".")[1]
+		$dir = Split-Path -Path $item -Parent
 		foreach ($arc in $archive_types) {
-			if (($ext -eq $arc)) {
-				& $quickbms_command -Y $extraction_script $file $extract
-				cd $extract
-				Extract-Internals
-			} else {
-				break
+			if (($ext -eq $arc) -And (($dir -like "*SYSTEM*") -Or ($dir -like "*TITLE*") -Or ($dir -like "*IF*"))) {
+				cd $dir
+				& $quickbms_command -Y -d $extraction_script $item
+				cd $cwd
 			}
 		}
 	}
 }
 
-foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
-	$dir = Split-Path $item -Parent
-	$file = Split-Path $item -Leaf
-	$extract = $file + '_extract'
-	$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
-
-	cd $dir
-	foreach ($arc in $archive_types) {
-		if (($ext -eq $arc)) {
-			& $quickbms_command -Y $extraction_script $file $extract
-			cd $extract
-			Extract-Internals
-		}
+Function Extract_Field {
+	Write-Output "Extracting the Field models"
+	Start-Sleep $sleep
+	$field_dir = $game_dir + "\FLD"
+	foreach ($item in (Get-ChildItem -Path $field_dir -Force -Recurse | % { $_.FullName })) {
+		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
-	cd $cwd
 }
 
-Start-Sleep $sleep
-
-Write-Output "Preparing asset extraction"
-
-if (!(Test-Path -Path $audio_dir -PathType Container)) {
-	New-Item -Path . -Name $audio_dir -ItemType Directory | Out-Null
-}
-
-$audio_dir = Get-Item -Path $audio_dir | % { $_.FullName }
-
-if (!(Test-Path -Path $models_dir -PathType Container)) {
-	New-Item -Path . -Name $models_dir -ItemType Directory | Out-Null
-}
-
-$models_dir = Get-Item -Path $models_dir | % { $_.FullName }
-
-Start-Sleep $sleep
-
-Write-Output "Extracting and converting assets"
-
-foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse -File | % { $_.FullName } )) {
-	$dir = Split-Path $item -Parent
-	$file = Split-Path $item -Leaf
-	$extract = $file + '_extract'
-	$ext = (Split-Path -Path $file -Leaf).Split(".")[1]
-
-	# Generate a UID for assets so that all converted files can be placed in Audio directory if they have are named the same on disc
-	$guid = New-Guid
-	$audio = (Split-Path -Path $file -Leaf).Split(".")[0]
-	$audio = $audio + '-' + $guid + '.wav'
-
-	$model = (Split-Path -Path $file -Leaf).Split(".")[0]
-	$model = $model + '-' + $guid + '.mdl'
-
-	cd $dir
-	if ($ext -eq "at3") {
-		& $vgmstream_command $file -o $audio
-		Move-Item -Path $audio -Destination $audio_dir
-	} elseif (($ext -eq "mdl") -Or ($ext -eq "md")) {
-		Copy-Item -Path $file -Destination $model
-		Move-Item -Path $model -Destination $models_dir
+Function Extract_Battle {
+	Write-Output "Extracting the Battle models"
+	Start-Sleep $sleep
+	$btl_dir = $game_dir + "\BTL"
+	foreach ($item in (Get-ChildItem -Path $btl_dir -Force -Recurse | % { $_.FullName })) {
+		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
-	cd $cwd
 }
 
-Start-Sleep $sleep
+Function Extract_Gallery {
+	Write-Output "Extracting the Gallery files"
+	Start-Sleep $sleep
+	$gallery_dir = $game_dir + "\GALLERY"
+	foreach ($item in (Get-ChildItem -Path $gallery_dir -Force -Recurse | % { $_.FullName })) {
+		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		& $quickbms_command -Y -d $extraction_script $item $dir
+	}
+}
 
-Write-Output "Removing empty folders"
+Function Extract_Interface {
+	Write-Output "Extracting the Interface files"
+	Start-Sleep $sleep
+	$if_dir = $game_dir + "\IF"
+	foreach ($item in (Get-ChildItem -Path $if_dir -Force -Recurse | % { $_.FullName })) {
+		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		& $quickbms_command -Y -d $extraction_script $item $dir
+	}
+	Extract_Internals
+}
 
-Get-ChildItem -Path $extraction_dir -Force -Recurse -Directory |
-	Sort-Object -Property FullName -Descending |
-	Where-Object { $($_ | Get-ChildItem -Force | Select-Object -First 1).Count -eq 0 } |
-	Remove-Item
+Function Extract_MiniGames {
+	Write-Output "Extracting the Mini-Games"
+	Start-Sleep $sleep
+	$mg_dir = $game_dir + "\Mini_Game"
+	foreach ($item in (Get-ChildItem -Path $mg_dir -Force -Recurse | % { $_.FullName })) {
+		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		& $quickbms_command -Y -d $extraction_script $item $dir
+	}
+}
 
-cd $cwd
+Function Extract_MemoryCard {
+	Write-Output "Extracting the Memory Card Volume"
+	Start-Sleep $sleep
+	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\MC.VOL"
+	$item = Get-Item -Path $item |  % { $_.FullName }
+	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = Split-Path $dir -Parent
+	& $quickbms_command -Y -d $extraction_script $item $dir
+}
 
-Start-Sleep $sleep
+Function Extract_System {
+	Write-Output "Extracting the System Volume"
+	Start-Sleep $sleep
+	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\SYSTEM.VOL"
+	$item = Get-Item -Path $item |  % { $_.FullName }
+	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = Split-Path $dir -Parent
+	& $quickbms_command -Y -d $extraction_script $item $dir
+	Extract_Internals
+}
 
-Write-Output "Extraction finished."
-Write-Output "Models, Audio and other extracted assets can be found in the Assets folder"
+Function Extract_Title {
+	Write-Output "Extracting the Title Volume"
+	Start-Sleep $sleep
+	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\TITLE.VOL"
+	$item = Get-Item -Path $item |  % { $_.FullName }
+	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = Split-Path $dir -Parent
+	& $quickbms_command -Y -d $extraction_script $item $dir
+	Extract_Internals
+}
+
+Function Extract_All {
+	Extract_Field
+	Extract_Battle
+	Extract_Gallery
+	Extract_Interface
+	Extract_MiniGames
+	Extract_MemoryCard
+	Extract_System
+	Extract_Title
+}
+
+$Continue = 1
+
+Function Get_User_Input {
+	Write-Output "What would you like to do today?"
+	Write-Output "1) Extract the Field models"
+	Write-Output "2) Extract the Battle models"
+	Write-Output "3) Extract the Gallery files"
+	Write-Output "4) Extract the Interface files"
+	Write-Output "5) Extract the Mini-Game files"
+	Write-Output "6) Extract the Memory Card Volume"
+	Write-Output "7) Extract the System Volume"
+	Write-Output "8) Extract the Title Volume"
+	Write-Output "a) Extract the important things"
+	Write-Output "q) Quit the program"
+	Write-Output "d) Remove extracted files"
+
+	$input = Read-Host "Type value and press enter"
+
+	if ($input -eq 'q') {
+		break
+	}
+	if ($input -eq 'a') {
+		Extract_All
+	}
+	if ($input -eq 'd') {
+		Delete
+	}
+
+	switch ($input) {
+		1 { Extract_Field }
+		2 { Extract_Battle }
+		3 { Extract_Gallery }
+		4 { Extract_Interface }
+		5 { Extract_MiniGames }
+		6 { Extract_MemoryCard }
+		7 { Extract_System }
+		8 { Extract_Title }
+		default {}
+	}
+}
+
+Do {
+	Get_User_Input
+} While ($Continue -eq '1')
+
+Clean
+
+Write-Output "Have a wonderful day! Happy modding, digging, and BRSing!!! :D"
+
+#Write-Output "Models, Audio and other extracted assets can be found in the Assets folder"
