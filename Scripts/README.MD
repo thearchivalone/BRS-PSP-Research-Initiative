@@ -1,8 +1,8 @@
 Use these files to extract data from the game's ROM. These are subject to change and some may be usable for other games.
 
-* BRS-Extract - New script for extracting files. BRS-Vol.bms and BRS-Lpk.bms are no longer needed. BRS-Xor.bms will still be needed for decryption of some files.
+* BRS-Extract.bms - New script for extracting files. BRS-Vol.bms, BRS-Xor.bms and BRS-Lpk.bms are no longer needed.All main extraction code is in this file
 
-* BRS-Xor.bms - many files inside of archives will be encrypted. Run this on those files to see which XOR encryption was used. This one is going to possibly change quite a bit as more keys are found.
+* BRS-Model-Data.bms - Used this quick and dirty script for finding bones and vertices in model data.
 
 =====================================================================
 

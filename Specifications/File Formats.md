@@ -40,10 +40,10 @@ This documentation is mostly here to help structure, describe and name the vario
 
 ==================================================================
 * Tentative Name: Plot Thickens, My Dear
-* Type: Data
+* Type: 3D Pipeline Data
 * Extension: .ptm
 * Header: PTMD, PTM, PTMD-XP
-* Purpose: General purpose data type related to visual assets
+* Purpose: Contains textures, materials and other data related to models and user interface elements
 * Structure:
 	* 0x08 - This looks like it may be some kind of ID
 	* 0x0c - Offset from Header / Size of file (can be around 0x400 less than what Windows shows the file size to be, possibly due to padding)
@@ -66,30 +66,69 @@ This documentation is mostly here to help structure, describe and name the vario
 * Notes:
 	* Uses some duplicate structures as LPK but is considered a separate File Type due to being unique
 * Structure:
+	* Currently Unknown how similar it is to a normal LPK
 
 ==================================================================
-* Tentative Name: Stacked Container
-* Type: Container / Data archive
-* Extension: .sc
+* Tentative Name: Skeletal Container
+* Type: Container / 3D Pipeline Data
+* Extension: .sc(hierarchy value)
 * Header: SC
-* Purpose: General purpose container that is often packed together more tightly than other ones
+* Purpose: Houses the main models, riggings and animation data
 * Notes:
-	* Almost always has other file types inside (such as INSM, INSA, and SSCR)
-	* Can contain any amount of other types
-	* Each container wrapped with SC
+	* SC's have a multilevel hierarchy based on the bit value of the byte after the header
 * Structure:
-	* 0x04 - Internal Container list start
-	* 0x24 - Internal Container list end
-	* 0x24 - Main Container end
-		* Each internal container list data takes up 8-bytes with the first 4-bytes being the start point and last 4-bytes being the end
-		* Every end can become the start point of the next stored data (hence why these begin and end with the SC header)
+	* 0x00 - (2-bytes) Header + (1-byte) Hierarchy level + 0 = Magic Number
+		* Hierarchy (by Bit Flag; rest are internals)
+			* 0x80 (Bit8) - Unknown
+			* 0x40 (Bit7) - Field Event Armateur Skeleton (Internal to 0x10)
+			* 0x3D - Field Object/Enemy Armateur Skeleton (Probably destructable or interactive)
+			* 0x34 - Field Player Character Armateur Skeleton
+			* 0x20 (Bit6) - Field Map EFC Skeleton
+			* 0x1D - Field SUM00P Armateur Skeleton
+			* 0x16 - Field Enemy Armateur Skeleton
+			* 0x14 - Field Skill (?) Armateur Skeleton
+			* 0x10 (Bit4) - Field Event/Map Skeleton Top Level (Probably related to Cutscenes) - Can contain multiple 0x40 SC's / SSCR's
+			* 0x0A - Field SUM00 Armateur Skeleton
+			* 0x0B - Field SUM Armateur Skeleton (Rest of SUM's use this + RID Gimmicks)
+			* 0x0C - Field Test Enemy Armateur Skeleton
+			* 0x09 - Same as 0x03 (Multiple TEST FEVTs)
+			* 0x08 (Bit 3) - Field Character/Map Skeleton Top Level (Can contain an internal STCM if a Map)
+			* 0x04 (Bit2) - Unknown
+			* 0x03 - Test Field Event with BTL Model data (FEVT_TEST_AOIK00)
+			* 0x02 (Bit1) - Field Event PHD Skeleton
+			* 0x01 (Bit0) - Field Character Skeleton Without Armateur
+			* 0x00 - Field Event Unused SC data + types (FEVT_TEST_KAMI00) - There were multiple different data types unique to this section found here
+
+	* 0x04 - Internal Container list start - Can be 0x3c for some models; that's a bug that doesn't seem to affect the game but will break the extraction process
+	* 0x08 - First internal object ends here but not guaranteed to help with any extra extraction
+	* The rest of this section is variable based on how big the SC container is, so may have to wing it quite a bit to get anything extracted
 
 ==================================================================
-* Tentative Name: Super Stacked ContaineR
-* Type: Container
-* Extension: None known
+* Tentative Name: Skeletal Container Missing Player
+* Type: Container / 3D Pipeline Data
+* Header: SCMP
+* Purpose: Possible unused Player Character model
+* Notes:
+	* Seems to be the only SC container that doesn't have an SSCR section but instead contains an extra SCMP section in its place
+	* Shares the same Namespace as the BRS model meaning it's probably a scrapped Player character
+	* The header suggests that there may have been a scrapped Multiplayer mode and this was the character for it
+	* Codenamed ZIG in the files
+
+==================================================================
+* Tentative Name: Scripted Skeletal Character Rigging
+* Type: 3D Pipeline Data
+* Extension: .ss
 * Header: SSCR
-* Purpose: Not fully known but these seem to be an extension of SC and contain much of the Scripted data.
+* Purpose: Controls the animation and armatures for animated 3D Models
+* Notes:
+	* This was first discovered on a random hunch while out for food. A quick script to check for vertex values found BRS's model pretty quickly under the `BTL\FLD\FCHR` directory
+	* Often found inside of SC containers
+* Structure:
+	* 0x0c - Scripted Data Section Start
+	* 0x10 - Scripted Data String End Address
+	* 0x14 - Scripted Data Section End Address
+	* 0x18 - SSCR Data End Address (Everything below is padding)
+	* 0x2c - Scripted Data String Start Address
 
 ==================================================================
 * Tentative Name: Playing Donkey Kong
@@ -132,18 +171,16 @@ This documentation is mostly here to help structure, describe and name the vario
 * Type: Container
 * Extension: .efc
 * Header: EFC
-* Purpose: Exactly the same as EFP's with one difference.
+* Purpose: Alternative version of EFP found heavily inside of SCs.
 * Notes:
-	* Difference: Includes an embedded ESB file with only a size, a name and some data
-	* These also exist in very small quantities
+	* Originally thought a unique type but `BTL\CHR\BCHR_CAT00` contains an EFP with multiple ESB files inside
 
 ==================================================================
 * Tentative  Name: Effective Stealthy Binary
 * Type: Data
 * Extension: .esb
 * Header: None
-* Notes:
-	* Consistently found as one of the last embedded objects inside of what would otherwise be an EFP
+* Purpose: Unknown
 * Structure:
 	* 0x00 (2 bytes) - Size of data
 
@@ -152,34 +189,43 @@ This documentation is mostly here to help structure, describe and name the vario
 * Type: Data
 * Extension: .cam (if INSA structures are found)
 * Header: INSM
-* Purpose: Stores model data
+* Purpose: Stores model data without the texture or material data
 * Structure:
-	* 0x34 - Offset of INSA structure from Header
+	* See the next section for structure; they're both mostly the same
 
 ===================================================================
 * Tentative Name: Internal Node Structure Model
 * Type: Data
 * Extension: .mdl (if PTMD or alternative structures are found within)
 * Header: INSM
-* Purpose: Stores model data
+* Purpose: Stores model, texture and material data
 * Notes:
-	* Vertex Stride: 0x0c (first section); 0x14 (second section)
+	* Vertex Stride seems to vary a bit depending on where the model will be seen in game; ranges between 4 and 8 lines from what I've observed with some junk here and there that must be skipped on read
+	* Vertex Data Section ranges from where 0x3c starts to just before the location at 0x34
 * Structure:
+	* 0x10 - Address where padding starts before embedded section
+	* 0x18 - Address to unknown data structure
+	* 0x24 - Address where the math calculation tables start
+	* 0x28 - Start position of Unknown Data section - patterns of floats have been found here and at 0x2c but not sure what they're for yet
+	* 0x2c - Offset from 0x28 to get to the a Second Unknown Data Section
 	* 0x34 - Offset of PTMD or alternative structures from Header
-	* 0x28 - Start position of First Data section
-	* 0x2c - Offset from 0x28 to get to the Second Data Section
+	* 0x3c - Vertex Data Section Start Address (where model quads are found)
 
 ===================================================================
 * Tentative Name: Internal Node Structure Animation
 * Type: Data
 * Extension: .anm
 * Header: INSA
-* Purpose: Stores animation data
+* Purpose: Stores animation and armateur data
 * Notes:
 	* Can be embedded inside of an INSM container
 	* 24-byte name string found at Offset -0x18 from start when embedded
 * Structure:
 	* 0x1c - Offset from Header / Size of file
+	* 0x18 - End of data address before padding
+	* 0x2c - Address to a table of addresses to other tables and locations in memory; may be related to rigging or bones but not completely sure yet
+	* 0x28 - (2-bytes) Address to Unknown Data Section
+	* 0x1d8 - Unknown Data starts here
 
 ==================================================================
 * Tentative Name: Extensible Text Container
@@ -244,11 +290,14 @@ This documentation is mostly here to help structure, describe and name the vario
 	
 ==================================================================
 * Tentative Name: Everything Does eXtensive Duties
+* Type: Data
 * Extension: .edx
 * Header: EDXD
-* Purpose: Unsure what this is for as of now
+* Purpose: Archive padding with very little data inside
+* Notes:
+	* All are of 1.5 KB in size and found only inside of `GAMEDATA\BTL\BCHR` directory
 * Structure:
-	* Currently Unknown
+	* 0x5c - Shared value among most if not all edx files - 8FED8D55
 	
 ==================================================================
 * Tentative Name: BRS eXtensible Contancorous Binary
