@@ -25,7 +25,7 @@ $vgmstream_command = Get-Item -Path $vgmstream_command | % { $_.FullName }
 $extraction_script = "Scripts\BRS-Extract.bms"
 $extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
 
-$archive_types += @("vol", "bin", "zzz", "gz", "efp", "lpk")
+$archive_types += @("vol", "bin", "zzz", "gz", "efp", "lpk", "efc")
 
 $sleep = 2
 

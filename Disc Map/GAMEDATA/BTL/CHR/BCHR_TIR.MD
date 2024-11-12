@@ -38,6 +38,34 @@
 
 * eb209.efp
 
+	* Contents
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b209001_bash_m.anm
+
+		* ef_a_b209001_bash_m.mdl
+
+		* ef_a_b209001_hit_m.anm
+
+		* ef_a_b209001_hit_m.mdl
+
+		* ef_a_b209001_zan_m.anm
+
+		* ef_a_b209001_zan_m.mdl
+
+		* ef_a_b209003_tubu.ptm
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_tubua.ptm
+
 * param
 
 	* 1.bin

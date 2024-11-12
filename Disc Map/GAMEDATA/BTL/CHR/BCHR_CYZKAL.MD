@@ -98,6 +98,12 @@
 
 * eb102150.efc
 
+	* Contents
+
+		* eb102150.esb
+
+		* ef_a_kml.ptm
+
 * kal
 
 	* _8000.at3
@@ -208,6 +214,100 @@
 
 * eb102.efp
 
+	* Contents
+
+		* aura01_m.anm
+
+		* aura01_m.mdl
+
+		* aura19_m.anm
+
+		* aura19_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura21_m.anm
+
+		* aura21_m.mdl
+
+		* aura23_m.anm
+
+		* aura23_m.mdl
+
+		* cyz_sword01_m.anm
+
+		* cyz_sword01_m.mdl
+
+		* cyz_sword02_m.anm
+
+		* cyz_sword02_m.mdl
+
+		* ef_a_b101071_hino_m.anm
+
+		* ef_a_b101071_hino_m.mdl
+
+		* ef_a_b101071_scr1_m.anm
+
+		* ef_a_b101071_scr1_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99932_wakka_m.anm
+
+		* ef_a_b99932_wakka_m.mdl
+
+		* ef_a_b99932_ware_m.anm
+
+		* ef_a_b99932_ware_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_m_fire_a_m.mdl
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit17_m.anm
+
+		* hit17_m.mdl
+
+		* kensen05_m.anm
+
+		* kensen05_m.mdl
+
+		* light09.ptm
+
+		* smoke06.ptm
+
+		* thunder02_m.anm
+
+		* thunder02_m.mdl
+
+		* thunder03_m.anm
+
+		* thunder03_m.mdl
+
+		* thunder04_m.anm
+
+		* thunder04_m.mdl
+
+		* thunder05_m.anm
+
+		* thunder05_m.mdl
+
+		* thunder06_m.anm
+
+		* thunder06_m.mdl
+
+		* tsubu08.ptm
+
+		* tsubu09.ptm
+
 ## 00EX.VOL
 
 * brs_6210.at3
@@ -305,6 +405,12 @@
 	* ex.bms
 
 * eb102150.efc
+
+	* Contents
+
+		* eb102150.esb
+
+		* ef_a_kml.ptm
 
 * kal
 
@@ -416,6 +522,100 @@
 
 * eb102.efp
 
+	* Contents
+
+		* aura01_m.anm
+
+		* aura01_m.mdl
+
+		* aura19_m.anm
+
+		* aura19_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura21_m.anm
+
+		* aura21_m.mdl
+
+		* aura23_m.anm
+
+		* aura23_m.mdl
+
+		* cyz_sword01_m.anm
+
+		* cyz_sword01_m.mdl
+
+		* cyz_sword02_m.anm
+
+		* cyz_sword02_m.mdl
+
+		* ef_a_b101071_hino_m.anm
+
+		* ef_a_b101071_hino_m.mdl
+
+		* ef_a_b101071_scr1_m.anm
+
+		* ef_a_b101071_scr1_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99932_wakka_m.anm
+
+		* ef_a_b99932_wakka_m.mdl
+
+		* ef_a_b99932_ware_m.anm
+
+		* ef_a_b99932_ware_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_m_fire_a_m.mdl
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit17_m.anm
+
+		* hit17_m.mdl
+
+		* kensen05_m.anm
+
+		* kensen05_m.mdl
+
+		* light09.ptm
+
+		* smoke06.ptm
+
+		* thunder02_m.anm
+
+		* thunder02_m.mdl
+
+		* thunder03_m.anm
+
+		* thunder03_m.mdl
+
+		* thunder04_m.anm
+
+		* thunder04_m.mdl
+
+		* thunder05_m.anm
+
+		* thunder05_m.mdl
+
+		* thunder06_m.anm
+
+		* thunder06_m.mdl
+
+		* tsubu08.ptm
+
+		* tsubu09.ptm
+
 ## 00EXFA.VOL
 
 * brs_4900.at3
@@ -461,6 +661,76 @@
 	* _7313.at3
 
 * eb_cyz_102150.efp
+
+	* Contents
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100154_bash_m.anm
+
+		* ef_a_b100154_bash_m.mdl
+
+		* ef_a_b100154_fire1.ptm
+
+		* ef_a_b100154_fire2.ptm
+
+		* ef_a_b100154_znb1_m.anm
+
+		* ef_a_b100154_znb1_m.mdl
+
+		* ef_a_b100154_znb2_m.anm
+
+		* ef_a_b100154_znb2_m.mdl
+
+		* ef_a_b100154_znb3_m.anm
+
+		* ef_a_b100154_znb3_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr.ptm
+
+		* ef_m_102151_fire_m.anm
+
+		* ef_m_102151_fire_m.mdl
+
+		* ef_m_102152_fil_01.ptm
+
+		* ef_m_102152_fil_02.ptm
+
+		* ef_m_102152_fil_m.anm
+
+		* ef_m_102152_fil_m.mdl
+
+		* ef_m_102152_muzz_m.anm
+
+		* ef_m_102152_muzz_m.mdl
+
+		* ef_m_102153_fire_m.anm
+
+		* ef_m_102153_fire_m.mdl
+
+		* ef_m_102153_fireb.ptm
+
+		* ef_m_102153_sla_01_m.md
+
+		* ef_m_102153_sla_02_m.md
+
+		* ef_m_102156_kage_m.anm
+
+		* ef_m_102156_kage_m.mdl
 
 * fin_cyzkal
 
@@ -543,6 +813,76 @@
 	* _7324.at3
 
 * eb_cyz_102150.efp
+
+	* Contents
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100154_bash_m.anm
+
+		* ef_a_b100154_bash_m.mdl
+
+		* ef_a_b100154_fire1.ptm
+
+		* ef_a_b100154_fire2.ptm
+
+		* ef_a_b100154_znb1_m.anm
+
+		* ef_a_b100154_znb1_m.mdl
+
+		* ef_a_b100154_znb2_m.anm
+
+		* ef_a_b100154_znb2_m.mdl
+
+		* ef_a_b100154_znb3_m.anm
+
+		* ef_a_b100154_znb3_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr.ptm
+
+		* ef_m_102151_fire_m.anm
+
+		* ef_m_102151_fire_m.mdl
+
+		* ef_m_102152_fil_01.ptm
+
+		* ef_m_102152_fil_02.ptm
+
+		* ef_m_102152_fil_m.anm
+
+		* ef_m_102152_fil_m.mdl
+
+		* ef_m_102152_muzz_m.anm
+
+		* ef_m_102152_muzz_m.mdl
+
+		* ef_m_102153_fire_m.anm
+
+		* ef_m_102153_fire_m.mdl
+
+		* ef_m_102153_fireb.ptm
+
+		* ef_m_102153_sla_01_m.md
+
+		* ef_m_102153_sla_02_m.md
+
+		* ef_m_102156_kage_m.anm
+
+* ef_m_102156_kage_m.mdl
 
 * fin_cyzkal
 
@@ -678,6 +1018,12 @@
 
 * eb102150.efc
 
+	* Contents
+
+		* eb102150.esb
+
+		* ef_a_kml.ptm
+
 * kal
 
 	* _8000.at3
@@ -788,6 +1134,100 @@
 
 * eb102.efp
 
+	* Contents
+
+		* aura01_m.anm
+
+		* aura01_m.mdl
+
+		* aura19_m.anm
+
+		* aura19_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura21_m.anm
+
+		* aura21_m.mdl
+
+		* aura23_m.anm
+
+		* aura23_m.mdl
+
+		* cyz_sword01_m.anm
+
+		* cyz_sword01_m.mdl
+
+		* cyz_sword02_m.anm
+
+		* cyz_sword02_m.mdl
+
+		* ef_a_b101071_hino_m.anm
+
+		* ef_a_b101071_hino_m.mdl
+
+		* ef_a_b101071_scr1_m.anm
+
+		* ef_a_b101071_scr1_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_b99932_wakka_m.anm
+
+		* ef_a_b99932_wakka_m.mdl
+
+		* ef_a_b99932_ware_m.anm
+
+		* ef_a_b99932_ware_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_m_fire_a_m.mdl
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit17_m.anm
+
+		* hit17_m.mdl
+
+		* kensen05_m.anm
+
+		* kensen05_m.mdl
+
+		* light09.ptm
+
+		* smoke06.ptm
+
+		* thunder02_m.anm
+
+		* thunder02_m.mdl
+
+		* thunder03_m.anm
+
+		* thunder03_m.mdl
+
+		* thunder04_m.anm
+
+		* thunder04_m.mdl
+
+		* thunder05_m.anm
+
+		* thunder05_m.mdl
+
+		* thunder06_m.anm
+
+		* thunder06_m.mdl
+
+		* tsubu08.ptm
+
+		* tsubu09.ptm
+
 ## 00SBFA.VOL
 
 * brs_4900.at3
@@ -833,6 +1273,76 @@
 	* _7323.at3
 
 * eb_cyz_102150.efp
+
+	* Contents
+
+		* ef_a_b100150_hiba_m.anm
+
+		* ef_a_b100150_hiba_m.mdl
+
+		* ef_a_b100150_znb1_m.anm
+
+		* ef_a_b100150_znb1_m.mdl
+
+		* ef_a_b100154_bash_m.anm
+
+		* ef_a_b100154_bash_m.mdl
+
+		* ef_a_b100154_fire1.ptm
+
+		* ef_a_b100154_fire2.ptm
+
+		* ef_a_b100154_znb1_m.anm
+
+		* ef_a_b100154_znb1_m.mdl
+
+		* ef_a_b100154_znb2_m.anm
+
+		* ef_a_b100154_znb2_m.mdl
+
+		* ef_a_b100154_znb3_m.anm
+
+		* ef_a_b100154_znb3_m.mdl
+
+		* ef_a_b209005_muzz_m.anm
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_a_scr.ptm
+
+		* ef_m_102151_fire_m.anm
+
+		* ef_m_102151_fire_m.mdl
+
+		* ef_m_102152_fil_01.ptm
+
+		* ef_m_102152_fil_02.ptm
+
+		* ef_m_102152_fil_m.anm
+
+		* ef_m_102152_fil_m.mdl
+
+		* ef_m_102152_muzz_m.anm
+
+		* ef_m_102152_muzz_m.mdl
+
+		* ef_m_102153_fire_m.anm
+
+		* ef_m_102153_fire_m.mdl
+
+		* ef_m_102153_fireb.ptm
+
+		* ef_m_102153_sla_01_m.md
+
+		* ef_m_102153_sla_02_m.md
+
+		* ef_m_102156_kage_m.anm
+
+		* ef_m_102156_kage_m.mdl
 
 * fin_cyzkal
 

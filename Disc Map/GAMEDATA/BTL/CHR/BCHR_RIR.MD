@@ -124,6 +124,96 @@
 
 * eb104.efp
 
+	* Contents
+
+		* aura01_m.mdl
+
+		* aura16_m.anm
+
+		* aura16_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura24_m.anm
+
+		* aura24_m.mdl
+
+		* aura25_m.anm
+
+		* aura25_m.mdl
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_a_kml.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit15_m.anm
+
+		* hit15_m.mdl
+
+		* kira01_m.anm
+
+		* kira01_m.mdl
+
+		* line05_m.anm
+
+		* line05_m.mdl
+
+		* line06_m.anm
+
+		* line06_m.mdl
+
+		* line07_m.anm
+
+		* line07_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* sand01_m.anm
+
+		* sand01_m.mdl
+
+		* sand02_m.anm
+
+		* sand02_m.mdl
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_sw_001.mdl
+
+		* t_wd_001.anm
+
+		* t_wd_001.mdl
+
+		* tsubu08.ptm
+
+		* wakka06_m.anm
+
+		* wakka06_m.mdl
+
 ## 00EX.VOL
 
 * btl_rir
@@ -262,6 +352,96 @@
 
 * eb104.efp
 
+	* Contents
+
+		* aura01_m.mdl
+
+		* aura16_m.anm
+
+		* aura16_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura24_m.anm
+
+		* aura24_m.mdl
+
+		* aura25_m.anm
+
+		* aura25_m.mdl
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_a_kml.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit15_m.anm
+
+		* hit15_m.mdl
+
+		* kira01_m.anm
+
+		* kira01_m.mdl
+
+		* line05_m.anm
+
+		* line05_m.mdl
+
+		* line06_m.anm
+
+		* line06_m.mdl
+
+		* line07_m.anm
+
+		* line07_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* sand01_m.anm
+
+		* sand01_m.mdl
+
+		* sand02_m.anm
+
+		* sand02_m.mdl
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_sw_001.mdl
+
+		* t_wd_001.anm
+
+		* t_wd_001.mdl
+
+		* tsubu08.ptm
+
+		* wakka06_m.anm
+
+		* wakka06_m.mdl
+
 ## 00EXFA.VOL
 
 * brs_5000.at3
@@ -289,6 +469,74 @@
 	* _btl9011_all.anm
 
 * eb_rir_104150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b998003_line_m.anm
+
+		* ef_a_b998003_line_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_m_104155_sph_m.anm
+
+		* ef_m_104155_sph_m.mdl
+
+		* glow25_016.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* muzzle04_m.anm
+
+		* muzzle04_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* muzzle07_m.anm
+
+		* muzzle07_m.mdl
+
+		* smoke04.ptm
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
 
 * fin_rir
 
@@ -348,7 +596,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -385,6 +633,74 @@
 	* _btl9011_all.anm
 
 * eb_rir_104150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b998003_line_m.anm
+
+		* ef_a_b998003_line_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_m_104155_sph_m.anm
+
+		* ef_m_104155_sph_m.mdl
+
+		* glow25_016.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* muzzle04_m.anm
+
+		* muzzle04_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* muzzle07_m.anm
+
+		* muzzle07_m.mdl
+
+		* smoke04.ptm
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
 
 * fin_rir
 
@@ -552,6 +868,96 @@
 
 * eb104.efp
 
+	* Contents
+
+		* aura01_m.mdl
+
+		* aura16_m.anm
+
+		* aura16_m.mdl
+
+		* aura20_m.anm
+
+		* aura20_m.mdl
+
+		* aura24_m.anm
+
+		* aura24_m.mdl
+
+		* aura25_m.anm
+
+		* aura25_m.mdl
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101003_wind_m.anm
+
+		* ef_a_b101003_wind_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_a_kml.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* hit15_m.anm
+
+		* hit15_m.mdl
+
+		* kira01_m.anm
+
+		* kira01_m.mdl
+
+		* line05_m.anm
+
+		* line05_m.mdl
+
+		* line06_m.anm
+
+		* line06_m.mdl
+
+		* line07_m.anm
+
+		* line07_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* sand01_m.anm
+
+		* sand01_m.mdl
+
+		* sand02_m.anm
+
+		* sand02_m.mdl
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_sw_001.mdl
+
+		* t_wd_001.anm
+
+		* t_wd_001.mdl
+
+		* tsubu08.ptm
+
+		* wakka06_m.anm
+
+		* wakka06_m.mdl
+
 ## 00SBFA.VOL
 
 * brs_5000.at3
@@ -579,6 +985,74 @@
 	* _btl9011_all.anm
 
 * eb_rir_104150.efp
+
+	* Contents
+
+		* awa_064.ptm
+
+		* bom_001_064.ptm
+
+		* bom01_m.anm
+
+		* bom01_m.mdl
+
+		* ef_a_b209005_muzz_m.mdl
+
+		* ef_a_b998003_line_m.anm
+
+		* ef_a_b998003_line_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_hikari_m.mdl
+
+		* ef_m_104155_sph_m.anm
+
+		* ef_m_104155_sph_m.mdl
+
+		* glow25_016.ptm
+
+		* hit01_m.anm
+
+		* hit01_m.mdl
+
+		* muzzle04_m.anm
+
+		* muzzle04_m.mdl
+
+		* muzzle06_m.anm
+
+		* muzzle06_m.mdl
+
+		* muzzle07_m.anm
+
+		* muzzle07_m.mdl
+
+		* smoke04.ptm
+
+		* smoke20_16.ptm
+
+		* t_cs_001.mdl
+
+		* t_gl_001.mdl
+
+		* t_gl_040.mdl
+
+		* t_mzu_uv3.anm
+
+		* t_mzu_uv3.mdl
+
+		* t_sm_008_32.ptm
+
+		* t_sph_001.anm
+
+		* t_sph_001.mdl
+
+		* t_sw_001.mdl
+
+		* t_sw_002.mdl
 
 * fin_rir
 
@@ -638,7 +1112,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 
@@ -664,7 +1138,7 @@
 
 		* 1.xbn
 
-		* 2.Unknown
+		* 2.pbd
 
 		* 3.ptm
 

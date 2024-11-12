@@ -42,6 +42,32 @@
 
 * eb205.efp
 
+	* Contents
+
+		* bullet_fire01_m.anm
+
+		* bullet_fire01_m.mdl
+
+		* bullet09_m.mdl
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b205001_maki_m.anm
+
+		* ef_a_b205001_maki_m.mdl
+
+		* ef_a_b205002_scr_m.anm
+
+		* ef_a_b205002_scr_m.mdl
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_locator_m.mdl
+
+		* stone01_m.mdl
+
 * param
 
 	* 1.bin

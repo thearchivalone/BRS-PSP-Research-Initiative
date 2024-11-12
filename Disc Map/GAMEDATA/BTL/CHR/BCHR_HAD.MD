@@ -26,6 +26,44 @@
 
 * eb208.efp
 
+	* Contents
+
+		* ef_a_b100003_wind_m.anm
+
+		* ef_a_b100003_wind_m.mdl
+
+		* ef_a_b101001_wa1_m.anm
+
+		* ef_a_b101001_wa1_m.mdl
+
+		* ef_a_b211001_hit1_m.anm
+
+		* ef_a_b211001_hit1_m.mdl
+
+		* ef_a_b211001_line_m.anm
+
+		* ef_a_b211001_line_m.mdl
+
+		* ef_a_b99928_hika_m.anm
+
+		* ef_a_b99928_hika_m.mdl
+
+		* ef_a_kml.ptm
+
+		* ef_a_locator_m.mdl
+
+		* ef_m_fire_a_m.anm
+
+		* ef_m_fire_a_m.mdl
+
+		* ef_m_slash_a_m.anm
+
+		* ef_m_slash_a_m.mdl
+
+		* egg01_m.anm
+
+		* egg01_m.mdl
+
 * had00
 
 	* .bms

@@ -40,6 +40,52 @@
 
 * eb202.efp
 
+	* Contents
+
+		* ef_a_kml.ptm
+
+		* ef_m_202006_kml_.ptm
+
+		* ef_m_fire_01_m.anm
+
+		* ef_m_fire_01_m.mdl
+
+		* ef_m_fire_a_m.anm
+
+		* ef_m_fire_a_m.mdl
+
+		* ef_m_slash_02_m.mdl
+
+		* ef_m_slash_a_m.mdl
+
+		* ef_m_sub_01_m.anm
+
+		* ef_m_sub_01_m.mdl
+
+		* ef_m_tuki_01_m.anm
+
+		* ef_m_tuki_01_m.mdl
+
+		* ef_m_wave_01_m.anm
+
+		* ef_m_wave_01_m.mdl
+
+		* ef_m_wind_01_m.anm
+
+		* ef_m_wind_01_m.mdl
+
+		* ef_m_zan_01_m.anm
+
+		* ef_m_zan_01_m.mdl
+
+		* ef_m_zan_02_m.anm
+
+		* ef_m_zan_02_m.mdl
+
+		* ef_m_zan_03_m.anm
+
+		* ef_m_zan_03_m.mdl
+
 * param
 
 	* 1.bin

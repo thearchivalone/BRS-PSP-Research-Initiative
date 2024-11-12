@@ -20,6 +20,30 @@
 
 * eb215.efp
 
+	* Contents
+
+		* ef_a_b101003_line_m.anm
+
+		* ef_a_b101003_line_m.mdl
+
+		* ef_a_b105001_thu1_m.anm
+
+		* ef_a_b105001_thu1_m.mdl
+
+		* ef_m_215003_den_m.mdl
+
+		* ef_m_215003_ha_m.anm
+
+		* ef_m_215003_ha_m.mdl
+
+		* ef_m_215003_wave_m.mdl
+
+		* ef_m_slash_02_m.mdl
+
+		* ef_m_sub_01_m.anm
+
+		* ef_m_sub_01_m.mdl
+
 * param
 
 	* 1.bin

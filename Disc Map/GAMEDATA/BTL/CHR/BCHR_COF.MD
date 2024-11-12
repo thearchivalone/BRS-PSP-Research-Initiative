@@ -36,6 +36,66 @@
 
 * eb203.efp
 
+	* Contents
+
+		* ef_a_b203004_kama_m.anm
+
+		* ef_a_b203004_kama_m.mdl
+
+		* ef_a_b203004_wind_m.anm
+
+		* ef_a_b203004_wind_m.mdl
+
+		* ef_a_b203004_zan_m.anm
+
+		* ef_a_b203004_zan_m.mdl
+
+		* ef_a_b203007_wind_m.anm
+
+		* ef_a_b203007_wind_m.mdl
+
+		* ef_a_b203007_zan_m.anm
+
+		* ef_a_b203007_zan_m.mdl
+
+		* ef_a_b203010_me_m.anm
+
+		* ef_a_b203010_me_m.mdl
+
+		* ef_a_b203010_zan_m.anm
+
+		* ef_a_b203010_zan_m.mdl
+
+		* ef_a_b203011_zan_m.anm
+
+		* ef_a_b203011_zan_m.mdl
+
+		* ef_m_203002_cha2_m.anm
+
+		* ef_m_203002_cha2_m.mdl
+
+		* ef_m_203002_cha3_m.anm
+
+		* ef_m_203002_cha3_m.mdl
+
+		* ef_m_203002_cha4_m.anm
+
+		* ef_m_203002_cha4_m.mdl
+
+		* ef_m_203002_sub_m.mdl
+
+		* ef_m_fire_01_m.anm
+
+		* ef_m_fire_01_m.mdl
+
+		* ef_m_sub_01_m.anm
+
+		* ef_m_sub_01_m.mdl
+
+		* ef_m_wave_01_m.anm
+
+		* ef_m_wave_01_m.mdl
+
 * param
 
 	* 1.bin

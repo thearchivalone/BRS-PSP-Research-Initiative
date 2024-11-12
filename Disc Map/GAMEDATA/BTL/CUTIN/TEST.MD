@@ -8,7 +8,19 @@
 
 * eb99012.efc
 
+	* Contents
+
+		* eb999012.esb
+
+		* ef_a_s01_tubu_m.mdl
+
 * eb99022.efc
+
+	* Contents
+
+		* eb999022.esb
+
+		* ef_a_scr.ptm
 
 * test.bms
 
