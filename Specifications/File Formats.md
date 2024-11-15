@@ -113,6 +113,7 @@ This documentation is mostly here to help structure, describe and name the vario
 	* Shares the same Namespace as the BRS model meaning it's probably a scrapped Player character
 	* The header suggests that there may have been a scrapped Multiplayer mode and this was the character for it
 	* Codenamed ZIG in the files
+	* Has almost as many bones as most of the BRS models and contains some Animation data (but not the same way to access it as most other models minus some equipment, gadgets and skills)
 
 ==================================================================
 * Tentative Name: Scripted Skeletal Character Rigging
@@ -190,6 +191,9 @@ This documentation is mostly here to help structure, describe and name the vario
 * Extension: .cam (if INSA structures are found)
 * Header: INSM
 * Purpose: Stores model data without the texture or material data
+* Notes:
+	* Despite having the `.cam` extension, these quite possibly might not be necessarily camera related; the name could be short for something along the lines of Character Animation / Armateur Matrix due to these being primarily found within the Battle system as parts of what makes up the fragmented models
+	* If they didn't change anything with the structure of these, then these should have bones while their MDL counterparts shouldn't have any (haven't tested enough)
 * Structure:
 	* See the next section for structure; they're both mostly the same
 
@@ -219,13 +223,16 @@ This documentation is mostly here to help structure, describe and name the vario
 * Purpose: Stores animation and armateur data
 * Notes:
 	* Can be embedded inside of an INSM container
-	* 24-byte name string found at Offset -0x18 from start when embedded
+	* 24-byte name string found at Offset -0x18 from start when embedded (Mostly applies to Battle models)
+	* The number of INSAs found in an SC model represents how many bones that model has
+	* Wherever the chain that starts at 0x28 ends (final value looks something like 0x04 0x03 0xff 0xff), the next byte over has the offset from that address to somewhere around the data section that contains physics and/or animation data.
+	* There's an offset somewhere around that address if it doesn't land within that data section and probably will repeat this process until it reaches that section
 * Structure:
 	* 0x1c - Offset from Header / Size of file
+	* 0x14 - 0x28 - Animation section; 0x20 - Ignore it
 	* 0x18 - End of data address before padding
-	* 0x2c - Address to a table of addresses to other tables and locations in memory; may be related to rigging or bones but not completely sure yet
-	* 0x28 - (2-bytes) Address to Unknown Data Section
-	* 0x1d8 - Unknown Data starts here
+	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed before jumping to the section offset at the next byte over 
+	* ox2c - Default start value for the calculations at 0x28; varies by file and how many calculations performed
 
 ==================================================================
 * Tentative Name: Extensible Text Container
