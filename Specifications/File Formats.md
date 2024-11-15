@@ -110,10 +110,16 @@ This documentation is mostly here to help structure, describe and name the vario
 * Purpose: Possible unused Player Character model
 * Notes:
 	* Seems to be the only SC container that doesn't have an SSCR section but instead contains an extra SCMP section in its place
+	* Contains 3 SCMP headers total
 	* Shares the same Namespace as the BRS model meaning it's probably a scrapped Player character
 	* The header suggests that there may have been a scrapped Multiplayer mode and this was the character for it
 	* Codenamed ZIG in the files
 	* Has almost as many bones as most of the BRS models and contains some Animation data (but not the same way to access it as most other models minus some equipment, gadgets and skills)
+	* The 0x20 math calculations (see my INSA notes on that part) for the second bone are bugged; their final result seems to be one of the few inconsistencies among the models
+* Structure:
+	* 0x04 - Offset of first SCMP / Internal Container instance - Main Container
+	* 0x08 - Offset of second SCMP / Internal Container instance - Mesh Container
+	* 0x0c - Offset of third SCMP / Internal Container instance - Armateur Container
 
 ==================================================================
 * Tentative Name: Scripted Skeletal Character Rigging
@@ -222,16 +228,20 @@ This documentation is mostly here to help structure, describe and name the vario
 * Header: INSA
 * Purpose: Stores animation and armateur data
 * Notes:
+	* APData - Animation / Physics Data (until loaded into a modleing software, this is just a guess)
 	* Can be embedded inside of an INSM container
 	* 24-byte name string found at Offset -0x18 from start when embedded (Mostly applies to Battle models)
 	* The number of INSAs found in an SC model represents how many bones that model has
-	* Wherever the chain that starts at 0x28 ends (final value looks something like 0x04 0x03 0xff 0xff), the next byte over has the offset from that address to somewhere around the data section that contains physics and/or animation data.
-	* There's an offset somewhere around that address if it doesn't land within that data section and probably will repeat this process until it reaches that section
+	* The two calculation types for determining where to jump to to get to APData section:
+		* 0x28 - Calculate data over a known range of addresses each offset by 0x24 bytes
+		* 0x20 - Calculate data by an unknown total quantity with an offset of 0x08 bytes per calculation and a bit shift by 1 to the left on the first byte to stop it
 * Structure:
 	* 0x1c - Offset from Header / Size of file
-	* 0x14 - 0x28 - Animation section; 0x20 - Ignore it
+	* 0x14 - 0x28 - Default calculation type; 0x20 - Alternative calculation type (used primarily for ZIG and some of the models in the G Namespace)
 	* 0x18 - End of data address before padding
-	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed before jumping to the section offset at the next byte over 
+	* 0x20 - Seems only important for alternative calculation type
+	* 0x24 - Equivalent to 0x2c for 0x20
+	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed before jumping to the APData section offset at the next byte over
 	* ox2c - Default start value for the calculations at 0x28; varies by file and how many calculations performed
 
 ==================================================================

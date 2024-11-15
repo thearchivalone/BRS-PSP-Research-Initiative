@@ -14,9 +14,15 @@
 
   * 0: b480
 
+    * Animation / Physics Data (Approximation): b6c0
+
   * 1: f3b0
 
+    * Animation / Physics Data (Approximation): f5f0
+
   * 2: 10980
+
+    * Animation / Physics Data (Approximation): 10bc0
 =====================================================================
 
 *Copyright 2024 - Brad D*

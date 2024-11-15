@@ -15,6 +15,8 @@
 * Located At:
 
   * 0: 7830
+
+    * Animation / Physics Data (Approximation): 7bd8
 =====================================================================
 
 *Copyright 2024 - Brad D*

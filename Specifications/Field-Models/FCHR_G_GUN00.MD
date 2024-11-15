@@ -23,6 +23,8 @@
 * Located At:
 
   * 0: 1b300
+
+    * Animation / Physics Data (Approximation): 1bb28
 =====================================================================
 
 *Copyright 2024 - Brad D*
