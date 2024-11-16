@@ -13,8 +13,7 @@ savepos CUR_POS
 for i = 0 < LINES
 	goto CUR_POS
 	get VERTEX float
+	string C p "%x" CUR_POS
+	print "CUR_POS: %C% <=> VERTEX: %VERTEX%"
 	savepos CUR_POS
-	if VERTEX > -257 & VERTEX < 257 # Vertex data is primarily between -0xff and 0xff despite being stored in 4-byte chunks
-		print "CUR_POS: %CUR_POS% <=> VERTEX: %VERTEX%"
-	endif
 next i

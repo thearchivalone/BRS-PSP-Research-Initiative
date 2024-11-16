@@ -14,7 +14,7 @@
 
 * Tentative Name: Skeletal Container
 * Type: Container / 3D Pipeline Data
-* Extension: .sc(hierarchy value)
+* Extension: .sc
 * Header: SC
 * Purpose: Houses the main models, riggings and animation data
 * Notes:

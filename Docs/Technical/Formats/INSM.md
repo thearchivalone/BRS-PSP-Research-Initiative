@@ -32,10 +32,11 @@
 	* Vertex Stride seems to vary a bit depending on where the model will be seen in game; ranges between 4 and 8 lines from what I've observed with some junk here and there that must be skipped on read
 	* Vertex Data Section ranges from where 0x3c starts to just before the location at 0x34
 * Structure:
+	* 0x08 - Address to Unknown Data Section with possible model data
 	* 0x10 - Address where padding starts before embedded section
 	* 0x18 - Address to unknown data structure
 	* 0x24 - Address where the math calculation tables start
 	* 0x28 - Start position of Unknown Data section - patterns of floats have been found here and at 0x2c but not sure what they're for yet
 	* 0x2c - Offset from 0x28 to get to the a Second Unknown Data Section
 	* 0x34 - Offset of PTMD or alternative structures from Header
-	* 0x3c - Vertex Data Section Start Address (where model quads are found)
+	* 0x3c - Vertex Data Section Start Address (where original model quads were found)

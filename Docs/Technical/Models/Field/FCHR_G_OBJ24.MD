@@ -12,13 +12,26 @@
 
 ---
 
+
+* UV Maps: Unknown
+
+---
+
+* Normal Maps: Unknown
+
+---
+
+* Textures: Unknown
+
+---
+
 * Meshes: 2
 
 * Located At:
 
-  * 0: 2e80
+  * 0: 0x2e80
 
-  * 1: 36d0
+  * 1: 0x36d0
 
 ---
 
@@ -26,29 +39,41 @@
 
 * Located At:
 
-  * 0: 4740
-
-    * Animation / Physics Data (Approximation): 545c
+  * 0: 0x4740
 
     * Calculation Type: 0x28
 
-    * Calculation Result: c88
+    * Calculations: 0x01
 
-  * 1: 96a0
+    * Calculation Result: 0xc88
 
-    * Animation / Physics Data (Approximation): a3bc
+    * Animation / Physics Data (APData) Address: 0x545c (Approximation)
 
-    * Calculation Type: 0x28
+    * Offset to APData: Currently Unknown
 
-    * Calculation Result: c88
-
-  * 2: 26d80
-
-    * Animation / Physics Data (Approximation): 27a9c
+  * 1: 0x96a0
 
     * Calculation Type: 0x28
 
-    * Calculation Result: c88
+    * Calculations: 0x01
+
+    * Calculation Result: 0xc88
+
+    * Animation / Physics Data (APData) Address: 0xa3bc (Approximation)
+
+    * Offset to APData: Currently Unknown
+
+  * 2: 0x26d80
+
+    * Calculation Type: 0x28
+
+    * Calculations: 0x01
+
+    * Calculation Result: 0xc88
+
+    * Animation / Physics Data (APData) Address: 0x27a9c (Approximation)
+
+    * Offset to APData: Currently Unknown
 
 ---
 

@@ -12,21 +12,34 @@
 
 ---
 
+
+* UV Maps: Unknown
+
+---
+
+* Normal Maps: Unknown
+
+---
+
+* Textures: Unknown
+
+---
+
 * Meshes: 6
 
 * Located At:
 
-  * 0: 273b0
+  * 0: 0x273b0
 
-  * 1: 377c0
+  * 1: 0x377c0
 
-  * 2: 399d0
+  * 2: 0x399d0
 
-  * 3: 39fe0
+  * 3: 0x39fe0
 
-  * 4: 3a5f0
+  * 4: 0x3a5f0
 
-  * 5: 3c800
+  * 5: 0x3c800
 
 ---
 

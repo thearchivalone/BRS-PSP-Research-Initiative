@@ -12,17 +12,30 @@
 
 ---
 
+
+* UV Maps: Unknown
+
+---
+
+* Normal Maps: Unknown
+
+---
+
+* Textures: Unknown
+
+---
+
 * Meshes: 4
 
 * Located At:
 
-  * 0: 1f850
+  * 0: 0x1f850
 
-  * 1: 2fc60
+  * 1: 0x2fc60
 
-  * 2: 30cb0
+  * 2: 0x30cb0
 
-  * 3: 314c0
+  * 3: 0x314c0
 
 ---
 
@@ -30,45 +43,65 @@
 
 * Located At:
 
-  * 0: 31db0
-
-    * Animation / Physics Data (Approximation): 3327c
+  * 0: 0x31db0
 
     * Calculation Type: 0x28
 
-    * Calculation Result: 13eb8
+    * Calculations: 0x1f
 
-  * 1: 343c0
+    * Calculation Result: 0x13eb8
 
-    * Animation / Physics Data (Approximation): 3588c
+    * Animation / Physics Data (APData) Address: 0x3327c (Approximation)
 
-    * Calculation Type: 0x28
+    * Offset to APData: Currently Unknown
 
-    * Calculation Result: 13eb8
-
-  * 2: 36c00
-
-    * Animation / Physics Data (Approximation): 380cc
+  * 1: 0x343c0
 
     * Calculation Type: 0x28
 
-    * Calculation Result: 13eb8
+    * Calculations: 0x1f
 
-  * 3: 3ada0
+    * Calculation Result: 0x13eb8
 
-    * Animation / Physics Data (Approximation): 3c26c
+    * Animation / Physics Data (APData) Address: 0x3588c (Approximation)
 
-    * Calculation Type: 0x28
+    * Offset to APData: Currently Unknown
 
-    * Calculation Result: 13eb8
-
-  * 4: 3e010
-
-    * Animation / Physics Data (Approximation): 3f4dc
+  * 2: 0x36c00
 
     * Calculation Type: 0x28
 
-    * Calculation Result: 13eb8
+    * Calculations: 0x1f
+
+    * Calculation Result: 0x13eb8
+
+    * Animation / Physics Data (APData) Address: 0x380cc (Approximation)
+
+    * Offset to APData: Currently Unknown
+
+  * 3: 0x3ada0
+
+    * Calculation Type: 0x28
+
+    * Calculations: 0x1f
+
+    * Calculation Result: 0x13eb8
+
+    * Animation / Physics Data (APData) Address: 0x3c26c (Approximation)
+
+    * Offset to APData: Currently Unknown
+
+  * 4: 0x3e010
+
+    * Calculation Type: 0x28
+
+    * Calculations: 0x1f
+
+    * Calculation Result: 0x13eb8
+
+    * Animation / Physics Data (APData) Address: 0x3f4dc (Approximation)
+
+    * Offset to APData: Currently Unknown
 
 ---
 
