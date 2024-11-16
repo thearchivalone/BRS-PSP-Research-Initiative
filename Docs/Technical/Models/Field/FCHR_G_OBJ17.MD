@@ -19,9 +19,14 @@
 * Bones: 1
 
 * Located At:
-  
+
   * 0: bb0
-    
+
     * Animation / Physics Data (Approximation): cb4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 70
+
 ---
+

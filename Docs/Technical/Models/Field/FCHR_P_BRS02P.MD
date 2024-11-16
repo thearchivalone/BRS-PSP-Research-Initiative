@@ -15,19 +15,19 @@
 * Meshes: 7
 
 * Located At:
-  
+
   * 0: 32240
-  
+
   * 1: 42650
-  
+
   * 2: 436a0
-  
+
   * 3: 43eb0
-  
+
   * 4: 446c0
-  
+
   * 5: 44af0
-  
+
   * 6: 45b20
 
 ---
@@ -35,93 +35,182 @@
 * Bones: 22
 
 * Located At:
-  
+
   * 0: 46c30
-    
+
     * Animation / Physics Data (Approximation): 48ad4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 1: 4a6f0
-    
+
     * Animation / Physics Data (Approximation): 4c594
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 2: 4ff60
-    
+
     * Animation / Physics Data (Approximation): 51e04
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 3: 54900
-    
+
     * Animation / Physics Data (Approximation): 567a4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 4: 59f20
-    
+
     * Animation / Physics Data (Approximation): 5bdc4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 5: 5d7a0
-    
+
     * Animation / Physics Data (Approximation): 5f644
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 6: 627a0
-    
+
     * Animation / Physics Data (Approximation): 64644
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 7: 67740
-    
+
     * Animation / Physics Data (Approximation): 695e4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 8: 6b450
-    
+
     * Animation / Physics Data (Approximation): 6d2f4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 9: 710f0
-    
+
     * Animation / Physics Data (Approximation): 72f94
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 10: 76d90
-    
+
     * Animation / Physics Data (Approximation): 78c34
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 11: 7a610
-    
+
     * Animation / Physics Data (Approximation): 7c4b4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 12: 7d940
-    
+
     * Animation / Physics Data (Approximation): 7f7e4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 13: 83980
-    
+
     * Animation / Physics Data (Approximation): 85824
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 14: 89da0
-    
+
     * Animation / Physics Data (Approximation): 8bc44
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 15: 8e460
-    
+
     * Animation / Physics Data (Approximation): 90304
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 16: 91450
-    
+
     * Animation / Physics Data (Approximation): 932f4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 17: 95f80
-    
+
     * Animation / Physics Data (Approximation): 97e24
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 18: 99540
-    
+
     * Animation / Physics Data (Approximation): 9b3e4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 19: 9fe40
-    
+
     * Animation / Physics Data (Approximation): a1ce4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 20: a6450
-    
+
     * Animation / Physics Data (Approximation): a82f4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 21: a9c10
-    
+
     * Animation / Physics Data (Approximation): abab4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
 ---
+

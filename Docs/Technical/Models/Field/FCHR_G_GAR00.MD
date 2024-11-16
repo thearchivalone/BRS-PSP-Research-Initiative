@@ -30,5 +30,9 @@
 
     * Animation / Physics Data (Approximation): 7bd8
 
+    * Calculation Type: 0x20
+
+    * Calculation Result: 380
+
 ---
 

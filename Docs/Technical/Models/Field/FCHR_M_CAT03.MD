@@ -28,17 +28,33 @@
 
     * Animation / Physics Data (Approximation): 1ff04
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 55c0
+
   * 1: 23b40
 
     * Animation / Physics Data (Approximation): 24634
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 55c0
 
   * 2: 261f0
 
     * Animation / Physics Data (Approximation): 26ce4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 55c0
+
   * 3: 288a0
 
     * Animation / Physics Data (Approximation): 29394
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 55c0
 
 ---
 

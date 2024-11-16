@@ -36,33 +36,65 @@
 
     * Animation / Physics Data (Approximation): 36624
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
+
   * 1: 37da0
 
     * Animation / Physics Data (Approximation): 39464
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
 
   * 2: 3a8d0
 
     * Animation / Physics Data (Approximation): 3bf94
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
+
   * 3: 3ea30
 
     * Animation / Physics Data (Approximation): 400f4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
 
   * 4: 41340
 
     * Animation / Physics Data (Approximation): 42a04
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
+
   * 5: 49620
 
     * Animation / Physics Data (Approximation): 4ace4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
 
   * 6: 4ca80
 
     * Animation / Physics Data (Approximation): 4e144
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
+
   * 7: 50af0
 
     * Animation / Physics Data (Approximation): 521b4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 17f08
 
 ---
 

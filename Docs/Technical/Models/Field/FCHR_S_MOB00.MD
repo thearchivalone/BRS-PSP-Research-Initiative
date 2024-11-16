@@ -15,15 +15,15 @@
 * Meshes: 5
 
 * Located At:
-  
+
   * 0: 140c0
-  
+
   * 1: 182d0
-  
+
   * 2: 1a4e0
-  
+
   * 3: 1b6f0
-  
+
   * 4: 1b920
 
 ---
@@ -31,45 +31,86 @@
 * Bones: 10
 
 * Located At:
-  
+
   * 0: 1db90
-    
+
     * Animation / Physics Data (Approximation): 1ebc4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 1: 1fd40
-    
+
     * Animation / Physics Data (Approximation): 20d74
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 2: 21e90
-    
+
     * Animation / Physics Data (Approximation): 22ec4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 3: 25620
-    
+
     * Animation / Physics Data (Approximation): 26654
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 4: 2a040
-    
+
     * Animation / Physics Data (Approximation): 2b074
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 5: 2e320
-    
+
     * Animation / Physics Data (Approximation): 2f354
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 6: 31c70
-    
+
     * Animation / Physics Data (Approximation): 32ca4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 7: 36230
-    
+
     * Animation / Physics Data (Approximation): 37264
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 8: 39810
-    
+
     * Animation / Physics Data (Approximation): 3a844
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
   * 9: 3e260
-    
+
     * Animation / Physics Data (Approximation): 3f294
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: bfa0
+
 ---
+

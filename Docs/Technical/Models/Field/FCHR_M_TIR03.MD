@@ -15,7 +15,7 @@
 * Meshes: 1
 
 * Located At:
-  
+
   * 0: dff0
 
 ---
@@ -23,21 +23,38 @@
 * Bones: 4
 
 * Located At:
-  
+
   * 0: 16500
-    
+
     * Animation / Physics Data (Approximation): 16ab4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 15e0
+
   * 1: 17040
-    
+
     * Animation / Physics Data (Approximation): 175f4
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 15e0
+
   * 2: 17ad0
-    
+
     * Animation / Physics Data (Approximation): 18084
-  
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 15e0
+
   * 3: 18560
-    
+
     * Animation / Physics Data (Approximation): 18b14
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 15e0
+
 ---
+

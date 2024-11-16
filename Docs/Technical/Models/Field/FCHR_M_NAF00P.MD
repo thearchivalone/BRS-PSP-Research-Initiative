@@ -15,7 +15,7 @@
 * Meshes: 1
 
 * Located At:
-  
+
   * 0: 3a30
 
 ---
@@ -23,9 +23,14 @@
 * Bones: 1
 
 * Located At:
-  
+
   * 0: 7c50
-    
+
     * Animation / Physics Data (Approximation): 80b4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: c78
+
 ---
+

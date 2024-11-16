@@ -40,49 +40,97 @@
 
     * Animation / Physics Data (Approximation): 44184
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 1: 47bc0
 
     * Animation / Physics Data (Approximation): 49a64
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
   * 2: 4c050
 
     * Animation / Physics Data (Approximation): 4def4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 3: 4fb10
 
     * Animation / Physics Data (Approximation): 519b4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
   * 4: 54b10
 
     * Animation / Physics Data (Approximation): 569b4
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 5: 59ab0
 
     * Animation / Physics Data (Approximation): 5b954
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
   * 6: 629f0
 
     * Animation / Physics Data (Approximation): 64894
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 7: 6bbd0
 
     * Animation / Physics Data (Approximation): 6da74
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
   * 8: 754b0
 
     * Animation / Physics Data (Approximation): 77354
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 9: 7c420
 
     * Animation / Physics Data (Approximation): 7e2c4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
   * 10: 811f0
 
     * Animation / Physics Data (Approximation): 83094
 
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
+
   * 11: 86a40
 
     * Animation / Physics Data (Approximation): 888e4
+
+    * Calculation Type: 0x28
+
+    * Calculation Result: 2bb58
 
 ---
 
