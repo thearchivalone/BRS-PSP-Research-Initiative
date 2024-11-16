@@ -12,16 +12,6 @@ $assets_dir = "Assets"
 $models_dir = $assets_dir + "\Models"
 $audio_dir = $assets_dir + "\Audio"
 
-$quickbms_url = 'https://aluigi.altervista.org/papers/quickbms.zip'
-$quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
-$quickbms_command = $tools_dir + "\quickbms.exe"
-$quickbms_command = Get-Item -Path $quickbms_command | % { $_.FullName }
-
-$vgmstream_url = 'https://github.com/vgmstream/vgmstream/releases/download/r1951/vgmstream-win64.zip'
-$vgmstream_zip = $(Split-Path -Path $vgmstream_url -Leaf)
-$vgmstream_command = $tools_dir + "\vgmstream-cli.exe"
-$vgmstream_command = Get-Item -Path $vgmstream_command | % { $_.FullName }
-
 $extraction_script = "Scripts\BRS-Extract.bms"
 $extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
 
@@ -34,6 +24,10 @@ Write-Output "Checking If Required Extraction Tools Are Available"
 if (!(Test-Path -Path $tools_dir -PathType Container)) {
 	New-Item -Path . -Name $tools_dir -ItemType Directory | Out-Null
 }
+
+$quickbms_url = 'https://aluigi.altervista.org/papers/quickbms.zip'
+$quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
+$quickbms_command = $tools_dir + "\quickbms.exe"
 
 Write-Output "Checking QuickBMS"
 
@@ -68,6 +62,8 @@ if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
 		exit
 	}
 }
+
+$quickbms_command = Get-Item -Path $quickbms_command | % { $_.FullName }
 
 Start-Sleep $sleep
 
