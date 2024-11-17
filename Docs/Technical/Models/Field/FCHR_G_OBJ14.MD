@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Game Object / Gimmick
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -43,6 +42,8 @@
 
   * 0: 0xa6a0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x05
@@ -51,9 +52,11 @@
 
     * Animation / Physics Data (APData) Address: 0xaa5c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0xad10
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -63,9 +66,11 @@
 
     * Animation / Physics Data (APData) Address: 0xb0cc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0xb640
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -75,9 +80,11 @@
 
     * Animation / Physics Data (APData) Address: 0xb9fc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0xbfa0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -87,7 +94,7 @@
 
     * Animation / Physics Data (APData) Address: 0xc35c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

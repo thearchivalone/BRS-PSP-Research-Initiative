@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Mob
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -41,6 +40,8 @@
 
   * 0: 0x21a40
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x16
@@ -49,9 +50,11 @@
 
     * Animation / Physics Data (APData) Address: 0x22924 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x243a0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -61,9 +64,11 @@
 
     * Animation / Physics Data (APData) Address: 0x25284 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x25ae0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -73,9 +78,11 @@
 
     * Animation / Physics Data (APData) Address: 0x269c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x27220
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -85,7 +92,7 @@
 
     * Animation / Physics Data (APData) Address: 0x28104 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Weapon / Skill
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -43,6 +42,8 @@
 
   * 0: 0x389b0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x0c
@@ -51,7 +52,7 @@
 
     * Animation / Physics Data (APData) Address: 0x391bc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

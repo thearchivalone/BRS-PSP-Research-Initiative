@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Mii
+
+* Part: Arms / Weapons
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -49,6 +52,8 @@
 
   * 0: 0x3ea20
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x23
@@ -57,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0x4018c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x41590
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -69,7 +76,7 @@
 
     * Animation / Physics Data (APData) Address: 0x42cfc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

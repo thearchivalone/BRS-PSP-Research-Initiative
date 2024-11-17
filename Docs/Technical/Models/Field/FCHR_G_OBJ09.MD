@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Game Object / Gimmick
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 

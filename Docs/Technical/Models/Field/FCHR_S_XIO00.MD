@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Soldier
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -51,6 +50,8 @@
 
   * 0: 0x1ef70
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x18
@@ -59,9 +60,11 @@
 
     * Animation / Physics Data (APData) Address: 0x1ffa4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x21120
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -71,9 +74,11 @@
 
     * Animation / Physics Data (APData) Address: 0x22154 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x23270
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -83,9 +88,11 @@
 
     * Animation / Physics Data (APData) Address: 0x242a4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x26a00
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -95,9 +102,11 @@
 
     * Animation / Physics Data (APData) Address: 0x27a34 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 4: 0x2b420
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -107,9 +116,11 @@
 
     * Animation / Physics Data (APData) Address: 0x2c454 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 5: 0x2f9e0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -119,9 +130,11 @@
 
     * Animation / Physics Data (APData) Address: 0x30a14 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 6: 0x32fc0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -131,9 +144,11 @@
 
     * Animation / Physics Data (APData) Address: 0x33ff4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 7: 0x37a10
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -143,9 +158,11 @@
 
     * Animation / Physics Data (APData) Address: 0x38a44 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 8: 0x3e4f0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -155,7 +172,7 @@
 
     * Animation / Physics Data (APData) Address: 0x3f7c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

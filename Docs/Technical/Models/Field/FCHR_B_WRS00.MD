@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name:  White Rock Shooter
+
+* Part: Body
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -45,6 +48,8 @@
 
   * 0: 0x36d20
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x28
@@ -53,9 +58,11 @@
 
     * Animation / Physics Data (APData) Address: 0x387d4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x3a460
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -65,9 +72,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3bf14 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x3dc10
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -77,7 +86,7 @@
 
     * Animation / Physics Data (APData) Address: 0x3f6c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

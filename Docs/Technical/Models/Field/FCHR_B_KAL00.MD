@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Karli
+
+* Part: Body
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -45,6 +48,8 @@
 
   * 0: 0x33790
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x24
@@ -53,9 +58,11 @@
 
     * Animation / Physics Data (APData) Address: 0x34fa4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x36ab0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -65,9 +72,11 @@
 
     * Animation / Physics Data (APData) Address: 0x382c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x3f3d0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -77,7 +86,7 @@
 
     * Animation / Physics Data (APData) Address: 0x40be4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

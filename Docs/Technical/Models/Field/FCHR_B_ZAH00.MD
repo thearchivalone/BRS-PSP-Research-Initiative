@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Zaha
+
+* Part: Body
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -45,6 +48,8 @@
 
   * 0: 0x31db0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x1f
@@ -53,9 +58,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3327c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x343c0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -65,9 +72,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3588c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x36c00
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -77,9 +86,11 @@
 
     * Animation / Physics Data (APData) Address: 0x380cc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x3ada0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -89,9 +100,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3c26c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 4: 0x3e010
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -101,7 +114,7 @@
 
     * Animation / Physics Data (APData) Address: 0x3f4dc (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

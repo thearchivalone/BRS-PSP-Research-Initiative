@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Test
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -39,6 +38,8 @@
 
   * 0: 0xb480
 
+    * Name: Unknown
+
     * Calculation Type: 0x20
 
     * Calculations: 0x01
@@ -47,9 +48,11 @@
 
     * Animation / Physics Data (APData) Address: 0xb6c0 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0xf3b0
+
+    * Name: Unknown
 
     * Calculation Type: 0x20
 
@@ -59,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0xf5f0 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x10980
+
+    * Name: Unknown
 
     * Calculation Type: 0x20
 
@@ -71,7 +76,7 @@
 
     * Animation / Physics Data (APData) Address: 0x10bc0 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

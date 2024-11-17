@@ -12,14 +12,15 @@
 
 ---
 
+* Namespace: Player
+
+* Part: Accessories
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -51,6 +52,8 @@
 
   * 0: 0x422e0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -59,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0x44184 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x47bc0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -71,9 +76,11 @@
 
     * Animation / Physics Data (APData) Address: 0x49a64 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x4c050
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -83,9 +90,11 @@
 
     * Animation / Physics Data (APData) Address: 0x4def4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x4fb10
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -95,9 +104,11 @@
 
     * Animation / Physics Data (APData) Address: 0x519b4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 4: 0x54b10
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -107,9 +118,11 @@
 
     * Animation / Physics Data (APData) Address: 0x569b4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 5: 0x59ab0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -119,9 +132,11 @@
 
     * Animation / Physics Data (APData) Address: 0x5b954 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 6: 0x629f0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -131,9 +146,11 @@
 
     * Animation / Physics Data (APData) Address: 0x64894 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 7: 0x6bbd0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -143,9 +160,11 @@
 
     * Animation / Physics Data (APData) Address: 0x6da74 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 8: 0x754b0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -155,9 +174,11 @@
 
     * Animation / Physics Data (APData) Address: 0x77354 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 9: 0x7c420
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -167,9 +188,11 @@
 
     * Animation / Physics Data (APData) Address: 0x7e2c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 10: 0x811f0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -179,9 +202,11 @@
 
     * Animation / Physics Data (APData) Address: 0x83094 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 11: 0x86a40
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -191,7 +216,7 @@
 
     * Animation / Physics Data (APData) Address: 0x888e4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Weapon / Skill
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -39,6 +38,8 @@
 
   * 0: 0x35bf0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x10
@@ -47,9 +48,11 @@
 
     * Animation / Physics Data (APData) Address: 0x366e4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x36d80
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -59,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0x37874 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x381d0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -71,7 +76,7 @@
 
     * Animation / Physics Data (APData) Address: 0x38cc4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Mazuma
+
+* Part: Body
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -49,6 +52,8 @@
 
   * 0: 0x463c0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x20
@@ -57,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0x47934 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x48b50
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -69,9 +76,11 @@
 
     * Animation / Physics Data (APData) Address: 0x4a0c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x4daa0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -81,7 +90,7 @@
 
     * Animation / Physics Data (APData) Address: 0x4f014 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

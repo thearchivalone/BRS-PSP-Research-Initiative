@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Soldier
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -53,6 +52,8 @@
 
   * 0: 0x22700
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x1c
@@ -61,9 +62,11 @@
 
     * Animation / Physics Data (APData) Address: 0x239d4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x24e50
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -73,9 +76,11 @@
 
     * Animation / Physics Data (APData) Address: 0x26124 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x27490
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -85,9 +90,11 @@
 
     * Animation / Physics Data (APData) Address: 0x284c4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x2b770
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -97,9 +104,11 @@
 
     * Animation / Physics Data (APData) Address: 0x2c7a4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 4: 0x2f0c0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -109,7 +118,7 @@
 
     * Animation / Physics Data (APData) Address: 0x30394 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Soldier
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -47,6 +46,8 @@
 
   * 0: 0x1dba0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x18
@@ -55,9 +56,11 @@
 
     * Animation / Physics Data (APData) Address: 0x1ebd4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x1fd50
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -67,9 +70,11 @@
 
     * Animation / Physics Data (APData) Address: 0x20d84 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x21ea0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -79,9 +84,11 @@
 
     * Animation / Physics Data (APData) Address: 0x22ed4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 3: 0x25630
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -91,9 +98,11 @@
 
     * Animation / Physics Data (APData) Address: 0x26664 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 4: 0x2a050
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -103,9 +112,11 @@
 
     * Animation / Physics Data (APData) Address: 0x2b084 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 5: 0x2e610
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -115,9 +126,11 @@
 
     * Animation / Physics Data (APData) Address: 0x2f644 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 6: 0x31bf0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -127,9 +140,11 @@
 
     * Animation / Physics Data (APData) Address: 0x32c24 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 7: 0x33610
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -139,7 +154,7 @@
 
     * Animation / Physics Data (APData) Address: 0x34644 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

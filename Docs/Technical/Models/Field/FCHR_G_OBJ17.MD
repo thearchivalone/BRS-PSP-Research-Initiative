@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Game Object / Gimmick
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -35,6 +34,8 @@
 
   * 0: 0xbb0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x01
@@ -43,7 +44,7 @@
 
     * Animation / Physics Data (APData) Address: 0xcb4 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

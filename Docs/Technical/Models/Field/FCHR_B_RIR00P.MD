@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Lilio
+
+* Part: Arms / Weapons
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -47,6 +50,8 @@
 
   * 0: 0x44ac0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x1f
@@ -55,7 +60,7 @@
 
     * Animation / Physics Data (APData) Address: 0x45f8c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

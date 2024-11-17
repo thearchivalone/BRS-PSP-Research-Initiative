@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Zaha
+
+* Part: Arms / Weapons
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -47,6 +50,8 @@
 
   * 0: 0x672d0
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x22
@@ -55,7 +60,7 @@
 
     * Animation / Physics Data (APData) Address: 0x68df0 (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 

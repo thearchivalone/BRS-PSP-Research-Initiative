@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Zaha
+
+* Part: Accessories
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 

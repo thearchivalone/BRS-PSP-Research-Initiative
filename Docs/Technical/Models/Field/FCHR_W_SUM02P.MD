@@ -12,14 +12,13 @@
 
 ---
 
+* Namespace: Weapon / Skill
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 

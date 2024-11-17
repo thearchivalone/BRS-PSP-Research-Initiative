@@ -12,14 +12,17 @@
 
 ---
 
+* Namespace: Boss
+
+* Name: Shizu
+
+* Part: Arms / Weapons
+
+---
 
 * UV Maps: Unknown
 
----
-
 * Normal Maps: Unknown
-
----
 
 * Textures: Unknown
 
@@ -51,6 +54,8 @@
 
   * 0: 0x3a530
 
+    * Name: Unknown
+
     * Calculation Type: 0x28
 
     * Calculations: 0x25
@@ -59,9 +64,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3bdec (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 1: 0x3d8b0
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -71,9 +78,11 @@
 
     * Animation / Physics Data (APData) Address: 0x3f16c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
   * 2: 0x45250
+
+    * Name: Unknown
 
     * Calculation Type: 0x28
 
@@ -83,7 +92,7 @@
 
     * Animation / Physics Data (APData) Address: 0x46b0c (Approximation)
 
-    * Offset to APData: Currently Unknown
+    * Offset to APData: Unknown
 
 ---
 
