@@ -28,7 +28,7 @@
 * Structure:
 	* 0x1c - Offset from Header / Size of file
 	* 0x14 - 0x28 - Default calculation type; 0x20 - Alternative calculation type (used primarily for ZIG and some of the models in the G Namespace)
-	* 0x18 - End of data address before padding
+	* 0x18 - End of data Address (offset from Header) before padding
 	* 0x20 - Seems only important for alternative calculation type
 	* 0x24 - Equivalent to 0x2c for 0x20
 	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed before jumping to the APData section offset at the next byte over

@@ -54,6 +54,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -67,6 +69,8 @@
   * 1: 0x45b60
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x28
 
@@ -82,6 +86,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -95,6 +101,8 @@
   * 3: 0x4be50
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -110,6 +118,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -123,6 +133,8 @@
   * 5: 0x57d40
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -138,6 +150,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -151,6 +165,8 @@
   * 7: 0x612d0
 
     * Name: Unknown
+
+    * Bone Group: 3
 
     * Calculation Type: 0x28
 
@@ -166,6 +182,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 3
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -179,6 +197,8 @@
   * 9: 0x6b4e0
 
     * Name: Unknown
+
+    * Bone Group: 0
 
     * Calculation Type: 0x28
 
@@ -194,6 +214,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -207,6 +229,8 @@
   * 11: 0x75480
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -222,6 +246,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -235,6 +261,8 @@
   * 13: 0x7b760
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x28
 
@@ -250,6 +278,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 4
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -264,6 +294,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -277,6 +309,8 @@
   * 16: 0x86450
 
     * Name: Unknown
+
+    * Bone Group: 5
 
     * Calculation Type: 0x28
 

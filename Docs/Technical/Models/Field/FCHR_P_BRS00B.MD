@@ -54,6 +54,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -67,6 +69,8 @@
   * 1: 0x47bc0
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x28
 
@@ -82,6 +86,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -95,6 +101,8 @@
   * 3: 0x4fb10
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -110,6 +118,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -123,6 +133,8 @@
   * 5: 0x59ab0
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -138,6 +150,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 3
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -151,6 +165,8 @@
   * 7: 0x6bbd0
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x28
 
@@ -166,6 +182,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 3
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -179,6 +197,8 @@
   * 9: 0x7c420
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 
@@ -194,6 +214,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -207,6 +229,8 @@
   * 11: 0x86a40
 
     * Name: Unknown
+
+    * Bone Group: 4
 
     * Calculation Type: 0x28
 

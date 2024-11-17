@@ -52,6 +52,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x28
 
     * Calculations: 0x1f
@@ -66,6 +68,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x28
 
     * Calculations: 0x1f
@@ -79,6 +83,8 @@
   * 2: 0x4a470
 
     * Name: Unknown
+
+    * Bone Group: 2
 
     * Calculation Type: 0x28
 

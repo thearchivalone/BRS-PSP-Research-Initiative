@@ -46,6 +46,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -59,6 +61,8 @@
   * 1: 0x546c0
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x20
 
@@ -74,6 +78,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -87,6 +93,8 @@
   * 3: 0x5b2b0
 
     * Name: Unknown
+
+    * Bone Group: 3
 
     * Calculation Type: 0x20
 
@@ -102,6 +110,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -115,6 +125,8 @@
   * 5: 0x62670
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x20
 
@@ -130,6 +142,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -143,6 +157,8 @@
   * 7: 0x69df0
 
     * Name: Unknown
+
+    * Bone Group: 1
 
     * Calculation Type: 0x20
 
@@ -158,6 +174,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -171,6 +189,8 @@
   * 9: 0x6ecb0
 
     * Name: Unknown
+
+    * Bone Group: 0
 
     * Calculation Type: 0x20
 
@@ -186,6 +206,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 0
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -199,6 +221,8 @@
   * 11: 0x73660
 
     * Name: Unknown
+
+    * Bone Group: 0
 
     * Calculation Type: 0x20
 
@@ -214,6 +238,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 1
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -227,6 +253,8 @@
   * 13: 0x78a50
 
     * Name: Unknown
+
+    * Bone Group: 0
 
     * Calculation Type: 0x20
 
@@ -242,6 +270,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 2
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -256,6 +286,8 @@
 
     * Name: Unknown
 
+    * Bone Group: 3
+
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -269,6 +301,8 @@
   * 16: 0x85ef0
 
     * Name: Unknown
+
+    * Bone Group: 0
 
     * Calculation Type: 0x20
 
