@@ -14,7 +14,9 @@
 
 This documentation is meant to be a simple way to convey concepts based on my observations related to how the game's rendering system works with a heavy focus on the 3D rendering pipeline and design decisions. It's a fluid document and will be changed where needed as new discoveries are found but hopefully will help others understand how the game was built.
 
-* Everything is built using quads instead of triangles
+---
+
+* Models may be built on quads using a single straight line from one corner to the opposite and filling in the other corners by alternating which x and y go where in each end coordinates
 
 * Extracting most of the internal files like lpks, efps, etc is probably not the best way to handle them since they are essentially the entire model package shredded into smaller pieces so that they can be swapped out and reused when needed for battles; much of the data needed for converting to a more friendly format won't be found in just one part of each but instead spread out a bit.
 
