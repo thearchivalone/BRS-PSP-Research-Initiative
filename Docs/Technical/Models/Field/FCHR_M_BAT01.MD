@@ -56,9 +56,7 @@
 
     * Calculation Result: 0x244
 
-    * Animation / Physics Data (APData) Address: 0x186c8 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 1: 0x193a0
 
@@ -70,9 +68,7 @@
 
     * Calculation Result: 0x268
 
-    * Animation / Physics Data (APData) Address: 0x1969c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 2: 0x1bca0
 
@@ -84,9 +80,7 @@
 
     * Calculation Result: 0x244
 
-    * Animation / Physics Data (APData) Address: 0x1bf78 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
 ---
 

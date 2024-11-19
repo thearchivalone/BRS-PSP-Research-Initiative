@@ -58,9 +58,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x1ffa4 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 1: 0x21120
 
@@ -72,9 +70,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x22154 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 2: 0x23270
 
@@ -86,9 +82,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x242a4 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 3: 0x26a00
 
@@ -100,9 +94,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x27a34 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 4: 0x2b420
 
@@ -114,9 +106,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x2c454 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 5: 0x2f9e0
 
@@ -128,9 +118,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x30a14 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 6: 0x32fc0
 
@@ -142,9 +130,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x33ff4 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 7: 0x37a10
 
@@ -156,9 +142,7 @@
 
     * Calculation Result: 0xbfa0
 
-    * Animation / Physics Data (APData) Address: 0x38a44 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 8: 0x3e4f0
 
@@ -170,9 +154,7 @@
 
     * Calculation Result: 0x10450
 
-    * Animation / Physics Data (APData) Address: 0x3f7c4 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
 ---
 

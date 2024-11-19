@@ -56,15 +56,15 @@
 
     * Bone Group: 0
 
+    * Vertex Data Address: 0x3fe14
+
     * Calculation Type: 0x28
 
     * Calculations: 0x23
 
     * Calculation Result: 0x195c8
 
-    * Animation / Physics Data (APData) Address: 0x402cc (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 1: 0x416d0
 
@@ -72,15 +72,15 @@
 
     * Bone Group: 1
 
+    * Vertex Data Address: 0x42984
+
     * Calculation Type: 0x28
 
     * Calculations: 0x23
 
     * Calculation Result: 0x195c8
 
-    * Animation / Physics Data (APData) Address: 0x42e3c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 2: 0x454d0
 
@@ -88,15 +88,15 @@
 
     * Bone Group: 2
 
+    * Vertex Data Address: 0x467a4
+
     * Calculation Type: 0x28
 
     * Calculations: 0x23
 
     * Calculation Result: 0x195c8
 
-    * Animation / Physics Data (APData) Address: 0x46c3c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 3: 0x482d0
 
@@ -104,15 +104,15 @@
 
     * Bone Group: 3
 
+    * Vertex Data Address: 0x4978c
+
     * Calculation Type: 0x28
 
     * Calculations: 0x23
 
     * Calculation Result: 0x195c8
 
-    * Animation / Physics Data (APData) Address: 0x49a3c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
 ---
 

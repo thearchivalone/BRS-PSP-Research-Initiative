@@ -48,9 +48,7 @@
 
     * Calculation Result: 0x340
 
-    * Animation / Physics Data (APData) Address: 0x11644 (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
 ---
 

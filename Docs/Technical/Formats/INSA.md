@@ -25,7 +25,9 @@
 	* The two calculation types for determining where to jump to to get to APData section:
 		* 0x28 - Calculate data over a known range of addresses each offset by 0x24 bytes
 		* 0x20 - Calculate data by an unknown total quantity with an offset of 0x08 bytes per calculation and a bit shift by 1 to the left on the first byte to stop it
+	* The value at 0x10 is an elusive bugger; the developers read every byte of data from one bone to the next (or the end of file) until they hit "0000803f," 0x10's value, "0000803f." Even then, there's several extra steps for some models (check for duplicates, check for extra 0's, etc)
 * Structure:
+	* 0x10 - This 4-byte value leads to the vertex data; see the notes above
 	* 0x1c - Offset from Header / Size of file
 	* 0x14 - 0x28 - Default calculation type; 0x20 - Alternative calculation type (used primarily for ZIG and some of the models in the G Namespace)
 	* 0x18 - End of data Address (offset from Header) before padding

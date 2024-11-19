@@ -48,9 +48,7 @@
 
     * Calculation Result: 0x1c540
 
-    * Animation / Physics Data (APData) Address: 0x3159c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 1: 0x35620
 
@@ -62,9 +60,7 @@
 
     * Calculation Result: 0x1c540
 
-    * Animation / Physics Data (APData) Address: 0x36edc (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 2: 0x3af60
 
@@ -76,9 +72,7 @@
 
     * Calculation Result: 0x1c540
 
-    * Animation / Physics Data (APData) Address: 0x3c81c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
   * 3: 0x408a0
 
@@ -90,9 +84,7 @@
 
     * Calculation Result: 0x1c540
 
-    * Animation / Physics Data (APData) Address: 0x4215c (Approximation)
-
-    * Offset to APData: Unknown
+    * Animation / Physics Data (APData) Address: Unknown
 
 ---
 
