@@ -8,7 +8,7 @@ on:
       - '*'
 
 jobs:
-  sync:
+  bitbucket:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
@@ -18,10 +18,76 @@ jobs:
           fetch-depth: 0
 
       - name: Sync up to Bitbucket
-        id: bitbucket
+        id: sync
         uses: quantran-novobi/sync-up-to-bitbucket-action@v1
         with:
           bitbucket_repository_name: brs-psp-research-initiative
           bitbucket_workspace_name: the_archival_one
           bitbucket_access_token: ${{ secrets.BITBUCKET_ACCESS_TOKEN }}
+
+  codeberg:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync up to Codeberg
+        id: sync
+        uses: yesolutions/mirror-action@master
+        with:
+          REMOTE: 'https://codeberg.org/thearchivalone/BRS-PSP-Research-Initiative.git'
+          GIT_USERNAME: thearchivalone
+          GIT_PASSWORD: ${{ secrets.CODEBERG_PASSWORD }}
+
+  beanstalk:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync up to Beanstalk
+        id: sync
+        uses: yesolutions/mirror-action@master
+        with:
+          REMOTE: 'https://the-archival-one.git.beanstalkapp.com/brs-psp-research-initiative.git'
+          GIT_USERNAME: thearchivalone
+          GIT_PASSWORD: ${{ secrets.BEANSTALK_PASSWORD }}
+
+  sourceforge:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync up to Sourceforge
+        id: sync
+        uses: yesolutions/mirror-action@master
+        with:
+          REMOTE: 'https://thearchivalone@git.code.sf.net/p/brs-psp-research-initiative/code brs-psp-research-initiative-code'
+          GIT_USERNAME: thearchivalone
+          GIT_PASSWORD: ${{ secrets.SF_PASSWORD }}
+
+  archive:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync up to Internet Archive
+        id: ia_sync
+        uses: qoijjj/internet-archive-upload@v7
+        with:
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+          identifier: BRS-Research-Initiative
+          files: .
+
 
