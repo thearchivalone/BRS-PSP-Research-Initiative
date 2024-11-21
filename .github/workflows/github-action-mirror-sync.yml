@@ -69,7 +69,7 @@ jobs:
         id: sync
         uses: yesolutions/mirror-action@master
         with:
-          REMOTE: 'https://thearchivalone@git.code.sf.net/p/brs-psp-research-initiative/code brs-psp-research-initiative-code'
+          REMOTE: 'https://thearchivalone@git.code.sf.net/p/brs-psp-research-initiative-1/code'
           GIT_USERNAME: thearchivalone
           GIT_PASSWORD: ${{ secrets.SF_PASSWORD }}
 
