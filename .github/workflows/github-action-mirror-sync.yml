@@ -1,0 +1,27 @@
+name: Sync repository to mirrors
+
+on:
+  push:
+    tags-ignore:
+      - '*'
+    branches:
+      - '*'
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync up to Bitbucket
+        id: bitbucket
+        uses: quantran-novobi/sync-up-to-bitbucket-action@v1
+        with:
+          bitbucket_repository_name: brs-psp-research-initiative
+          bitbucket_workspace_name: the_archival_one
+          bitbucket_access_token: ${{ secrets.BITBUCKET_ACCESS_TOKEN }}
+
