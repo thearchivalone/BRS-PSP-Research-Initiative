@@ -134,6 +134,7 @@ jobs:
       - name: Setup secure connection
         id: secure
         run: |
+          git pull origin main
           env
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_ed25519
