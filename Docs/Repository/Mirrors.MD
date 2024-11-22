@@ -22,7 +22,7 @@ This documentation is for a feature primarily intended as a fail safe. For the t
 
 * Sourceforge: https://sourceforge.net/projects/brs-psp-research-initiative-1/
 
-* Beanstalk: https://the-archival-one.git.beanstalkapp.com/brs-psp-research-initiative.git
+* GitGud: https://gitgud.io/thearchivalone/brs-psp-research-initiative.git
 
 * Bitbucket: https://bitbucket.org/the_archival_one/brs-psp-research-initiative.git
 

@@ -48,29 +48,6 @@ jobs:
           git remote add mirror git@codeberg.org:thearchivalone/BRS-PSP-Research-Initiative.git
           git push --tags --force --prune mirror 'refs/remotes/origin/*:refs/heads/*'
           
-  beanstalk:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout repository
-        id: checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Sync up to Beanstalk
-        id: sync
-        run: |
-          env
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
-          chmod 700 ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_KEY_PUBLIC }}" > ~/.ssh/id_ed25519.pub
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-      - uses: yesolutions/mirror-action@master
-        with:
-          REMOTE: 'git@the-archival-one.git.beanstalkapp.com:/the-archival-one/brs-psp-research-initiative.git'
-          GIT_SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY_PRIVATE }}
-          GIT_SSH_NO_VERIFY_HOST: "true" # This is a secondary backup and not a main one; not verifying it's the correct host won't be a huge problem if the rest all are good
-
   gitgud:
     runs-on: ubuntu-24.04
     steps:
