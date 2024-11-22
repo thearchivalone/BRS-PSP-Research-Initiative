@@ -151,5 +151,3 @@ jobs:
           secret-key: ${{ secrets.IA_SECRET_KEY }}
           identifier: BRS-Research-Initiative-Current
           files: Backup.tar.gz
-
-
