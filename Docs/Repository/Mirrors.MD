@@ -26,4 +26,6 @@ This documentation is for a feature primarily intended as a fail safe. For the t
 
 * Bitbucket: https://bitbucket.org/the_archival_one/brs-psp-research-initiative.git
 
-* Archive.org: https://archive.org/details/BRS-Research-Initiative
+* Repo.or.cz: https://repo.or.cz/BRS-PSP-Research-Initiative.git
+
+* Archive.org: https://archive.org/details/BRS-Research-Initiative-Current

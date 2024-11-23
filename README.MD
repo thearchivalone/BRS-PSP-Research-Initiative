@@ -66,24 +66,14 @@ This repository will host my findings and various scripts, tools and documentati
 
 The folder structure is meant to be pretty straight forward, but here's what they represent:
 
-* 
-
 * Game - Where the game files go
 
 * Scripts - QuickBMS scripts can be found here. See accompanying README in the directory and notes in the script if you need to learn how to use them. Also, feel free to open an issue and / or pull request (if you want to improve the documentation) if they're not clear enough.
 
-* Docs - General documentation goes here. Most of it's technical right now but repository related ones and other types will be coming as I go.
+* Docs/Repository - Mirror information, contributions, and other documentation related to the project as a whole can be found here
+
+* Docs/Technical - Originally called Specifications, this is where you can find information about file formats, how certain systems work and (slowly, mind you) the file structure of the game disc
 
 * Tools - Where the tools are downloaded and installed for extracting the game files; right now, this only supports Windows but shouldn't be difficult to get working on the BSDs, Linux, Mac, etc
-
----
-
-## Current TODO
-
-- [ ] Automate and document the full extraction process
-
-- [ ] Document the full disc structure
-
-- [ ] Set up tools for rebuilding the data structure for use in game
 
 ---

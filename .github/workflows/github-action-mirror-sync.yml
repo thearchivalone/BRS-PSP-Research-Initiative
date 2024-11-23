@@ -108,6 +108,29 @@ jobs:
           git remote add mirror ssh://thearchivalone@git.code.sf.net/p/brs-psp-research-initiative-1/code
           git push --tags --force --prune mirror 'refs/remotes/origin/*:refs/heads/*'
 
+  roc:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync up to Repo.or.cz
+        id: sync
+        run: |
+          env
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ROC_SSH_PRIVATE }}" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          echo "${{ secrets.ROC_SSH_PUBLIC }}" > ~/.ssh/id_rsa.pub
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "${{ secrets.ROC_CERT }}" > ~/cert.pem
+          git config --global http.https://repo.or.cz.sslCert "$HOME/cert.pem"
+          git config --global http.https://repo.or.cz.sslKey "$HOME/.ssh/id_rsa"
+          git remote add mirror https://repo.or.cz/BRS-PSP-Research-Initiative.git
+          git push --tags --force --prune mirror 'refs/remotes/origin/*:refs/heads/*'
+
   archive:
     runs-on: ubuntu-24.04
     steps:
