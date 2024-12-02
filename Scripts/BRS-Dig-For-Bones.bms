@@ -251,6 +251,7 @@ startfunction apply_boss_augmentations
 
 	if BOSS_NAME == "Shizu"
 		set OFFSET SHIZU_OFFSET
+		set SHIZU_SHUFFLE 1
 	elseif BOSS_NAME == "Karli"
 		set OFFSET KARLI_OFFSET
 	elseif BOSS_NAME == "Mazuma"
@@ -290,7 +291,6 @@ startfunction print_vertex_data_location
 	endif
 	if MOB_NO_VERTEX == 0
 		if NAMESPACE == "Boss"
-			print "BOSS FOUND"
 			callfunction apply_boss_augmentations 1 VD_OFFSET BOSS_NAME
 		endif
 		goto CUR_POS
