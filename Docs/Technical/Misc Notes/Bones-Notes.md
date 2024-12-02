@@ -27,3 +27,5 @@ This documentation is meant to be a simple way to convey concepts based on my ob
 * Outside of Zig and possibly a small handful of other models, most use a blanket calculation chain early on in their data for their bones; the members of bone groups (such as fingers on a hand) should be all of equal length, size and depth due to the same generation mechanisms (theoretical) being used for them. The only real differences I've noticed would the amount of space taken up by each bone's data being variable
 
 * If bones aren't generated like I assume, then an alternative way could be protruding from a central point to each corner using a variable length; bones would look like a cross between a Fidget Spinner, a cone and a thumb tack in this scenario (could be way off there but that's what I'm invisioning in this scenario)
+
+* Bones have 4 vertex coordinates per bone section. That means they may use projection math on top of calculating X, Y and Z which means the W coordinate may not be needed for conversion tools (not sure yet)

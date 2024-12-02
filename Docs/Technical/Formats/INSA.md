@@ -39,6 +39,7 @@
 		* The VAP Data Shuffle - Similar to The Standard except expect to find Animation Data Mixed in with the Vertex Data
 		* 3x10 to The Standard - Augmented variation of The Standard; expect to jump 0x30 (3 times 0x10 offset to get to Vertex Data)
 		* 3x10 to The VAP Data Shuffle - Same augmentation but for the VAP Data Shuffle
+	* 0x10 is found at the end of each vertex data cluster; these clusters represent the start and finish of a straight line that makes up the edge of the quad / tri used to build each bone. The more vertices, the longer the edge
 * Structure:
 	* 0x0c - The Shredder Pattern is in effect if both this and 0x20 are not 0 and have the same value
 	* 0x10 - This 4-byte value leads to the vertex data; see the notes above

@@ -72,7 +72,7 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x459f4
+    * Vertex Data Address: 0x459d4
 
     * Calculation Type: 0x28
 
@@ -88,7 +88,7 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x49184
+    * Vertex Data Address: 0x49164
 
     * Calculation Type: 0x28
 
@@ -136,7 +136,7 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x5eb8c
+    * Vertex Data Address: 0x5e984
 
     * Calculation Type: 0x28
 
