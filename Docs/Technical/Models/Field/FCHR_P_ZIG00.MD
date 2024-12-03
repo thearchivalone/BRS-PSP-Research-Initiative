@@ -32,7 +32,7 @@
 
   * 0: 0x50
 
-    * Vertices: 1
+    * Vertices: 6694
 
 ---
 

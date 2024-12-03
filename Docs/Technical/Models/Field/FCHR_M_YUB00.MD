@@ -30,7 +30,7 @@
 
   * 0: 0x180
 
-    * Vertices: 1186
+    * Vertices: 4119
 
 ---
 

@@ -34,7 +34,7 @@
 
   * 0: 0x1b0
 
-    * Vertices: 2850
+    * Vertices: 7521
 
 ---
 

@@ -32,7 +32,7 @@
 
   * 0: 0x1620
 
-    * Vertices: 202
+    * Vertices: 5192
 
 ---
 

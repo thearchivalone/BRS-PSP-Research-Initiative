@@ -29,3 +29,16 @@
 * Located At:
 
   * 0: 0x1c0
+
+    * Vertices: 289
+
+---
+
+* Materials: 1
+
+---
+
+* Bones: 0
+
+---
+

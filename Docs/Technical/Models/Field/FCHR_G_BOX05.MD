@@ -30,11 +30,11 @@
 
   * 0: 0x170
 
-    * Vertices: 4
+    * Vertices: 16
 
   * 1: 0x84b0
 
-    * Vertices: 43
+    * Vertices: 70
 
 ---
 

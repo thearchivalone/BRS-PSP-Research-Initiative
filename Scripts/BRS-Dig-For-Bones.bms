@@ -229,29 +229,59 @@ set MESHES_STRING "* Meshes: "
 string MESHES_STRING + MESHES
 print "%MESHES_STRING%"
 
-# Calculate the number of vertices for the mesh
+# Calculate the number of vertices for the mesh; only includes part of them. There are multiple mesh sections
 startfunction print_mesh_vertex_count
 	set MESH_OFFSET MESH
-	math MESH_OFFSET + 0x14
+	math MESH_OFFSET + 0x28
 	goto MESH_OFFSET
 	savepos CUR_POS
 	get MESH_OFFSET long
 	set TMP_POS CUR_POS
-	math TMP_POS + 0x28
+	math TMP_POS + 0x04
 	goto TMP_POS
 	get TMP_POS long
+	get SECOND_OFFSET long # Needed for the second section
 	math MESH_OFFSET + TMP_POS
-	math MESH_OFFSET - 0x04
 	math MESH_OFFSET + MESH
 	goto MESH_OFFSET
 	savepos CUR_POS
+
+	# Get this as a good stopping point; it's where PTMD starts then offset backwards by a set amount that's shared by many models
+	set EMBEDDED_OFFSET MESH
+	math EMBEDDED_OFFSET + 0x34
+	goto EMBEDDED_OFFSET
+	get EMBEDDED_OFFSET long
+	set MESH_END EMBEDDED_OFFSET
+	math MESH_END + MESH
+	math MESH_END - 0x20
+
+	# Get Position of Second Section
+	math MESH_OFFSET + SECOND_OFFSET
+
+	# Grab Vertices from most of the first section
+	get VALUE long
+	if VALUE == 0x3f800000
+		savepos CUR_POS
+		set TMP_POS CUR_POS
+		math TMP_POS + 0x0c # This seems to be a hardcoded offset; may need adjusting
+		goto TMP_POS
+		set CUR_POS TMP_POS
+	endif
+
 	set CONTINUE 1
 	do
 		goto CUR_POS
+		if CUR_POS >= SECOND_OFFSET # To keep it from erroring out; this part leads directly into the second section with a similar early offset value before the shift
+			set CONTINUE 0
+		endif
 		get VALUE long
 		goto CUR_POS
 		if VALUE == 0
-			set CONTINUE 0
+			savepos CUR_POS
+			set TMP_POS CUR_POS
+			math TMP_POS + 0x10
+			goto TMP_POS
+			savepos CUR_POS
 		else
 			set TMP_POS CUR_POS
 			math TMP_POS + 0x18
@@ -260,6 +290,40 @@ startfunction print_mesh_vertex_count
 			math VERTICES + 1
 			savepos CUR_POS
 		endif
+	while CONTINUE == 1
+
+	# Grab Vertices from most of the second section; it has a different start and stop position tell than first but uses overall same offset
+	set CONTINUE 1
+	set TMP_POS CUR_POS
+	math TMP_POS + 0x10
+	goto TMP_POS
+	savepos CUR_POS
+	set OFFSET 0
+	do
+		goto CUR_POS
+		if CUR_POS >= MESH_END
+			math VERTICES + 1
+			set CONTINUE 0
+		endif
+		set TMP_POS CUR_POS
+		math TMP_POS + 0x0c
+		goto TMP_POS
+		# Get a special value from here to cause a shift in offset
+		get VALUE short
+		if VALUE == 0xffff
+			set OFFSET 0x10
+		elseif VALUE == 0x3333
+			set OFFSET 0x54 # this is a unique one
+		else
+			set OFFSET 0x14
+		endif
+		set TMP_POS CUR_POS
+		math TMP_POS + 0x0c # to get to the end of the Vertex Data chunk
+		math TMP_POS + OFFSET
+		goto TMP_POS
+		putarray VERTEX_ARRAY -1 TMP_POS
+		set CUR_POS TMP_POS
+		math VERTICES + 1
 	while CONTINUE == 1
 
 	print "\n"

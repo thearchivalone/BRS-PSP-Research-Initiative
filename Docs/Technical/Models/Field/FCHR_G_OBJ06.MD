@@ -30,7 +30,7 @@
 
   * 0: 0x1c0
 
-    * Vertices: 39
+    * Vertices: 107
 
 ---
 

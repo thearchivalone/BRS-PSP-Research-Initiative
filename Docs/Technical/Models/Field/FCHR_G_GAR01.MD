@@ -30,7 +30,7 @@
 
   * 0: 0x170
 
-    * Vertices: 2
+    * Vertices: 397
 
 ---
 

@@ -34,10 +34,12 @@
 * Structure:
 	* 0x08 - Address to Unknown Data Section with possible model data
 	* 0x10 - Address where padding starts before embedded section
-	* 0x14 - Offset from 0x3c to the vertex data that creates the full mesh; subtract 0x04 to get to first X value (bosses may have augmentations); all values here draw straight lines between vertices; section ends with 0
+	* 0x14 - Offset from 0x3c to the vertex data that creates the full mesh; subtract 0x04 to get to an approximate start address for section; 0x2c is preferred
 	* 0x18 - Address to unknown data structure
-	* 0x24 - Address where the math calculation tables start
-	* 0x28 - Start position of Unknown Data section - patterns of floats have been found here and at 0x2c but not sure what they're for yet
-	* 0x2c - Offset from 0x28 to get to the a Second Unknown Data Section
+	* 0x28 - Offset from Header to some kind of calculation table
+	* 0x2c - Offset from 0x28 to First Mesh Vertex Data Section; this ends at the first section that has a 0 long value
+	* 0x30 - Offset from 0x2c to Second Mesh Vertex Data Section (has a different structure than the previous one)
 	* 0x34 - Offset of PTMD or alternative structures from Header
-	* 0x3c - Offset to Mesh Vertex Data Start from Header
+	* 0x3c - Offset to Mesh Vertex Data Start from Header; bosses have extra augmentations applied, so using 0x2c would be more accurate in this case
+
+---

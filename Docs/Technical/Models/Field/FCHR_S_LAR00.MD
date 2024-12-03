@@ -30,7 +30,7 @@
 
   * 0: 0x1c0
 
-    * Vertices: 878
+    * Vertices: 2018
 
 ---
 
