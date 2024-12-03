@@ -28,7 +28,13 @@
 
 * Located At:
 
-  * 0: 0x32f30
+  * 0: 0x1b0
+
+    * Vertices: 7053
+
+---
+
+* Materials: 1
 
 ---
 

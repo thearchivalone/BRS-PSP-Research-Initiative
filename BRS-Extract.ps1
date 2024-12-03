@@ -7,12 +7,14 @@ $cwd = (Get-Item . | % { $_.FullName })
 
 $game_dir = "Game"
 $tools_dir = "Tools"
+$docs_dir = "Docs"
 $extraction_dir = "Extraction"
-$assets_dir = "Assets"
-$models_dir = $assets_dir + "\Models"
-$audio_dir = $assets_dir + "\Audio"
 
-$extraction_script = "Scripts\BRS-Extract.bms"
+$scripts_dir = "Scripts"
+$bones_script = $scripts_dir + "\BRS-Dig-For-Bones.bms"
+$bones_script = Get-Item -Path $bones_script | % { $_.FullName }
+
+$extraction_script = $scripts_dir + "\BRS-Extract.bms"
 $extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
 
 $archive_types += @("vol", "zzz", "gz")
@@ -187,6 +189,15 @@ Function Extract_Title {
 	Extract_Internals
 }
 
+Function Dig_For_Bones {
+	$model_dir = $extraction_dir + "\PSP_GAME\USRDIR\GAMEDATA\FLD\FCHR\"
+	$model_dir = Get-Item -Path $model_dir |  % { $_.FullName }
+	foreach ($item in (Get-ChildItem -Path $model_dir -Force -Recurse -File)) {
+		$doc_item = $docs_dir + "\Technical\Models\Field\" + (Split-Path $item -Leaf).Split(".")[0] + ".MD"
+		& $quickbms_command -Y $bones_script $item > $doc_item
+	}
+}
+
 Function Extract_All {
 	Extract_Field
 	Extract_Battle
@@ -211,6 +222,7 @@ Function Get_User_Input {
 	Write-Output "7) Extract the System Volume"
 	Write-Output "8) Extract the Title Volume"
 	Write-Output "a) Extract the important things"
+	Write-Output "b) Dig for Bones"
 	Write-Output "q) Quit the program"
 	Write-Output "d) Remove extracted files"
 
@@ -221,6 +233,9 @@ Function Get_User_Input {
 	}
 	if ($input -eq 'a') {
 		Extract_All
+	}
+	if ($input -eq 'b') {
+		Dig_For_Bones
 	}
 	if ($input -eq 'd') {
 		Delete

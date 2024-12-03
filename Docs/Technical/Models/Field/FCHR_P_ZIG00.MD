@@ -26,15 +26,17 @@
 
 ---
 
-* Meshes: 3
+* Meshes: 1
 
 * Located At:
 
-  * 0: 0x3f8c0
+  * 0: 0x50
 
-  * 1: 0x41cd0
+    * Vertices: 1
 
-  * 2: 0x520e0
+---
+
+* Materials: 3
 
 ---
 
@@ -47,8 +49,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x5348c
 
     * Calculation Type: 0x20
 
@@ -64,8 +64,6 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x554dc
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -79,8 +77,6 @@
     * Name: Unknown
 
     * Bone Group: 2
-
-    * Vertex Data Address: 0x579ec
 
     * Calculation Type: 0x20
 
@@ -96,8 +92,6 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x5bd4c
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -111,8 +105,6 @@
     * Name: Unknown
 
     * Bone Group: 1
-
-    * Vertex Data Address: 0x5f6cc
 
     * Calculation Type: 0x20
 
@@ -128,8 +120,6 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x6310c
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -143,8 +133,6 @@
     * Name: Unknown
 
     * Bone Group: 1
-
-    * Vertex Data Address: 0x671ac
 
     * Calculation Type: 0x20
 
@@ -160,8 +148,6 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x6a88c
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -175,8 +161,6 @@
     * Name: Unknown
 
     * Bone Group: 2
-
-    * Vertex Data Address: 0x6c68c
 
     * Calculation Type: 0x20
 
@@ -192,8 +176,6 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x6f74c
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -207,8 +189,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x718fc
 
     * Calculation Type: 0x20
 
@@ -224,8 +204,6 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x740fc
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -239,8 +217,6 @@
     * Name: Unknown
 
     * Bone Group: 1
-
-    * Vertex Data Address: 0x7734c
 
     * Calculation Type: 0x20
 
@@ -256,8 +232,6 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x794ec
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -271,8 +245,6 @@
     * Name: Unknown
 
     * Bone Group: 2
-
-    * Vertex Data Address: 0x7c7ec
 
     * Calculation Type: 0x20
 
@@ -288,8 +260,6 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x8092c
-
     * Calculation Type: 0x20
 
     * Calculations: 0x20
@@ -303,8 +273,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x8698c
 
     * Calculation Type: 0x20
 

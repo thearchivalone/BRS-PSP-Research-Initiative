@@ -28,17 +28,17 @@
 
 ---
 
-* Meshes: 4
+* Meshes: 1
 
 * Located At:
 
-  * 0: 0x215c0
+  * 0: 0x1c0
 
-  * 1: 0x21bd0
+    * Vertices: 199
 
-  * 2: 0x221e0
+---
 
-  * 3: 0x325f0
+* Materials: 4
 
 ---
 

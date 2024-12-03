@@ -30,6 +30,8 @@ set MESHES_ARRAY 0
 set BONES_ARRAY 1
 set BONE_GROUPS_ARRAY 2
 set PADDING_OFFSETS_ARRAY 3
+set MATERIALS_ARRAY 4
+set VERTEX_ARRAY 5
 
 # Prepare for Bone Groups
 set BONE_GROUP 0
@@ -177,17 +179,22 @@ callfunction print_header 1 NAME
 # Find the meshes
 goto 0
 set MESHES 0
+set MATERIALS 0
+set VERTICES 0
 set BONES 0
 savepos CUR_POS
 for i = 0 < LINES
 	goto CUR_POS
 	getdstring MAGIC_NUMBER 0x04
 	if MAGIC_NUMBER == "PTMD"
-		math MESHES + 1
-		putarray MESHES_ARRAY -1 CUR_POS
+		math MATERIALS + 1
+		putarray MATERIALS_ARRAY -1 CUR_POS
 	elseif MAGIC_NUMBER == "INSA"
 		math BONES + 1
 		putarray BONES_ARRAY -1 CUR_POS
+	elseif MAGIC_NUMBER == "INSM"
+		math MESHES + 1
+		putarray MESHES_ARRAY -1 CUR_POS
 	endif
 	set TMP CUR_POS
 	math TMP + CHUNK
@@ -222,6 +229,45 @@ set MESHES_STRING "* Meshes: "
 string MESHES_STRING + MESHES
 print "%MESHES_STRING%"
 
+# Calculate the number of vertices for the mesh
+startfunction print_mesh_vertex_count
+	set MESH_OFFSET MESH
+	math MESH_OFFSET + 0x14
+	goto MESH_OFFSET
+	savepos CUR_POS
+	get MESH_OFFSET long
+	set TMP_POS CUR_POS
+	math TMP_POS + 0x28
+	goto TMP_POS
+	get TMP_POS long
+	math MESH_OFFSET + TMP_POS
+	math MESH_OFFSET - 0x04
+	math MESH_OFFSET + MESH
+	goto MESH_OFFSET
+	savepos CUR_POS
+	set CONTINUE 1
+	do
+		goto CUR_POS
+		get VALUE long
+		goto CUR_POS
+		if VALUE == 0
+			set CONTINUE 0
+		else
+			set TMP_POS CUR_POS
+			math TMP_POS + 0x18
+			goto TMP_POS
+			putarray VERTEX_ARRAY -1 TMP_POS
+			math VERTICES + 1
+			savepos CUR_POS
+		endif
+	while CONTINUE == 1
+
+	print "\n"
+	set VERTEX_STRING "    * Vertices: "
+	string VERTEX_STRING + VERTICES
+	print "%VERTEX_STRING%"
+endfunction
+
 if MESHES != 0
 	print "\n"
 	print "* Located At:"
@@ -230,6 +276,7 @@ if MESHES != 0
 		string M p "%x" MESH
 		print "\n"
 		print "  * %i%: 0x%M%"
+		callfunction print_mesh_vertex_count 1 MESH
 	next i
 endif
 print "\n"
@@ -305,6 +352,14 @@ startfunction print_vertex_data_location
 		endif
 	endif
 endfunction
+
+set MATERIALS_STRING "* Materials: "
+string MATERIALS_STRING + MATERIALS
+print "%MATERIALS_STRING%"
+
+print "\n"
+print "---"
+print "\n"
 
 # Find the Animation Section
 startfunction print_animation_location

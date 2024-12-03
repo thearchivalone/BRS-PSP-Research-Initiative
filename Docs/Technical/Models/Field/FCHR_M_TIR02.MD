@@ -28,7 +28,13 @@
 
 * Located At:
 
-  * 0: 0xdff0
+  * 0: 0x1b0
+
+    * Vertices: 2004
+
+---
+
+* Materials: 1
 
 ---
 

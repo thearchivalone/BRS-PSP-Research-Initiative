@@ -28,23 +28,17 @@
 
 ---
 
-* Meshes: 7
+* Meshes: 1
 
 * Located At:
 
-  * 0: 0x23c60
+  * 0: 0x230
 
-  * 1: 0x34070
+    * Vertices: 99
 
-  * 2: 0x34880
+---
 
-  * 3: 0x35090
-
-  * 4: 0x360c0
-
-  * 5: 0x384d0
-
-  * 6: 0x39500
+* Materials: 7
 
 ---
 
@@ -90,7 +84,7 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x46914
+    * Vertex Data Address: 0x466ec
 
     * Calculation Type: 0x28
 

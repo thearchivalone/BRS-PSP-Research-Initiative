@@ -28,7 +28,13 @@
 
 * Located At:
 
-  * 0: 0x8c60
+  * 0: 0x1c0
+
+    * Vertices: 50
+
+---
+
+* Materials: 1
 
 ---
 

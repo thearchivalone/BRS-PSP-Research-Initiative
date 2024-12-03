@@ -26,23 +26,17 @@
 
 ---
 
-* Meshes: 7
+* Meshes: 1
 
 * Located At:
 
-  * 0: 0x2d8f0
+  * 0: 0x1620
 
-  * 1: 0x3dd00
+    * Vertices: 753
 
-  * 2: 0x3ed50
+---
 
-  * 3: 0x3f560
-
-  * 4: 0x3fd70
-
-  * 5: 0x40da0
-
-  * 6: 0x41dd0
+* Materials: 7
 
 ---
 
@@ -55,8 +49,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x43b60
 
     * Calculation Type: 0x28
 
@@ -72,8 +64,6 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0x47600
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -87,8 +77,6 @@
     * Name: Unknown
 
     * Bone Group: 2
-
-    * Vertex Data Address: 0x4d7c0
 
     * Calculation Type: 0x28
 
@@ -104,8 +92,6 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x51040
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -119,8 +105,6 @@
     * Name: Unknown
 
     * Bone Group: 4
-
-    * Vertex Data Address: 0x546e0
 
     * Calculation Type: 0x28
 
@@ -136,8 +120,6 @@
 
     * Bone Group: 5
 
-    * Vertex Data Address: 0x58cf0
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -151,8 +133,6 @@
     * Name: Unknown
 
     * Bone Group: 5
-
-    * Vertex Data Address: 0x5e560
 
     * Calculation Type: 0x28
 
@@ -168,8 +148,6 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x62f20
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -183,8 +161,6 @@
     * Name: Unknown
 
     * Bone Group: 2
-
-    * Vertex Data Address: 0x68520
 
     * Calculation Type: 0x28
 
@@ -200,8 +176,6 @@
 
     * Bone Group: 2
 
-    * Vertex Data Address: 0x6d820
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -215,8 +189,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x72db0
 
     * Calculation Type: 0x28
 
@@ -232,8 +204,6 @@
 
     * Bone Group: 0
 
-    * Vertex Data Address: 0x78a40
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -247,8 +217,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0x805a0
 
     * Calculation Type: 0x28
 
@@ -264,8 +232,6 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x86150
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -279,8 +245,6 @@
     * Name: Unknown
 
     * Bone Group: 1
-
-    * Vertex Data Address: 0x8b610
 
     * Calculation Type: 0x28
 
@@ -296,8 +260,6 @@
 
     * Bone Group: 2
 
-    * Vertex Data Address: 0x92840
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -311,8 +273,6 @@
     * Name: Unknown
 
     * Bone Group: 1
-
-    * Vertex Data Address: 0x9b0e0
 
     * Calculation Type: 0x28
 
@@ -328,8 +288,6 @@
 
     * Bone Group: 3
 
-    * Vertex Data Address: 0x9eea0
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -343,8 +301,6 @@
     * Name: Unknown
 
     * Bone Group: 6
-
-    * Vertex Data Address: 0xa2140
 
     * Calculation Type: 0x28
 
@@ -360,8 +316,6 @@
 
     * Bone Group: 1
 
-    * Vertex Data Address: 0xa8560
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -375,8 +329,6 @@
     * Name: Unknown
 
     * Bone Group: 0
-
-    * Vertex Data Address: 0xb2868
 
     * Calculation Type: 0x28
 
@@ -392,8 +344,6 @@
 
     * Bone Group: 7
 
-    * Vertex Data Address: 0xafc10
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -408,8 +358,6 @@
 
     * Bone Group: 6
 
-    * Vertex Data Address: 0xb49f8
-
     * Calculation Type: 0x28
 
     * Calculations: 0x2e
@@ -423,8 +371,6 @@
     * Name: Unknown
 
     * Bone Group: 8
-
-    * Vertex Data Address: 0xb80e8
 
     * Calculation Type: 0x28
 
