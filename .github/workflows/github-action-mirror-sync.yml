@@ -1,5 +1,11 @@
 name: Sync repository to mirrors
 
+env:
+  itchio_user: thearchivalone
+  itchio_project: BRS-PSP-Research-Initiative
+  itchio_channel: nightly
+  zip: BRS-PSP-Research-Initiative-master.zip
+
 on:
   push:
     tags-ignore:
@@ -151,3 +157,28 @@ jobs:
           secret-key: ${{ secrets.IA_SECRET_KEY }}
           identifier: BRS-Research-Initiative-Current
           files: Backup.tar.gz
+
+  itch:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compress Repository
+        id: compress
+        run:
+          git archive --format=zip -o ${{ env.zip }} --prefix=$(basename $PWD)/ main
+      - name: Set Version
+        run: |
+          echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+      - name: Upload Master to itch.io page
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          PACKAGE: ${{ env.zip }}
+          ITCH_USER: ${{ env.itchio_user }}
+          ITCH_GAME: ${{ env.itchio_project }}
+          CHANNEL: ${{ env.itchio_channel }}
+          VERSION: ${{ env.version }}
+          BUTLER_CREDENTIALS: ${{ secrets.ITCHIO_API_KEY }}
