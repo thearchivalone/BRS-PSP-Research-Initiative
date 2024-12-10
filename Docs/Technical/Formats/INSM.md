@@ -31,11 +31,12 @@
 * Notes:
 	* Vertex Stride seems to vary a bit depending on where the model will be seen in game; ranges between 4 and 8 lines from what I've observed with some junk here and there that must be skipped on read
 	* Vertex Data Section ranges from where 0x3c starts to just before the location at 0x34
+	* Calculation for where vertex offset shif0ts: Second Mesh Vertex Data Address - <Values of these addresses subtracted>(0x18 - 0x14 - 0x10) - <Round this to nearest byte>(0x08)
 * Structure:
-	* 0x08 - Address to Unknown Data Section with possible model data
+	* 0x08 - Address to Unknown Data Section with possible model data; after rounding this, this gives a start region to start expecting offset shifts to happen
 	* 0x10 - Address where padding starts before embedded section
 	* 0x14 - Offset from 0x3c to the vertex data that creates the full mesh; subtract 0x04 to get to an approximate start address for section; 0x2c is preferred
-	* 0x18 - Address to unknown data structure
+	* 0x18 - Address to unknown data structure; Also, the start value of the calculation for shifting the offset value of vertices. See notes above.
 	* 0x28 - Offset from Header to some kind of calculation table
 	* 0x2c - Offset from 0x28 to First Mesh Vertex Data Section; this ends at the first section that has a 0 long value
 	* 0x30 - Offset from 0x2c to Second Mesh Vertex Data Section (has a different structure than the previous one)
