@@ -5,7 +5,12 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
+$path_delimiter = ""
+$exe = ""
+$regions += @("usa", "jpn", "eur")
+
 $game_dir = "Game"
+$game_dirs = @()
 $tools_dir = "Tools"
 $docs_dir = "Docs"
 $extraction_dir = "Extraction"
@@ -21,35 +26,78 @@ $archive_types += @("vol", "zzz", "gz")
 
 $sleep = 3
 
-Write-Output "Checking If Required Extraction Tools Are Available"
+$os = ""
+if ($IsWindows) {
+	$path_delimiter = "\"
+	$os = "win"
+}
+else {
+	$path_delimiter = "/"
+	if ($IsLinux) {
+		$os = "linux"
+	} else {
+		$os = "macosx"
+	}
+}
+
+$tools_dir = $tools_dir + $path_delimiter + $os
 
 if (!(Test-Path -Path $tools_dir -PathType Container)) {
 	New-Item -Path . -Name $tools_dir -ItemType Directory | Out-Null
 }
 
-$quickbms_url = 'https://aluigi.altervista.org/papers/quickbms.zip'
+$quickbms_url = 'https://github.com/LittleBigBug/QuickBMS/releases/download/0.12.0/quickbms_' + $os + '.zip'
 $quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
-$quickbms_command = $tools_dir + "\quickbms.exe"
 
-Write-Output "Checking QuickBMS"
-
-if ((Get-Command $quickbms_command -ErrorAction SilentlyContinue) -eq $null)
-{
-	$download_qbms = 1
+if ($os -eq "win") {
+	$exe = ".exe"
 }
 
-if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
-	$input = Read-Host 'Can I download the missing tools? (y/N)'
+$temp = (Get-ChildItem -Path $tools_dir -Force -Recurse -File)
+$quickbms_command = ""
+
+Write-Output "Checking for Game files"
+Start-Sleep $sleep
+
+foreach ($region in $regions) {
+	$tmp = $game_dir + $path_delimiter + $region
+	if (Test-Path -Path $tmp -PathType Container) {
+		$game_dirs += $tmp
+	}
+}
+
+if ($game_dirs.Count -eq 0) {
+	Write-Output "Please copy or extract game files to the correct directory (based on region); then run this script again"
+	exit
+}
+
+Write-Output "Checking Required Tools"
+Start-Sleep $sleep
+
+$temp = $tools_dir + $path_delimiter + "quickbms"
+if (!(Test-Path -Path $temp -PathType Container)) {
+	$download_qbms = 1
+} else {
+	$quickbms_command = $temp + $path_delimiter + "quickbms" + $exe
+}
+
+if ($download_qbms -eq '1') {
+	$input = Read-Host 'Can I download missing tools? (y/N)'
 
 	if ($input -eq 'y') {
+		$temp = ""
+		$dir = ""
 		Write-Output "Preparing Tools"
 		$output = Get-Item -Path $tools_dir | % { $_.FullName }
 		if ($download_qbms -eq '1') {
+			$temp = $output + $path_delimiter + $quickbms_zip
+			$dir = $output + $path_delimiter + "quickbms"
 			Write-Output "Downloading QuickBMS"
-			Invoke-WebRequest -Uri $quickbms_url -OutFile $output\$quickbms_zip
+			Invoke-WebRequest -Uri $quickbms_url -OutFile $temp
 			Write-Output "Preparing QuickBMS"
-			Expand-Archive -Path $output\$quickbms_zip -DestinationPath $output
-			Remove-Item -Path $output\$quickbms_zip
+			Expand-Archive -Path $temp -DestinationPath $dir
+			$quickbms_command = $dir + $path_delimiter + "quickbms" + $exe
+			Remove-Item -Path $temp
 		}
 		if ($download_vgms -eq '1') {
 			Write-Output "Downloading VgmStream"
@@ -60,7 +108,7 @@ if ($download_qbms -eq '1' -Or $download_vgms -eq '1') {
 		}
 	}
 	else {
-		Write-Output "Please download QuickBMS and place it inside of the Tools directory; then run this script again"
+		Write-Output "Please download and place tools inside of the Tools directory; then run this script again"
 		exit
 	}
 }
@@ -111,7 +159,7 @@ Function Extract_Field {
 	Start-Sleep $sleep
 	$field_dir = $game_dir + "\FLD"
 	foreach ($item in (Get-ChildItem -Path $field_dir -Force -Recurse | % { $_.FullName })) {
-		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
 }
@@ -121,7 +169,7 @@ Function Extract_Battle {
 	Start-Sleep $sleep
 	$btl_dir = $game_dir + "\BTL"
 	foreach ($item in (Get-ChildItem -Path $btl_dir -Force -Recurse | % { $_.FullName })) {
-		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
 }
@@ -131,7 +179,7 @@ Function Extract_Gallery {
 	Start-Sleep $sleep
 	$gallery_dir = $game_dir + "\GALLERY"
 	foreach ($item in (Get-ChildItem -Path $gallery_dir -Force -Recurse | % { $_.FullName })) {
-		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
 }
@@ -141,7 +189,7 @@ Function Extract_Interface {
 	Start-Sleep $sleep
 	$if_dir = $game_dir + "\IF"
 	foreach ($item in (Get-ChildItem -Path $if_dir -Force -Recurse | % { $_.FullName })) {
-		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
 	Extract_Internals
@@ -152,7 +200,7 @@ Function Extract_MiniGames {
 	Start-Sleep $sleep
 	$mg_dir = $game_dir + "\Mini_Game"
 	foreach ($item in (Get-ChildItem -Path $mg_dir -Force -Recurse | % { $_.FullName })) {
-		$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+		$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 		& $quickbms_command -Y -d $extraction_script $item $dir
 	}
 }
@@ -162,7 +210,7 @@ Function Extract_MemoryCard {
 	Start-Sleep $sleep
 	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\MC.VOL"
 	$item = Get-Item -Path $item |  % { $_.FullName }
-	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 	$dir = Split-Path $dir -Parent
 	& $quickbms_command -Y -d $extraction_script $item $dir
 }
@@ -172,7 +220,7 @@ Function Extract_System {
 	Start-Sleep $sleep
 	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\SYSTEM.VOL"
 	$item = Get-Item -Path $item |  % { $_.FullName }
-	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 	$dir = Split-Path $dir -Parent
 	& $quickbms_command -Y -d $extraction_script $item $dir
 	Extract_Internals
@@ -183,7 +231,7 @@ Function Extract_Title {
 	Start-Sleep $sleep
 	$item = $game_dir + "\PSP_GAME\USRDIR\GAMEDATA\TITLE.VOL"
 	$item = Get-Item -Path $item |  % { $_.FullName }
-	$dir = $item.replace(($game_dir + "\"), ($extraction_dir + "\"))
+	$dir = $item.replace(($game_dir + $path_delimiter), ($extraction_dir + $path_delimiter))
 	$dir = Split-Path $dir -Parent
 	& $quickbms_command -Y -d $extraction_script $item $dir
 	Extract_Internals
