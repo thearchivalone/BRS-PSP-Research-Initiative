@@ -8,7 +8,7 @@
 
 ## How to use these scripts
 
-* `quickbms.exe -Yd <name of script here> <file you're running the script on>` - should get you started
+* `quickbms.exe -Yd <name of script here> <file you're running the script on> <optional output directory>` - should get you started
 
 * Would recommend adding QuickBMS to your path and running it at least once without any arguments to get the full usage guide
 
@@ -16,8 +16,14 @@
 
 ## Scripts available
 
+### Quickbms
+
 * BRS-Extract.bms - New script for extracting files. BRS-Vol.bms, BRS-Xor.bms and BRS-Lpk.bms are no longer needed.All main extraction code is in this file
 
-* BRS-Model-Data.bms - Used this quick and dirty script for finding bones and vertices in model data.
+* BRS-Model-Data.bms - Used this quick and dirty script for finding bones and vertices in model data
+
+* BRS-Dig-For-Bones.bms - Extract some of the Bone, Mesh and Model data with this to Format docs
+
+### Python
 
 ---

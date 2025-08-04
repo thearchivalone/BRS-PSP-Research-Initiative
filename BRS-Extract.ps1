@@ -5,26 +5,11 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
+# General variables
 $path_delimiter = ""
 $exe = ""
-$regions += @("usa", "jpn", "eur")
-
-$game_dir = "Game"
-$game_dirs = @()
-$tools_dir = "Tools"
-$docs_dir = "Docs"
-$extraction_dir = "Extraction"
-
-$scripts_dir = "Scripts"
-$bones_script = $scripts_dir + "\BRS-Dig-For-Bones.bms"
-$bones_script = Get-Item -Path $bones_script | % { $_.FullName }
-
-$extraction_script = $scripts_dir + "\BRS-Extract.bms"
-$extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
-
-$archive_types += @("vol", "zzz", "gz")
-
 $sleep = 3
+$quickbms_version = "0.12.0"
 
 $os = ""
 if ($IsWindows) {
@@ -40,22 +25,40 @@ else {
 	}
 }
 
-$tools_dir = $tools_dir + $path_delimiter + $os
-
-if (!(Test-Path -Path $tools_dir -PathType Container)) {
-	New-Item -Path . -Name $tools_dir -ItemType Directory | Out-Null
-}
-
-$quickbms_url = 'https://github.com/LittleBigBug/QuickBMS/releases/download/0.12.0/quickbms_' + $os + '.zip'
-$quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
-
 if ($os -eq "win") {
 	$exe = ".exe"
 }
 
 $temp = (Get-ChildItem -Path $tools_dir -Force -Recurse -File)
 $quickbms_command = ""
+$quickbms_url = 'https://github.com/LittleBigBug/QuickBMS/releases/download/' + $quickbms_version + '/quickbms_' + $os + '.zip'
+$quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
 
+# Directory variables
+$game_dir = "Game"
+$game_dirs = @()
+$scripts_dir = "Scripts"
+$tools_dir = "Tools"
+$docs_dir = "Docs"
+$extraction_dir = "Extraction"
+
+$archive_types += @("vol", "zzz", "gz")
+$regions += @("usa", "jpn", "eur")
+
+# Script related variables
+$bones_script = $scripts_dir + $path_delimiter + "quickbms" + $path_delimiter + "BRS-Dig-For-Bones.bms"
+$bones_script = Get-Item -Path $bones_script | % { $_.FullName }
+
+$extraction_script = $scripts_dir + $path_delimiter + "quickbms" + $path_delimiter + "BRS-Extract.bms"
+$extraction_script = Get-Item -Path $extraction_script | % { $_.FullName }
+
+$tools_dir = $tools_dir + $path_delimiter + $os
+
+if (!(Test-Path -Path $tools_dir -PathType Container)) {
+	New-Item -Path . -Name $tools_dir -ItemType Directory | Out-Null
+}
+
+# Start running program here
 Write-Output "Checking for Game files"
 Start-Sleep $sleep
 
