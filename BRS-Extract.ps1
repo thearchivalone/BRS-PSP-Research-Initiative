@@ -38,15 +38,6 @@ if ($os -eq "win") {
 $quickbms_url = 'https://github.com/LittleBigBug/QuickBMS/releases/download/' + $quickbms_version + '/quickbms_' + $os + '.zip'
 $quickbms_zip = $(Split-Path -Path $quickbms_url -Leaf)
 
-if ($os -eq 'win') {
-	$platform = 'windows'
-} else {
-	$platform = $os
-}
-
-$choosenim_url = 'https://github.com/nim-lang/choosenim/releases/download/v' + $choosenim_version + '/choosenim-' + $choosenim_version + '_' + $platform + '_amd64' + $exe
-$choosenim_zip = $(Split-Path -Path $choosenim_url -Leaf)
-
 if (($os -eq 'win') -Or ($os -eq 'linux')) {
 	$arch = 'x86_64'
 	if ($os -eq 'win') {
@@ -59,8 +50,17 @@ if (($os -eq 'win') -Or ($os -eq 'linux')) {
 	$platform = 'darwin'
 }
 
-$python3_url = 'https://github.com/bjia56/portable-python/releases/download/cpython-v' + $python3_version + '-build.2/python-full-' + $python3_version + '-' + $platform + '-' + $arch + '.zip'
+$python3_url = 'https://github.com/bjia56/portable-python/releases/download/cpython-v' + $python3_version + '-build.2/python-headless-' + $python3_version + '-' + $platform + '-' + $arch + '.zip'
 $python3_zip = $(Split-Path -Path $python3_url -Leaf)
+
+if ($os -eq 'win') {
+	$platform = 'windows'
+} else {
+	$platform = $os
+}
+
+$choosenim_url = 'https://github.com/nim-lang/choosenim/releases/download/v' + $choosenim_version + '/choosenim-' + $choosenim_version + '_' + $platform + '_amd64' + $exe
+$choosenim_zip = $(Split-Path -Path $choosenim_url -Leaf)
 
 # Directory variables
 $game_dir = "Game"
@@ -137,9 +137,9 @@ Function Download_Python3 {
 	Invoke-WebRequest -Uri $python3_url -OutFile $tmp
 	Write-Output "Preparing Python3"
 	Expand-Archive -Path $tmp -DestinationPath $output
-	$extracted = $output + $path_delimiter + "python-full-" + $python3_version + '-' + $platform + '-' + $arch
+	$extracted = $output + $path_delimiter + "python-headless-" + $python3_version + '-' + $platform + '-' + $arch
 	Move-Item -Path $extracted -Destination $dir
-	$python3_command = $dir + $path_delimiter + "bin" + $path_delimiter + "python3" + $exe
+	$python3_command = $dir + $path_delimiter + "bin" + $path_delimiter + "python" + $exe
 	Remove-Item -Path $tmp
 }
 
