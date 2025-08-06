@@ -35,14 +35,14 @@ else {
 # Populate initial scripts directories
 $scripts_dir = "Scripts"
 $tools_dir = "Tools"
-$powershell_scripts_dir = $scripts_dir + $path_delimiter + "powershell"
+$init_scripts_dir = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init"
 
 if ($os -eq "win") {
 	$exe = ".exe"
 }
 
 # Download required tools
-$tmp = $powershell_scripts_dir + $path_delimiter + "Download-Tools.ps1"
+$tmp = $init_scripts_dir + $path_delimiter + "init.ps1"
 & $tmp
 
 # Directory variables
@@ -95,10 +95,13 @@ Function Clean {
 
 	foreach ($item in (Get-ChildItem -Path $extraction_dir -Force -Recurse | % { $_.FullName })) {
 		if ($item -like "*TEMP*") {
-			Remove-Item $Item -Force
+			Remove-Item $item -Force
 		}
 	}
 }
+
+# Temporary variable until I get everything ported over to Nim + Python toolchain
+$quickbms_command = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "quickbms" + $path_delimiter + "quickbms" + $exe
 
 Function Extract_Internals {
 	Write-Output "Extracting embedded archives. Please wait"
