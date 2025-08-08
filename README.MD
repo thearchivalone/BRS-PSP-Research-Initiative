@@ -18,11 +18,20 @@ This repository will host my findings and various scripts, tools and documentati
 
 ## How to Quickly Extract Most of the Game Data
 
-* Download and install a modern version of Windows [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4)
+* Download and install a modern version of Windows [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4) *NOTE: Working on making this not a dependency for Linux, Mac, etc*
 
-* Copy the `PSP_GAME` directory from a ripped and extracted release of Black Rock Shooter: the Game into the `Game` folder
+### Required for new Nim toolchain to work properly
+* Download and install [git](https://git-scm.com/downloads)
 
-* Right click and Click "Open in Terminal"
+* Download and install [Clang](https://clang.llvm.org/) *NOTE: Every platform installs this in a different way but it's my recommended C Compiler for cross-platform support*
+
+* Create a `Game` folder in root directory (directory this Readme exists in)
+
+* Create a region folder in that `Game` folder; this will be `usa` (for US release of game), `eur` (for European release), or `jpn` (for original Japanese release). *NOTE: You can create all three if you have them available; it's not fully tested but should work for those of you that want to work with all of the releases*
+
+* Copy the `PSP_GAME` directory from a ripped and extracted release of *Black Rock Shooter: the Game* into the region folder you created above.
+
+* Open a Terminal and enter this root directory
 
 * Type `.\BRS-Extract.ps1` and hit enter to run this script
 
