@@ -23,8 +23,7 @@ from zipfile import ZipFile
 # Version of tools used
 quickbms_version = "0.12.0"
 choosenim_version = "0.8.16"
-nim_old_version = "1.6.20"
-nim_new_version = "2.2.4"
+nim_version = "2.2.4"
 
 # Platform specific variables
 exe = ""
@@ -82,21 +81,11 @@ def download_nim(nim_version):
     nim_dir = choosenim_dir + path_delimiter + nim_version
     subprocess.call([choosenim_command, f'--nimbleDir:{nim_dir}', nim_version], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
-nim_dir = choosenim_dir + path_delimiter + nim_old_version
-if not pathlib.Path(nim_dir).exists():
+custom_tools_dir = choosenim_dir + path_delimiter + "custom"
+nim_dir = choosenim_dir + path_delimiter + nim_version
+if not pathlib.Path(nim_dir).exists() and not pathlib.Path(custom_tools_dir).exists():
     pathlib.Path(nim_dir).mkdir(parents=True, exist_ok=True)
-    download_nim(nim_old_version)
-
-nim_old_command = nim_dir + path_delimiter + "bin" + path_delimiter + "nim" + exe
-nimble_old_command = nim_dir + path_delimiter + "bin" + path_delimiter + "nimble" + exe
-
-nim_dir = choosenim_dir + path_delimiter + nim_new_version
-if not pathlib.Path(nim_dir).exists():
-    pathlib.Path(nim_dir).mkdir(parents=True, exist_ok=True)
-    download_nim(nim_new_version)
-
-nim_new_command = nim_dir + path_delimiter + "bin" + path_delimiter + "nim" + exe
-nimble_new_command = nim_dir + path_delimiter + "bin" + path_delimiter + "nimble" + exe
+    download_nim(nim_version)
 
 # temporary
 quickbms_dir = tools_dir + path_delimiter + "quickbms"
@@ -112,6 +101,8 @@ def download_quickbms(quickbms_url, quickbms_version):
     if response.ok and response.status_code == 200:
         with open(quickbms_zip, mode="wb") as file:
             file.write(response.content)
+
+def prepare_quickbms(quickbms_zip, quickbms_dir):
     print("Preparing Quickbms")
     with ZipFile(quickbms_zip, "r") as archive:
         archive.extractall(path=quickbms_dir)
@@ -120,9 +111,4 @@ def download_quickbms(quickbms_url, quickbms_version):
 if not pathlib.Path(quickbms_dir).exists():
     pathlib.Path(quickbms_dir).mkdir(parents=True, exist_ok=True)
     download_quickbms(quickbms_url, quickbms_version)
-
-# permanent
-extract_tools_dir = choosenim_dir + path_delimiter + "custom"
-
-if not pathlib.Path(extract_tools_dir).exists():
-    pathlib.Path(extract_tools_dir).mkdir(parents=True, exist_ok=True)
+    prepare_quickbms(quickbms_zip, quickbms_dir)

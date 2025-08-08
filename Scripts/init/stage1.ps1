@@ -81,8 +81,8 @@ Function Install_Init_Python3_Modules {
 }
 
 Function Run_Python3_Init {
-	Write-Output "Running Extraction Script"
-	$init = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init" + $path_delimiter + "init.py"
+	Write-Output "Running Stage1 Script"
+	$init = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init" + $path_delimiter + "stage1.py"
 	& python $init $os $tools_dir
 }
 
