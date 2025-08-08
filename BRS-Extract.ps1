@@ -41,8 +41,12 @@ if ($os -eq "win") {
 	$exe = ".exe"
 }
 
-# Download required tools
-$tmp = $init_scripts_dir + $path_delimiter + "init.ps1"
+# Run Stage1
+$tmp = $init_scripts_dir + $path_delimiter + "stage1.ps1"
+& $tmp
+
+# Run Stage2
+$tmp = $init_scripts_dir + $path_delimiter + "stage2.ps1"
 & $tmp
 
 # Directory variables
