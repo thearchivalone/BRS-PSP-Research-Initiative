@@ -5,16 +5,16 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
-Function Run_Python3_Stage2() {
-	$tmp = $init_scripts_dir + $path_delimiter + "stage2.py"
+Function Run_Python3_Stage3() {
+	$tmp = $init_scripts_dir + $path_delimiter + "stage3.py"
 	& python $tmp $os $tools_dir
 }
 
-Run_Python3_Stage2
+Run_Python3_Stage3
 
-Function Activate_Nim() {
-	Write-Output "Activating Nim Toolchain"
-	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "nim" + $path_delimiter + "custom" + ";" + $env:PATH
+Function Activate_QuickBMS() {
+	Write-Output "Activating QuickBMS Interpretor"
+	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "quickbms" + $path_delimiter + ";" + $env:PATH
 }
 
-Activate_Nim
+Activate_QuickBMS

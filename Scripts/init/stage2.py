@@ -35,8 +35,7 @@ match OS:
         path_delimiter = "/"
 
 tools_dir = sys.argv[2]
-cwd = os.getcwd()
-nim_dir = cwd + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "nim"
+nim_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "nim"
 
 # Versions
 nim_version = "2.2.4"
@@ -67,11 +66,16 @@ choosenim_command = nim_dir + path_delimiter + "choosenim" + exe
 # Download and build latest version of nimble
 def download_nimble(nimble_url, nimble_zip):
     print("Downloading Nimble")
+    kill_file = os.getcwd() + path_delimiter + "Tools" + path_delimiter + "stage2"
     query_parameters = {"downloadFormat": "zip"}
     response = requests.get(nimble_url, params=query_parameters)
     if response.ok and response.status_code == 200:
         with open(nimble_zip, mode="wb") as file:
             file.write(response.content)
+    else:
+        print("Nimble files failed to download; please check your internet connection and try again later")
+        with open(kill_file, mode="w") as file:
+            file.write("")
 
 def prepare_nimble(nimble_zip, nim_dir):
     print("Preparing Nimble")

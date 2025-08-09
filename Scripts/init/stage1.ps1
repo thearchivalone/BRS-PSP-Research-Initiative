@@ -7,6 +7,7 @@ $cwd = (Get-Item . | % { $_.FullName })
 
 $requests_version = "2.32.4"
 
+$python3_version = "3.11.13"
 $python3_modules = @("pip", "setuptools", "requests==$requests_version", "git+https://github.com/bitranox/pathlib3x.git")
 
 # Set this to prevent some of the extra info on screen
@@ -81,7 +82,6 @@ Function Install_Init_Python3_Modules {
 }
 
 Function Run_Python3_Init {
-	Write-Output "Running Stage1 Script"
 	$init = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init" + $path_delimiter + "stage1.py"
 	& python $init $os $tools_dir
 }

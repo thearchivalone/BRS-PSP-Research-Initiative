@@ -21,7 +21,6 @@ import subprocess
 from zipfile import ZipFile
 
 # Version of tools used
-quickbms_version = "0.12.0"
 choosenim_version = "0.8.16"
 nim_version = "2.2.4"
 
@@ -53,6 +52,8 @@ choosenim_command = choosenim_dir + path_delimiter + choosenim_exe
 
 def download_choosenim(choosenim_url, choosenim_version):
     print("Downloading Nim Bootstrapper")
+    global cwd
+    kill_file = os.getcwd() + path_delimiter + "Tools" + path_delimiter + "stage1"
     if OS == "win":
         query_parameters = {"downloadFormat": "exe"}
     else:
@@ -61,6 +62,10 @@ def download_choosenim(choosenim_url, choosenim_version):
     if response.ok and response.status_code == 200:
         with open(choosenim_command, mode="wb") as file:
             file.write(response.content)
+    else:
+        print("Nim files failed to download; please check your internet connection and try again later")
+        with open(kill_file, mode="w") as file:
+            file.write("")
 
 # Create Nim directory if doesn't exist
 choosenim_dir = pathlib.Path(choosenim_dir)
@@ -87,28 +92,3 @@ if not pathlib.Path(nim_dir).exists() and not pathlib.Path(custom_tools_dir).exi
     pathlib.Path(nim_dir).mkdir(parents=True, exist_ok=True)
     download_nim(nim_version)
 
-# temporary
-quickbms_dir = tools_dir + path_delimiter + "quickbms"
-quickbms_zip = "quickbms_" + OS + '.zip'
-quickbms_url = "https://github.com/LittleBigBug/QuickBMS/releases/download/" + quickbms_version + "/" + quickbms_zip
-quickbms_command = quickbms_dir + path_delimiter + "quickbms" + exe
-quickbms_zip = quickbms_dir + path_delimiter + quickbms_zip
-
-def download_quickbms(quickbms_url, quickbms_version):
-    print("Downloading QuickBMS")
-    query_parameters = {"downloadFormat": "zip"}
-    response = requests.get(quickbms_url, params=query_parameters)
-    if response.ok and response.status_code == 200:
-        with open(quickbms_zip, mode="wb") as file:
-            file.write(response.content)
-
-def prepare_quickbms(quickbms_zip, quickbms_dir):
-    print("Preparing Quickbms")
-    with ZipFile(quickbms_zip, "r") as archive:
-        archive.extractall(path=quickbms_dir)
-    pathlib.Path(quickbms_zip).unlink()
-
-if not pathlib.Path(quickbms_dir).exists():
-    pathlib.Path(quickbms_dir).mkdir(parents=True, exist_ok=True)
-    download_quickbms(quickbms_url, quickbms_version)
-    prepare_quickbms(quickbms_zip, quickbms_dir)

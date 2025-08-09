@@ -5,16 +5,9 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
-Function Run_Python3_Stage2() {
-	$tmp = $init_scripts_dir + $path_delimiter + "stage2.py"
-	& python $tmp $os $tools_dir
+Function Run_Python3_Stage5() {
+	$tmp = $init_scripts_dir + $path_delimiter + "stage5.py"
+	& python $tmp $os $game_dir $scripts_dir $extraction_dir $sleep
 }
 
-Run_Python3_Stage2
-
-Function Activate_Nim() {
-	Write-Output "Activating Nim Toolchain"
-	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "nim" + $path_delimiter + "custom" + ";" + $env:PATH
-}
-
-Activate_Nim
+Run_Python3_Stage5
