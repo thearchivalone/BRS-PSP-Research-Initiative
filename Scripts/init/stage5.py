@@ -31,8 +31,9 @@ match OS:
         path_delimiter = "/"
 
 # Variables
-archive_types = ["vol", "zzz", "gz"]
+archive_types = ["vol", "zzz", "gz", "lpk", "bin", "efc", "efp"]
 scripts_dir = os.getcwd() + path_delimiter + sys.argv[3] + path_delimiter + "quickbms"
+docs_dir = os.getcwd() + path_delimiter + sys.argv[6]
 # Don't add os.getcwd() to these two so they can be used as strings for replacement
 game_dir = sys.argv[2]
 extraction_dir = sys.argv[4]
@@ -52,111 +53,88 @@ def delete_extraction_dir(extraction_dir, sleep):
     if pathlib.Path(extraction_dir).exists():
         pathlib.Path(extraction_dir).rmtree()
 
-def clean(extraction_dir, sleep):
-    print("Cleaning up. Please wait")
+def clean(name, extraction_dir, sleep):
     time.sleep(sleep)
-    files = pathlib.Path(extraction_dir).rglob("*TEMP*")
+    # Clean up temporary files left behind from extraction
+    files = []
+    files.extend(pathlib.Path(extraction_dir).rglob("*TEMP*"))
     for file in files:
         if file.exists():
             pathlib.Path(file).unlink()
+    # Clean up any empty directories created in error
+    trees = []
+    trees.extend(pathlib.Path(extraction_dir).rglob(name)) # This grabs all subdirectories in the extraction_dir
+    for subtree in trees:
+        if pathlib.Path(subtree).exists() and not os.listdir(subtree):
+            pathlib.Path(subtree).rmdir()
 
-def extract_internals(rglob_dir, extraction_dir, extraction_script, sleep):
-    print("Extracting embedded archives. Please wait")
-    time.sleep(sleep)
+def extract_internals(extraction_script, sleep):
     global archive_types
     files = []
     tmp = os.getcwd()
-    for arc in archive_types:
-        files.extend(pathlib.Path(extraction_dir).rglob(arc))
+    # Grab all files within the cwd and attempt to extract them
+    files.extend(pathlib.Path(tmp).rglob("*.*"))
     for file in files:
-        for parent in file.parents():
-            if parent == f'{rglob_dir}':
-                os.chdir(os.path.dirname(file.__str__()))
-                subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-                os.chdir(tmp)
+        # If a directory, do not extract files outside of it; whoops on lpks!!!
+        for arc in archive_types:
+            ext = "." + arc
+            if not pathlib.Path(file).is_dir() and pathlib.Path(file).suffix == ext:
+                os.chdir(os.path.dirname(file))
+                subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{os.path.basename(file)}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+
+def extract_archives(name, game_dir, extraction_dir, extraction_script, sleep):
+    tld = os.getcwd()
+    tmp = os.getcwd() + path_delimiter + game_dir
+    trees = pathlib.Path(tmp).rglob(name)
+    for subtree in trees:
+        # Fixes a quirk with top level volume extraction
+        if name == "SYSTEM.VOL" or name == "TITLE.VOL" or name == "MC.VOL":
+            name = ""
+        tmp = os.path.dirname(subtree.__str__()).replace(game_dir, extraction_dir) + path_delimiter + name
+        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{subtree}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        os.chdir(tmp)
+        extract_internals(extraction_script, sleep)
+        clean(".", extraction_dir, sleep)
+        os.chdir(tld)
+        
 
 def extract_field(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting Field Models. Please wait")
-    global path_delimiter
-    time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("FLD")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    extract_archives("FLD", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_battle(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting Battle Models. Please wait")
-    global path_delimiter
-    time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("BTL")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    extract_archives("BTL", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_gallery(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting Gallery Files. Please wait")
-    global path_delimiter
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("GALLERY")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    extract_archives("GALLERY", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_interface(game_dir, extraction_dir, extraction_script, sleep):
-    print("Extracting Gallery Files. Please wait")
-    global path_delimiter
+    print("Extracting Interface Files. Please wait")
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("IF")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    extract_internals("IF", extraction_dir, extraction_script, sleep)
+    extract_archives("IF", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_minigames(game_dir, extraction_dir, extraction_script, sleep):
-    print("Extracting Gallery Files. Please wait")
-    global path_delimiter
+    print("Extracting MiniGame Files. Please wait")
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("Mini_Game")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    extract_archives("MINI_GAME", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_memorycard(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting Memory Card Volume. Please wait")
-    global path_delimiter
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("MC.VOL")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    extract_archives("MC.VOL", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_system(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting System Volume. Please wait")
-    global path_delimiter
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("SYSTEM.VOL")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    extract_internals("SYSTEM.VOL", extraction_dir, extraction_script, sleep)
+    extract_archives("SYSTEM.VOL", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_title(game_dir, extraction_dir, extraction_script, sleep):
     print("Extracting Title Volume. Please wait")
-    global path_delimiter
     time.sleep(sleep)
-    tmp = os.getcwd() + path_delimiter + game_dir
-    files = pathlib.Path(tmp).rglob("TITLE.VOL")
-    for file in files:
-        tmp = os.path.dirname(file.__str__()).replace(game_dir, extraction_dir)
-        subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{file}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    extract_internals("TITLE.VOL", extraction_dir, extraction_script, sleep)
+    extract_archives("TITLE.VOL", game_dir, extraction_dir, extraction_script, sleep)
 
 def extract_all(game_dir, extraction_dir, extraction_script, sleep):
     extract_field(game_dir, extraction_dir, extraction_script, sleep)
@@ -168,8 +146,24 @@ def extract_all(game_dir, extraction_dir, extraction_script, sleep):
     extract_system(game_dir, extraction_dir, extraction_script, sleep)
     extract_title(game_dir, extraction_dir, extraction_script, sleep)
 
+def dig_for_bones(model_dir, extraction_dir, docs_dir, bones_script):
+    print("Digging for bones. Please wait")
+    global path_delimiter
+    trees = []
+    files = []
+    output = docs_dir + path_delimiter + "Technical" + path_delimiter + "Models" + path_delimiter + "Field"
+    trees.extend(pathlib.Path(extraction_dir).rglob(model_dir))
+    for subtree in trees:
+        files.extend(pathlib.Path(subtree).rglob("*.*"))
+        for file in files:
+            if not pathlib.Path(file).is_dir():
+                output = output + path_delimiter + pathlib.Path(file).stem + ".MD"
+                subprocess.call(['quickbms', '-Y', '-d', f'{bones_script}', f'{file}', '>', f'{output}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+
 def get_user_input(game_dir, extraction_dir, extraction_script, sleep):
     global cont
+    global docs_dir
+    global bones_script
     print("What would you like to do today?")
     print("1) Extract Field Models")
     print("2) Extract Battle Models")
@@ -191,6 +185,8 @@ def get_user_input(game_dir, extraction_dir, extraction_script, sleep):
             cont = False
         case 'a':
             extract_all(game_dir, extraction_dir, extraction_script, sleep)
+        case 'b':
+            dig_for_bones("FCHR", extraction_dir, docs_dir, bones_script)
         case 'd':
             delete_extraction_dir(extraction_dir, sleep)
         case '1':
@@ -213,6 +209,7 @@ def get_user_input(game_dir, extraction_dir, extraction_script, sleep):
 while cont == True:
     get_user_input(game_dir, extraction_dir, extraction_script, sleep)
 
-clean(extraction_dir, sleep)
+print("Cleaning up. Please wait")
+clean(".", extraction_dir, sleep)
 
 print("Have a wonderful day! Happy modding, digging, and BRSing!!! :D")
