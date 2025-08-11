@@ -49,6 +49,7 @@
 	* 0x20 - Important for the alternative calculation type; see 0x0c's notes for how this applies to the bone generation
 	* 0x24 - Equivalent to 0x2c for 0x20
 	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed; the final value is related to the rotation of the bones (starts as a degree value and then gets converted to radians)
-	* ox2c - Default start value for the calculations at 0x28; varies by file and how many calculations performed
+	* 0x2c - Default start value for the calculations at 0x28; varies by file and how many calculations performed
+	* 0x30 - 8 byte end of header
 
 ---
