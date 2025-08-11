@@ -38,6 +38,7 @@ match OS:
         path_delimiter = "/"
 
 tools_dir = sys.argv[2]
+source_dir = sys.argv[3]
 
 # temporary
 quickbms_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "quickbms"
@@ -69,3 +70,32 @@ if not pathlib.Path(quickbms_dir).exists():
     pathlib.Path(quickbms_dir).mkdir(parents=True, exist_ok=True)
     download_quickbms(quickbms_url, quickbms_version)
     prepare_quickbms(quickbms_zip, quickbms_dir)
+
+# Nim Source tools go here
+custom_source_dir = os.getcwd() + path_delimiter + source_dir
+custom_tools_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "nim" + path_delimiter + "custom"
+
+def install_extraction_tool(stem, custom_dir, custom_tools_dir):
+    global exe
+    global path_delimiter
+    print(f'Installing {stem}')
+    tmp = custom_tools_dir + path_delimiter + stem + exe
+    pathlib.Path("main" + exe).replace(tmp)
+
+def build_extraction_tool(stem, custom_dir):
+    print(f'Building {stem}')
+    os.chdir(custom_dir)
+    subprocess.call(['nimble', 'build', '-d:release'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    
+def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
+    print("Preparing Extraction Tools")
+    trees = pathlib.Path(custom_source_dir).rglob("*.nimble")
+    tmp = os.getcwd()
+    for subtree in trees:
+        root = os.path.dirname(subtree)
+        stem = pathlib.Path(subtree).stem
+        build_extraction_tool(stem, root)
+        install_extraction_tool(stem, root, custom_tools_dir)
+        os.chdir(tmp)
+
+prepare_extraction_tools(custom_source_dir, custom_tools_dir)

@@ -7,7 +7,7 @@ $cwd = (Get-Item . | % { $_.FullName })
 
 Function Run_Python3_Stage3() {
 	$tmp = $init_scripts_dir + $path_delimiter + "stage3.py"
-	& python $tmp $os $tools_dir
+	& python $tmp $os $tools_dir $source_dir
 }
 
 Run_Python3_Stage3
