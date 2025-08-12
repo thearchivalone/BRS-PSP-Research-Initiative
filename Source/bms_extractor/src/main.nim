@@ -7,6 +7,7 @@ import std/[os, strformat, strutils, sequtils]
 
 # Variables
 var file_name:string
+var file_output:string
 
 # Helper function for error handling
 proc check(e: bool) =
@@ -15,6 +16,7 @@ proc check(e: bool) =
 
 when declared(commandLineParams):
   file_name = paramStr(1)
+  file_output = paramStr(2)
 
 proc reverse[T](a:seq[T]): seq[T]=
   var i = len(a) - 1
@@ -53,12 +55,16 @@ proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[
   var scripts: seq[string]
   var final_scripts: seq[string]
 
-  scripts = get_script_string(f, start_pos, size).split({'\x00'})
+  # Use this for writing scripts to files
+  let w = open(file_output, fmWrite)
+  defer: w.close()
+
+  scripts = get_script_string(f, start_pos, size + start_pos).split({'\x00', '\x5A'})
   for s in scripts:
     if s.len >= 4:
       add(final_scripts, s)
   for s in final_scripts:
-    echo s
+    w.writeLine(s)
 
 proc read_binary_data(f:File) =
   # Read Magic Number header

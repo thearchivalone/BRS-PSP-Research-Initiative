@@ -68,6 +68,12 @@ def clean(name, extraction_dir, sleep):
         if pathlib.Path(subtree).exists() and not os.listdir(subtree):
             pathlib.Path(subtree).rmdir()
 
+def extract_bms_script(file):
+    global path_delimiter
+    tmp = file.stem
+    output = f'{os.path.dirname(file)}' + path_delimiter + f'{tmp}' + "_extract"
+    subprocess.call(['bms_extractor', f'{file}', f'{output}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+
 def extract_internals(extraction_script, sleep):
     global archive_types
     files = []
@@ -75,6 +81,10 @@ def extract_internals(extraction_script, sleep):
     # Grab all files within the cwd and attempt to extract them
     files.extend(pathlib.Path(tmp).rglob("*.*"))
     for file in files:
+        # Extract the script into a more human readable format
+        if file.suffix == ".bms":
+            extract_bms_script(file)
+
         # If a directory, do not extract files outside of it; whoops on lpks!!!
         for arc in archive_types:
             ext = "." + arc
