@@ -41,15 +41,32 @@
 		* 3x10 to The VAP Data Shuffle - Same augmentation but for the VAP Data Shuffle
 	* 0x10 is found at the end of each vertex data cluster; these clusters represent the start and finish of a straight line that makes up the edge of the quad / tri used to build each bone. The more vertices, the longer the edge
 * Structure:
+	* 0x04 - Associated Model Type ID (?)
 	* 0x0c - The Shredder Pattern is in effect if both this and 0x20 are not 0 and have the same value
-	* 0x10 - This 4-byte value leads to the vertex data; see the notes above
+	* 0x10 - Originally thought this was an offset but not sure now
 	* 0x1c - Offset from Header / Size of file
 	* 0x14 - 0x28 - Default calculation type; 0x20 - Alternative calculation type (used primarily for ZIG and some of the models in the G Namespace)
+		* This value is also the address for where animation data reading starts
 	* 0x18 - End of data Address (offset from Header) before padding
 	* 0x20 - Important for the alternative calculation type; see 0x0c's notes for how this applies to the bone generation
 	* 0x24 - Equivalent to 0x2c for 0x20
-	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed; the final value is related to the rotation of the bones (starts as a degree value and then gets converted to radians)
+	* 0x28 - Start of a chain of multiple bitwise operations with the final byte being how many calculations are performed; the final value is probably related to the rotation of the bones (starts as a degree value and then gets converted to radians)
+		* Also where animation data reading starts; see Animation Data Structure section below
 	* 0x2c - Default start value for the calculations at 0x28; varies by file and how many calculations performed
 	* 0x30 - 8 byte end of header
-
+* Animation Data Structure (Initial section pointed at by 0x14)
+	* 0x00 - See 0x28 for theories on what this is
+	* 0x04 - Address where the Animation Data tied to this section starts
+		* Structure of this Address:
+			* 0x00 - 1-byte header - Usually 0x02
+			* 0x01 - 1-byte data type - Not 100% sure, but this looks like it tells the engine how to process the data in the chunk below
+				* 0x01 - read next 32-byte chunk (with no 0x0000 chunks in it)
+				* 0x03 - read next 32-byte chunk (expect at least 3 0x0000 chunks at set locations)
+			* 0x04 - 2-byte Unknown Value
+			* 0x06 - 2-byte Unknown Value that usually matches 0x08
+			* 0x08 - 4-byte Usually same as 0x06; if 0x01 is 0x03 - First 0x0000 chunk
+			* 0x0c - 4-byte Unknown Value
+			* 0x10 - 4-byte Unknown Value; if 0x01 is 0x03 - Second 0x0000 chunk
+			* 0x14 - 4-byte Unknown Value; if 0x01 is 0x03 - Third 0x0000 chunk
+			* 0x18 <=> 0x20 - Each of these Unknown 4-byte Values seem to have a consistent structure across multiple anm files; Need to test further
 ---

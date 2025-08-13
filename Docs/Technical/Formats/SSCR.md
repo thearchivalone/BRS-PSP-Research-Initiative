@@ -25,6 +25,6 @@
 	* 0x10 - Scripted Data String End Address
 	* 0x14 - Scripted Data Section End Address
 	* 0x18 - SSCR Data End Address (Everything below is padding)
-	* 0x2c - Scripted Data String Start Address
-
+	* 0x28 + 0x08 (up to address found here) - Values associated with Scripted Data String in 0x2c
+	* 0x2c + 0x08 (up to address found here) - Scripted Data String chunk
 ---

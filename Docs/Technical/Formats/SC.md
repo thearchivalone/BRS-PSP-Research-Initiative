@@ -44,6 +44,7 @@
 
 	* 0x04 - Internal Container list start - Can be 0x3c for some models; that's a bug that doesn't seem to affect the game but will break the extraction process
 	* 0x08 - First internal object ends here but not guaranteed to help with any extra extraction
+	* 0x10 - 0x28 - These vary but the bigger value of these is usually the file/chunk total size
 	* The rest of this section is variable based on how big the SC container is, so may have to wing it quite a bit to get anything extracted
 
 ---
