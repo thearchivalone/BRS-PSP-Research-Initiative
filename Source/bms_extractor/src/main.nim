@@ -18,19 +18,16 @@ when declared(commandLineParams):
   file_name = paramStr(1)
   file_output = paramStr(2)
 
-proc reverse[T](a:seq[T]): seq[T]=
+proc reverse[T](a:seq[T]): string =
   var i = len(a) - 1
-  var tmp: seq[T]
+  # Setting this at the lowest value needed forces the string to only expand its length if absolutely needed
+  var tmp = newStringOfCap(2)
   while i > -1:
-    tmp.add(a[i])
+    let b = parseInt(fmt"{a[i]}")
+    if b != 0:
+      tmp.add(toHex(a[i]))
     dec(i)
   return tmp
-
-proc to_string[T](a:seq[T]): string =
-  var str = newStringOfCap(len(a))
-  for tmp in a:
-    add(str, alignString(fmt"{tmp}", 2, '\x00', '0'))
-  return str
 
 proc get_script_string(f:File, a:int, length:int): string =
   var s = newString(length)
@@ -44,7 +41,7 @@ proc get_byte_string(f:File, a:int): string =
   f.setFilePos(a)
   let b1 = f.readBytes(buffer, 0, 4)
   let r1 = reverse(toSeq(buffer))
-  return to_string(r1)
+  return r1
 
 proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[string] =
   var init_offset = 0x40
@@ -69,9 +66,9 @@ proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[
 proc read_binary_data(f:File) =
   # Read Magic Number header
   var magic_number = newString(4)
-  var script_start = newString(4)
-  var script_payload_start = newString(4)
-  var script_end = newString(4)
+  var script_start = newString(2)
+  var script_payload_start = newString(2)
+  var script_end = newString(2)
   var script_start_addr = 0x2c
   var script_payload_addr = 0x34
   var script_end_addr = 0x3c
@@ -87,10 +84,10 @@ proc read_binary_data(f:File) =
     # Grab where the script data starts
     script_start = get_byte_string(f, script_start_addr)
 
-    f.setFilePos(parseInt(script_start) + 4)
+    f.setFilePos(parseHexInt(script_start) + 4)
 
     # Start reading the script data
-    add(scripts, read_all_strings(f, parseInt(script_start), parseInt(script_payload_start), parseInt(script_end)))
+    add(scripts, read_all_strings(f, parseHexInt(script_start), parseHexInt(script_payload_start), parseHexInt(script_end)))
   
 proc main() =
   # Read bms script into memory in its entirety
