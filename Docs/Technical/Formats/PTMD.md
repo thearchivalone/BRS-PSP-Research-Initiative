@@ -19,6 +19,5 @@
 * Purpose: Contains textures, materials and other data related to models and user interface elements
 * Structure:
 	* 0x08 - This looks like it may be some kind of ID
-	* 0x0c - Offset from Header / Size of file (can be around 0x400 less than what Windows shows the file size to be, possibly due to padding)
-
+	* 0x0c - Address to end of file or beginning of padding section (which may contain extra data); expect this to be around 0x400 off of what the file system shows for size
 ---
