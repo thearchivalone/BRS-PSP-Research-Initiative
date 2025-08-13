@@ -40,8 +40,18 @@
 		* 3x10 to The Standard - Augmented variation of The Standard; expect to jump 0x30 (3 times 0x10 offset to get to Vertex Data)
 		* 3x10 to The VAP Data Shuffle - Same augmentation but for the VAP Data Shuffle
 	* 0x10 is found at the end of each vertex data cluster; these clusters represent the start and finish of a straight line that makes up the edge of the quad / tri used to build each bone. The more vertices, the longer the edge
-* Structure:
-	* 0x04 - Associated Model Type ID (?)
+	* Header Structure Value Notes
+		* Data Values for 0x00 (mainly relevant if Final Structure)
+			* 0x04 - Jump 0x08 for end address of 0x14 Data structure
+			* 0x02 - Jump 0x16 for same end address
+		* Data Values for 0x04
+			* Offset between structures - 0x60 (until the final structure; can be variable then)
+			* 0x02
+				* Animation Data Structure starts at 0x2d4
+			* 0x03
+				* Animation Data Structure starts at a variable address
+* Header Structure:
+	* 0x04 - Value is related to Namespace and how to read the Data; See notes above about values and see Data Structure for how each section is laid out
 	* 0x0c - The Shredder Pattern is in effect if both this and 0x20 are not 0 and have the same value
 	* 0x10 - Originally thought this was an offset but not sure now
 	* 0x1c - Offset from Header / Size of file
@@ -59,14 +69,29 @@
 	* 0x04 - Address where the Animation Data tied to this section starts
 		* Structure of this Address:
 			* 0x00 - 1-byte header - Usually 0x02
-			* 0x01 - 1-byte data type - Not 100% sure, but this looks like it tells the engine how to process the data in the chunk below
+			* 0x01 - 1-byte data type - Tells how many 4-byte chunks are addresses to jump to to obtain data for this section
 				* 0x01 - read next 32-byte chunk (with no 0x0000 chunks in it)
 				* 0x03 - read next 32-byte chunk (expect at least 3 0x0000 chunks at set locations)
 			* 0x04 - 2-byte Unknown Value
+				* 0x02 - unknown
+				* 0x24 - Last 12 <=> 16 bytes of this 32-byte chunk tell where to read next data structure and what to read (based on the 4-byte value of address sent from here)
 			* 0x06 - 2-byte Unknown Value that usually matches 0x08
 			* 0x08 - 4-byte Usually same as 0x06; if 0x01 is 0x03 - First 0x0000 chunk
 			* 0x0c - 4-byte Unknown Value
 			* 0x10 - 4-byte Unknown Value; if 0x01 is 0x03 - Second 0x0000 chunk
 			* 0x14 - 4-byte Unknown Value; if 0x01 is 0x03 - Third 0x0000 chunk
 			* 0x18 <=> 0x20 - Each of these Unknown 4-byte Values seem to have a consistent structure across multiple anm files; Need to test further
+	* 0x08 - if final structure, see Notes above related to 0x00 value
+* Animation Data Structure (Based on Value at 0x04)
+	* 0x00 - 1-byte header
+		* 0x00 - first structure
+			* Read the next 24-byte chunk
+		* 0x02 - second structure
+			* Read the next 32-byte chunk
+	* 0x01 - Usually 0x01 to represent this section type
+	* 0x04 - Address where the Animation Data tied to this section starts
+		* Structure of this Address:
+			* 0x04 - 2-byte Unknown Value (See Previous Section for Values here)
+			* 0x06 - 2-byte Unknown Value that usually matches 0x08
+			* 0x08 - 4-byte Usually same as 0x06
 ---
