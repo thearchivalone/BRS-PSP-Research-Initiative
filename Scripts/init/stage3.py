@@ -98,4 +98,15 @@ def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
         install_extraction_tool(stem, root, custom_tools_dir)
         os.chdir(tmp)
 
-prepare_extraction_tools(custom_source_dir, custom_tools_dir)
+# A little bit of a hack; only rebuild custom tools if a change has been made in how many are available
+source_tmp = pathlib.Path(custom_source_dir).rglob(".")
+count = 0
+built = 2 # Due to having Nim and Nimble installed, manually add this to prevent a loop
+for i in source_tmp:
+    count += 1
+    for j in pathlib.Path(custom_tools_dir).rglob("*"):
+        if j.stem == i.stem:
+            built += 1
+
+if built < count:
+    prepare_extraction_tools(custom_source_dir, custom_tools_dir)

@@ -52,6 +52,5 @@
 	* 0x04 <=> 0x0c - Unknown 4-byte values
 * Model Data Structure (From Address found at 0x14 + 0x04)
 	* 0x00 - Header 0x14
-	*
 * Model Data Structure (Address found at 0x18)
 ---

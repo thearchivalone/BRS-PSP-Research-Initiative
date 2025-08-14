@@ -26,40 +26,93 @@ proc reverse[T](a:seq[T]): string =
     let b = parseInt(fmt"{a[i]}")
     if b != 0:
       tmp.add(toHex(a[i]))
+    if b == 0 and i == 0 and len(tmp) == 0:
+      tmp.add("00")
     dec(i)
   return tmp
 
-proc get_script_string(f:File, a:int, length:int): string =
-  var s = newString(length)
-  f.setFilePos(a)
+proc get_script_string(f:File, pos:int, l:int): string =
+  var s = newString(l)
+  var o = newStringOfCap(2)
+  var j = 0
+  f.setFilePos(pos)
   let b1 = f.readChars(s)
-  return s
+  for i in s:
+    if i != '\x00':
+      o.add(i)
+      inc(j)
+    else:
+      f.setFilePos(pos + j + 1)
+      break
+  return o
 
-proc get_byte_string(f:File, a:int): string =
+proc get_byte_string(f:File, pos:int, l:int): string =
   var buffer: array[4, byte]
   # Grab byte value (always in 4-byte chunks)
-  f.setFilePos(a)
-  let b1 = f.readBytes(buffer, 0, 4)
+  f.setFilePos(pos)
+  let b1 = f.readBytes(buffer, 0, l)
   let r1 = reverse(toSeq(buffer))
   return r1
 
+# Parse each individual structure
+proc read_script_data_structure(f:File, start_pos:int, end_pos:int): string =
+  var offset_addr = 0x00
+  var offset = newStringOfCap(2)
+  var unk_addr = 0x02
+  var unk = newStringOfCap(2)
+  var function_addr = 0x04
+  var function = newStringOfCap(4)
+
+  # Not sure what these are for yet
+  var prim_addr = 0x2c
+  var prim = newStringOfCap(2)
+  var sec_addr = 0x24
+  var sec = newStringOfCap(2)
+  # This is where the values are set
+  var data_addr = 0x28
+  var data = newStringOfCap(2)
+
+  offset = get_byte_string(f, start_pos + offset_addr, 2)
+  unk = get_byte_string(f, start_pos + unk_addr, 2)
+  function = get_script_string(f, start_pos + function_addr, 28)
+  prim = get_byte_string(f, start_pos + prim_addr, 4)
+  sec = get_byte_string(f, start_pos + sec_addr, 4)
+  data = get_byte_string(f, start_pos + data_addr, 4)
+
+  var output = newStringOfCap(4)
+  output.add(function)
+  output.add(" : ")
+  output.add(data)
+  f.setFilePos(start_pos + parseHexInt(offset))
+  return output
+
 proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[string] =
   var init_offset = 0x40
-  var size = end_pos - start_pos
-  var lines = toInt(size / 4)
-  var i = 0
-  var pos = start_pos
+  var size = end_pos - payload_pos
   var scripts: seq[string]
   var final_scripts: seq[string]
+  var i = 0
 
   # Use this for writing scripts to files
   let w = open(file_output, fmWrite)
   defer: w.close()
 
-  scripts = get_script_string(f, start_pos, size + start_pos).split({'\x00', '\x5A'})
+  while i < 1000:
+    if i == 0:
+      scripts.add(read_script_data_structure(f, start_pos, end_pos))
+    else:
+      scripts.add(read_script_data_structure(f, f.getFilePos(), end_pos))
+    if f.getFilePos() >= payload_pos:
+      break
+    inc(i)
+
   for s in scripts:
-    if s.len >= 4:
-      add(final_scripts, s)
+    w.writeLine(s)
+
+  # Grab payload in its entirety
+  var payload = newString(size)
+  discard f.readChars(payload)
+  final_scripts = payload.split({'\x00', '\x5A'})
   for s in final_scripts:
     w.writeLine(s)
 
@@ -76,13 +129,13 @@ proc read_binary_data(f:File) =
   let bytes = f.readChars(magic_number)
   if magic_number == "bscr":
     # Grab where the script data begins and ends
-    script_end = get_byte_string(f, script_end_addr)
+    script_end = get_byte_string(f, script_end_addr, 2)
 
     # Grab where the script payload starts
-    script_payload_start = get_byte_string(f, script_payload_addr)
+    script_payload_start = get_byte_string(f, script_payload_addr, 2)
 
     # Grab where the script data starts
-    script_start = get_byte_string(f, script_start_addr)
+    script_start = get_byte_string(f, script_start_addr, 2)
 
     f.setFilePos(parseHexInt(script_start) + 4)
 
