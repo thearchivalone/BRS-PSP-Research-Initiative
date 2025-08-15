@@ -34,6 +34,12 @@
 	* Calculation for where vertex offset shifts: Second Mesh Vertex Data Address - <Values of these addresses subtracted>(0x18 - 0x14 - 0x10) - <Round this to nearest byte>(0x08)
 	* 0x14 and 0xc7 are common in the 4th byte of the headers of different sections of data
 	* There's a list somewhere near the header (or pointed to by an address the header points to) that contains important model data
+	* Killswitch value - 0x0000803f
+	* Vertex data structure pointed to and read by following this series of jumps (Not always a guarantee as observed with Boss models)
+		* jump 1 - Address at 0x24 + 0x04; Original address value looks like it's related to the read order with 0xd001 being the start of reading the chain table
+		* jump 2 - Address pointed to at jump 1 - 0x04; stop reading if value is killswitch
+		* jump 3 - Address pointed to at jump 2 + 0x04
+		* jump 4 - Address pointed to at jump 3; should follow general Vertex Data Structure below with the Killswitch value becoming a delimiter for sections instead
 * Header Structure:
 	* 0x08 - Address to Unknown Data Section with possible model data; after rounding this, this gives a start region to start expecting offset shifts to happen
 	* 0x10 - Address to Unkown 4-byte Value
@@ -41,16 +47,27 @@
 	* 0x18 - Address to second model data structure. See notes above
 	* 0x1c - Address to third model data structure
 	* 0x20 - Address to fourth model data structure
-	* 0x24 - Address to PTMD or alternative structures
+	* 0x24 - Address to PTMD or alternative structures; Can also act as the point for observing and extracting Vertex Data
 	* 0x28 - Address to possible Calculation table
 	* 0x2c - Address to unknown section
 	* 0x30 - Address to unknown section
 	* 0x34 - Same as 0x24
-	* 0x3c - Address to Model Data Structure 0 (First one of interest to me)
+	* 0x3c - Address to Model Data Structure 0 (First one of interest and observed by me)
 * Model Data Structure (Address found at 0x3c)
 	* 0x00 - Header Contains 0xc7 and some bit flag values
 	* 0x04 <=> 0x0c - Unknown 4-byte values
 * Model Data Structure (From Address found at 0x14 + 0x04)
 	* 0x00 - Header 0x14
 * Model Data Structure (Address found at 0x18)
+* Vertex Data Chunk Structure
+	* 0x00 - 4-byte magic number (often 0x000000c7)
+	* 0x04 - 32-byte header
+	* 0x36 - Start of chain of data structures
+* Vertex Data Individual Structure (Tentative)
+	* 0x00 - 4-byte delimiter
+	* 0x04 - 4-byte part / location ID
+	* 0x08 - 4-byte grouping ID
+	* 0x0c - x coordinate (Float)
+	* 0x10 - y coordinate (Float)
+	* 0x14 - z coordinate (Float)
 ---
