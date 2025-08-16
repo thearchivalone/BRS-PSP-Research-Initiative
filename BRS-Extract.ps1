@@ -32,6 +32,7 @@ $extraction_dir = "Extraction"
 $scripts_dir = "Scripts"
 $tools_dir = "Tools"
 $source_dir = "Source"
+$cache_dir = ".cache"
 
 # Populate initial scripts directories
 $init_scripts_dir = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init"
