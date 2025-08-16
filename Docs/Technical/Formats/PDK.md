@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Playing Donkey Kong
+* Name: Player Difficulty paK
 * Type: Data / Container
 * Extension: .pdk
 * Header: PDK

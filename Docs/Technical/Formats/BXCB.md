@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: BRS eXtensible Contancorous Binary
+* Name: Brs eXtended Chunk Blob
 * Type: Data
 * Extension: .bin
 * Header: BXCB

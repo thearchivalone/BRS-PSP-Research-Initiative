@@ -12,13 +12,13 @@
 
 ---
 
-* Tentative Name: Internal Node Structure Animation
+* Name: Internal Node Structure - Animation
 * Type: Data
 * Extension: .anm
 * Header: INSA
 * Purpose: Stores animation and armateur data
 * Notes:
-	* APData - Animation / Physics Data (until loaded into a modleing software, this is just a guess)
+	* APData - Animation / Physics Data (until loaded into a modeling software, this is just a guess)
 	* Can be embedded inside of an INSM container
 	* 24-byte name string found at Offset -0x18 from start when embedded (Mostly applies to Battle models)
 	* The number of INSAs found in an SC model represents how many bones that model has

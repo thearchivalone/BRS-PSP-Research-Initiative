@@ -12,11 +12,11 @@
 
 ---
 
-* Tentative Name: Let's Play Kid
+* Name: Light PaK
 * Type: Data archive
 * Extension: .lpk
 * Header: LPK
-* Purpose: Store data of similar or same types in a listed structure that can be quickly extracted
+* Purpose: Store data of similar or same types in a listed structure that can be quickly extracted due to being a small size
 * Notes:
 	* List based structure without direct encryption or compression for the most part; it's up to individual contents to handle this
 	* Can either be a single archive with multiple files within or be multiple LPKs within (which aren't scripted for extraction yet due to having 

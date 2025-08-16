@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Internal Node Structure Model
+* Tentative Name: Internal Node Structure - Model
 * Type: Data
 * Extension: .cam (if INSA structures are found)
 * Header: INSM

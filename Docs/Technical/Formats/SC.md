@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Skeletal Container
+* Name: Skeletal Container
 * Type: Container / 3D Pipeline Data
 * Extension: .sc
 * Header: SC

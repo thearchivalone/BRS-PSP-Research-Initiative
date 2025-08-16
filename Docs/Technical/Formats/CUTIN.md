@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: CUTe and INnocent
+* Name: CUTscene In-engine archive
 * Type: Data archive
 * Extension: .bin
 * Header: LPK

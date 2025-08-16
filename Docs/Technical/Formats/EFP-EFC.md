@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative: Effective Format Pack
+* Name: Effects Format Pack
 * Type: Container
 * Extension: .efp
 * Header: EFP
@@ -25,7 +25,7 @@
 
 ---
 
-* Tentative Name: Easily, my Favorite Container
+* Name: Effects Format Container
 * Type: Container
 * Extension: .efc
 * Header: EFC

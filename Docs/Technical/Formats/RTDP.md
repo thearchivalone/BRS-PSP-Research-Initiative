@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Rudimentary Typed Data Pack
+* Name: Root Top-Level Data Pack
 * Type: Data archive
 * Extension: .vol
 * Header: RTDP

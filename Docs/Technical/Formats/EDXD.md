@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Everything Does eXtensive Duties
+* Name: Environment Dot eXtended Data
 * Type: Data
 * Extension: .edx
 * Header: EDXD

@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: just BIN files
+* Name: generic BINary data
 * Type: Variable
 * Extension: .bin
 * Header: Variable

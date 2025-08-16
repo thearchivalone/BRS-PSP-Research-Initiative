@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Skeletal Container Missing Player
+* Name: Skeletal Container Missing Player
 * Type: Container / 3D Pipeline Data
 * Header: SCMP
 * Purpose: Possible unused Player Character model

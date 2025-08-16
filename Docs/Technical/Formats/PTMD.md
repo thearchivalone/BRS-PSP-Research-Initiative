@@ -12,7 +12,7 @@
 
 ---
 
-* Tentative Name: Plot Thickens, My Dear
+* Name: Packed Texture Model Data
 * Type: Compressed Data Archive
 * Extension: .ptm
 * Header: PTMD, PTM, PTMD-XP
@@ -22,7 +22,7 @@
 	* This signature was stripped out of all texture files and was only found by complete accident
 	* Imageepoch used the Dynamic Markov Compression algorithm written about [here](https://plg.uwaterloo.ca/~gvcormac/manuscripts/dmc.pdf)
 	* This format wasn't used much since its inception in 1986
-	* The Tentative Name is aptly and accidentally correct in this situation
+	* The Tentative Name was originally `Plot Thickens, My Dear` but feedback suggested I name this something more correct
 	* A 6MB texture file was compressed into 200KB
 	* Contains a PTR Texture file
 * Structure:
