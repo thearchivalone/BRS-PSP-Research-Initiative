@@ -39,15 +39,18 @@ match OS:
 
 tools_dir = sys.argv[2]
 source_dir = sys.argv[3]
+custom_dir = sys.argv[4]
+deps_dir = sys.argv[5]
 
 # temporary
 quickbms_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "quickbms"
 quickbms_zip = "quickbms_" + OS + '.zip'
+quickbms_cache = deps_dir + path_delimiter + quickbms_zip
 quickbms_url = "https://github.com/LittleBigBug/QuickBMS/releases/download/" + quickbms_version + "/" + quickbms_zip
 quickbms_command = quickbms_dir + path_delimiter + "quickbms" + exe
 quickbms_zip = quickbms_dir + path_delimiter + quickbms_zip
 
-def download_quickbms(quickbms_url, quickbms_version):
+def download_quickbms(quickbms_url):
     print("Downloading QuickBMS")
     kill_file = os.getcwd() + path_delimiter + "Tools" + path_delimiter + "stage3"
     query_parameters = {"downloadFormat": "zip"}
@@ -61,21 +64,30 @@ def download_quickbms(quickbms_url, quickbms_version):
             file.write("")
 
 def prepare_quickbms(quickbms_zip, quickbms_dir):
+    global quickbms_cache
     print("Preparing Quickbms")
-    with ZipFile(quickbms_zip, "r") as archive:
-        archive.extractall(path=quickbms_dir)
-    pathlib.Path(quickbms_zip).unlink()
+    if not pathlib.Path(quickbms_cache).exists():
+        with ZipFile(quickbms_zip, "r") as archive:
+            archive.extractall(path=quickbms_dir)
+        pathlib.Path(quickbms_zip).replace(quickbms_cache)
+    else:
+        with ZipFile(quickbms_cache, "r") as archive:
+            archive.extractall(path=quickbms_dir)
 
 if not pathlib.Path(quickbms_dir).exists():
     pathlib.Path(quickbms_dir).mkdir(parents=True, exist_ok=True)
-    download_quickbms(quickbms_url, quickbms_version)
+    if not pathlib.Path(quickbms_cache).exists():
+        download_quickbms(quickbms_url)
     prepare_quickbms(quickbms_zip, quickbms_dir)
 
 # Nim Source tools go here
 custom_source_dir = os.getcwd() + path_delimiter + source_dir
-custom_tools_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "nim" + path_delimiter + "custom"
+custom_tools_dir = os.getcwd() + path_delimiter + custom_dir
 
-def install_extraction_tool(stem, custom_dir, custom_tools_dir):
+if not pathlib.Path(custom_tools_dir).exists():
+    pathlib.Path(custom_tools_dir).mkdir(parents=True, exist_ok=True)
+
+def install_extraction_tool(stem, custom_tools_dir):
     global exe
     global path_delimiter
     print(f'Installing {stem}')
@@ -95,18 +107,21 @@ def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
         root = os.path.dirname(subtree)
         stem = pathlib.Path(subtree).stem
         build_extraction_tool(stem, root)
-        install_extraction_tool(stem, root, custom_tools_dir)
+        install_extraction_tool(stem, root)
         os.chdir(tmp)
 
-# A little bit of a hack; only rebuild custom tools if a change has been made in how many are available
+# Prevent building of tools if not needed
 source_tmp = pathlib.Path(custom_source_dir).rglob(".")
+bin_tmp = pathlib.Path(custom_tools_dir).rglob("*")
 count = 0
-built = 2 # Due to having Nim and Nimble installed, manually add this to prevent a loop
-for i in source_tmp:
-    count += 1
-    for j in pathlib.Path(custom_tools_dir).rglob("*"):
-        if j.stem == i.stem:
-            built += 1
+built = 0
+
+for s in source_tmp:
+    if not s.stem == "src" and not s.stem == source_dir:
+        count += 1
+
+for b in bin_tmp:
+    built += 1
 
 if built < count:
     prepare_extraction_tools(custom_source_dir, custom_tools_dir)

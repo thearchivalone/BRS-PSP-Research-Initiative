@@ -33,6 +33,9 @@ $scripts_dir = "Scripts"
 $tools_dir = "Tools"
 $source_dir = "Source"
 $cache_dir = ".cache"
+$deps_dir = $cache_dir + $path_delimiter + "deps"
+$custom_dir = ".bin"
+$db_dir = ".db"
 
 # Populate initial scripts directories
 $init_scripts_dir = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init"

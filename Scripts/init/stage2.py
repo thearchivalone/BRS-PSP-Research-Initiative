@@ -36,6 +36,7 @@ match OS:
 
 tools_dir = sys.argv[2]
 nim_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "nim"
+deps_dir = os.getcwd() + path_delimiter + sys.argv[3]
 
 # Versions
 nim_version = "2.2.4"
@@ -51,6 +52,7 @@ nim_command = custom_tools_dir + path_delimiter + "nim" + exe
 
 # Temporary
 nimble_zip = nimble_version + ".zip"
+nimble_cache = deps_dir + path_delimiter + nimble_zip
 nimble_url = "https://github.com/nim-lang/nimble/archive/refs/tags/v" + nimble_zip
 nimble_zip = nim_dir + path_delimiter + nimble_zip
 nimble_src_dir = nim_dir + path_delimiter + "nimble-" + nimble_version
@@ -61,27 +63,33 @@ nim_bin = nim_bin_dir + path_delimiter + "nim" + exe
 nimble_new_command = nim_bin_dir + path_delimiter + "nimble" + exe
 nimble_final_command = nimble_src_dir + path_delimiter + "nimble" + exe
 nimble_custom_command = custom_tools_dir + path_delimiter + "nimble" + exe
-choosenim_command = nim_dir + path_delimiter + "choosenim" + exe
 
 # Download and build latest version of nimble
 def download_nimble(nimble_url, nimble_zip):
-    print("Downloading Nimble")
-    kill_file = os.getcwd() + path_delimiter + "Tools" + path_delimiter + "stage2"
-    query_parameters = {"downloadFormat": "zip"}
-    response = requests.get(nimble_url, params=query_parameters)
-    if response.ok and response.status_code == 200:
-        with open(nimble_zip, mode="wb") as file:
-            file.write(response.content)
-    else:
-        print("Nimble files failed to download; please check your internet connection and try again later")
-        with open(kill_file, mode="w") as file:
-            file.write("")
+    global nimble_cache
+    if not pathlib.Path(nimble_cache).exists():
+        print("Downloading Nimble")
+        kill_file = os.getcwd() + path_delimiter + "Tools" + path_delimiter + "stage2"
+        query_parameters = {"downloadFormat": "zip"}
+        response = requests.get(nimble_url, params=query_parameters)
+        if response.ok and response.status_code == 200:
+            with open(nimble_zip, mode="wb") as file:
+                file.write(response.content)
+        else:
+            print("Nimble files failed to download; please check your internet connection and try again later")
+            with open(kill_file, mode="w") as file:
+                file.write("")
 
 def prepare_nimble(nimble_zip, nim_dir):
+    global nimble_cache
     print("Preparing Nimble")
-    with ZipFile(nimble_zip, "r") as archive:
-        archive.extractall(path=nim_dir)
-    pathlib.Path(nimble_zip).unlink()
+    if not pathlib.Path(nimble_cache).exists():
+        with ZipFile(nimble_zip, "r") as archive:
+            archive.extractall(path=nim_dir)
+        pathlib.Path(nimble_zip).replace(nimble_cache)
+    else:
+        with ZipFile(nimble_cache, "r") as archive:
+            archive.extractall(path=nim_dir)
 
 def build_nimble(nimble_new_command, nim_bin, nimble_src_dir):
     print("Building Nimble")
@@ -101,11 +109,10 @@ def install_nimble(nimble_final_command, nimble_custom_command):
     print("Installing Nimble")
     pathlib.Path(nimble_final_command).replace(nimble_custom_command)
 
-def cleanup_nim(nimble_src_dir, nim_version_dir, choosenim_command):
+def cleanup_nim(nimble_src_dir, nim_version_dir):
     print("Cleaning Up")
     pathlib.Path(nimble_src_dir).rmtree()
     pathlib.Path(nim_version_dir).rmtree()
-    pathlib.Path(choosenim_command).unlink()
 
 if not pathlib.Path(nimble_command).exists():
     download_nimble(nimble_url, nimble_zip)
@@ -113,4 +120,4 @@ if not pathlib.Path(nimble_command).exists():
     build_nimble(nimble_new_command, nim_bin, nimble_src_dir)
     install_nim(nim_bin, nim_command)
     install_nimble(nimble_final_command, nimble_custom_command)
-    cleanup_nim(nimble_src_dir, nim_version_dir, choosenim_command)
+    cleanup_nim(nimble_src_dir, nim_version_dir)

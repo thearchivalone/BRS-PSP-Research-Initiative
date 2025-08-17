@@ -35,6 +35,7 @@ archive_types = ["vol", "zzz", "gz", "lpk", "bin", "efc", "efp"]
 scripts_dir = os.getcwd() + path_delimiter + sys.argv[3] + path_delimiter + "quickbms"
 docs_dir = os.getcwd() + path_delimiter + sys.argv[6]
 cache_dir = os.getcwd() + path_delimiter + sys.argv[7]
+db_dir = os.getcwd() + path_delimiter + sys.argv[8]
 # Don't add os.getcwd() to these two so they can be used as strings for replacement
 game_dir = sys.argv[2]
 extraction_dir = sys.argv[4]
@@ -98,7 +99,7 @@ def extract_internals(extraction_script, sleep):
                 subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{os.path.basename(file)}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
 def extract_archives(name, game_dir, extraction_dir, extraction_script, sleep):
-    global cache_dir
+    global db_dir
     tld = os.getcwd()
     tmp = os.getcwd() + path_delimiter + game_dir
     trees = pathlib.Path(tmp).rglob(name)
@@ -108,7 +109,7 @@ def extract_archives(name, game_dir, extraction_dir, extraction_script, sleep):
             name = ""
         tmp = os.path.dirname(subtree.__str__()).replace(game_dir, extraction_dir) + path_delimiter + name
         subprocess.call(['quickbms', '-Y', '-d', f'{extraction_script}', f'{subtree}', f'{tmp}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        cache(cache_dir, "game", "files", f'{tmp}')
+        cache(db_dir, "game", "files", f'{tmp}')
         os.chdir(tmp)
         extract_internals(extraction_script, sleep)
         clean(".", extraction_dir, sleep)
@@ -229,6 +230,6 @@ print("Cleaning up. Please wait")
 clean(".", extraction_dir, sleep)
 
 print("Updating cache. May take a few minutes. Please wait")
-cache(".cache", "game", "files", default_extraction)
+cache(db_dir, "game", "files", default_extraction)
 
 print("Have a wonderful day! Happy modding, digging, and BRSing!!! :D")

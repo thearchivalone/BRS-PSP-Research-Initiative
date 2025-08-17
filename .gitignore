@@ -5,3 +5,5 @@
 .~lock*
 .exe
 /.cache
+/.bin
+/.db
