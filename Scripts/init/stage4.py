@@ -47,6 +47,6 @@ def check_game_files(region):
             with open(kill_file, mode="w") as file:
                 file.write("")
 
-print(f'Checking for Game Files')
+print("Checking for Game Files")
 for region in regions:
     check_game_files(region)

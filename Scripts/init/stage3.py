@@ -96,8 +96,16 @@ def install_extraction_tool(stem, custom_tools_dir):
 
 def build_extraction_tool(stem, custom_dir):
     print(f'Building {stem}')
+    cmd = ""
+    if OS == "win":
+        cmd = ".cmd"
+    nimble_deps_dir = os.getcwd() + path_delimiter + deps_dir + path_delimiter + "nimbledeps"
+    nimble_pkgs_dir = nimble_deps_dir + path_delimiter + "pkgs2"
+    zigcc = nimble_deps_dir + path_delimiter + "bin" + path_delimiter + "zigcc" + cmd
     os.chdir(custom_dir)
-    subprocess.call(['nimble', 'build', '-d:release'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    subprocess.call(['nimble', 'install', f'--nimbleDir:{nimble_deps_dir}', 'zigcc'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    subprocess.call(['nimble', 'install', f'--nimbleDir:{nimble_deps_dir}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    subprocess.call(['nim', 'c', '--cc:clang', f'--clang.exe={zigcc}', f'--clang.linkerexe={zigcc}', '--opt:speed', f'--nimblePath:{nimble_pkgs_dir}', '-d:release', 'src/main.nim'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     
 def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
     print("Preparing Extraction Tools")
@@ -107,7 +115,7 @@ def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
         root = os.path.dirname(subtree)
         stem = pathlib.Path(subtree).stem
         build_extraction_tool(stem, root)
-        install_extraction_tool(stem, root)
+        install_extraction_tool(stem, custom_tools_dir)
         os.chdir(tmp)
 
 # Prevent building of tools if not needed

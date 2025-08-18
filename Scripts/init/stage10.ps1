@@ -14,7 +14,11 @@ Run_Python3_Stage10
 
 Function Activate_Zig() {
 	Write-Output "Activating Zig Compiler"
-	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "zig" + ";" + $env:PATH
+  $extra = ""
+  if ($os -eq "win") {
+    $extra = "C:\Windows\System32;"
+  }
+	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "zig" + ";" + $extra + $env:PATH
 }
 
 Activate_Zig

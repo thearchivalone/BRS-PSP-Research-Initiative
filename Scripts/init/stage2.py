@@ -57,11 +57,13 @@ nimble_url = "https://github.com/nim-lang/nimble/archive/refs/tags/v" + nimble_z
 nimble_zip = nim_dir + path_delimiter + nimble_zip
 nimble_src_dir = nim_dir + path_delimiter + "nimble-" + nimble_version
 nimble_dir = nim_dir + path_delimiter + nim_version
+nimble_deps_dir = deps_dir + path_delimiter + "nimbledeps"
+nimble_pkgs_dir = nimble_deps_dir + path_delimiter + "pkgs2"
 nim_bin_dir = nimble_dir + path_delimiter + "bin"
 nim_version_dir = nim_dir + path_delimiter + nim_version
 nim_bin = nim_bin_dir + path_delimiter + "nim" + exe
 nimble_new_command = nim_bin_dir + path_delimiter + "nimble" + exe
-nimble_final_command = nimble_src_dir + path_delimiter + "nimble" + exe
+nimble_final_command = nimble_src_dir + path_delimiter + "src" + path_delimiter + "nimble" + exe
 nimble_custom_command = custom_tools_dir + path_delimiter + "nimble" + exe
 
 # Download and build latest version of nimble
@@ -92,13 +94,19 @@ def prepare_nimble(nimble_zip, nim_dir):
             archive.extractall(path=nim_dir)
 
 def build_nimble(nimble_new_command, nim_bin, nimble_src_dir):
-    print("Building Nimble")
+    global nimble_deps_dir
     tmp = os.getcwd()
+    cmd = ""
     os.chdir(nimble_src_dir)
-    subprocess.call([nimble_new_command, 'add', 'checksums'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    subprocess.call([nimble_new_command, 'add', 'sat'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    subprocess.call([nimble_new_command, 'add', 'zippy'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    subprocess.call([nimble_new_command, 'build', f'--nim:{nim_bin}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    subprocess.call([nimble_new_command, 'add', f'--nimbleDir:{nimble_deps_dir}', f'--nim:{nim_bin}', 'checksums'])
+    subprocess.call([nimble_new_command, 'add', f'--nimbleDir:{nimble_deps_dir}', f'--nim:{nim_bin}', 'sat'])
+    subprocess.call([nimble_new_command, 'add', f'--nimbleDir:{nimble_deps_dir}', f'--nim:{nim_bin}', 'zippy'])
+    subprocess.call([nimble_new_command, 'install', f'--nimbleDir:{nimble_deps_dir}', f'--nim:{nim_bin}', 'zigcc'])
+    if OS == "win":
+        cmd = ".cmd"
+    print("Building Nimble. Please wait")
+    zigcc = nimble_deps_dir + path_delimiter + "bin" + path_delimiter + "zigcc" + cmd
+    subprocess.call([nim_bin, 'c', '--cc:clang', f'--clang.exe={zigcc}', f'--clang.linkerexe={zigcc}', '--opt:speed', f'--nimblePath:{nimble_pkgs_dir}', '-d:release', 'src/nimble.nim'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     os.chdir(tmp)
 
 def install_nim(nim_bin, nim_command):

@@ -2,9 +2,9 @@
 /Game
 /Tools
 /Assets
-.~lock*
-.exe
-/.cache
-/.bin
-/.db
-.pdb
+**/*.~lock*
+**/*.exe
+**/.cache
+**/.bin
+**/.db
+**/*.pdb
