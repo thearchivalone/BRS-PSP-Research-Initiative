@@ -27,15 +27,16 @@ if ($os -eq "win") {
 	$arch = "universal2"
 }
 
-$python3_url = 'https://github.com/bjia56/portable-python/releases/download/cpython-v' + $python3_version + '-build.2/python-headless-' + $python3_version + '-' + $platform + '-' + $arch + '.zip'
-$python3_zip = $(Split-Path -Path $python3_url -Leaf)
-
 Write-Output "Checking Required Tools"
 Start-Sleep $sleep
 
 $tools_dir = $tools_dir + $path_delimiter + $os
 $deps_dir = $cwd + $path_delimiter + $cache_dir + $path_delimiter + "deps"
 $db_dir = $cwd + $path_delimiter + $db_dir
+
+$python3_url = 'https://github.com/bjia56/portable-python/releases/download/cpython-v' + $python3_version + '-build.2/python-headless-' + $python3_version + '-' + $platform + '-' + $arch + '.zip'
+$python3_zip = $(Split-Path -Path $python3_url -Leaf)
+$python3_deps_cache = $deps_dir + $path_delimiter + "python3"
 
 # Only create directory if tools are being downloaded on initial run
 if (!(Test-Path -Path $tools_dir -PathType Container)) {
@@ -110,7 +111,7 @@ Function Install_Init_Python3_Modules {
     Write-Output "Please wait. This should only run once."
     $tmp = $output + $path_delimiter + $python3_zip
     foreach ($mod in $python3_modules) {
-      python -m pip install $mod -qqq | Out-Null
+      python -m pip install --cache-dir $python3_deps_cache $mod -qqq | Out-Null
     }
   }
 }

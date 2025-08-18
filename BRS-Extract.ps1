@@ -47,6 +47,7 @@ if ($os -eq "win") {
 Function Check_If_Stage_Kill($stage) {
 	$item = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $stage
 	if (Test-Path -Path $item) {
+    Write-Output "An error has occurred and script must now exit"
 		Start-Sleep $sleep
 		Remove-Item $item
 		exit
@@ -57,6 +58,11 @@ Function Check_If_Stage_Kill($stage) {
 $tmp = $init_scripts_dir + $path_delimiter + "stage1.ps1"
 & $tmp
 Check_If_Stage_Kill("stage1")
+
+# Run Stage10 - Download Compilation Tools
+$tmp = $init_scripts_dir + $path_delimiter + "stage10.ps1"
+& $tmp
+Check_If_Stage_Kill("stage10")
 
 # Run Stage2 - Build and Install Nimble + Nim Toolchain
 $tmp = $init_scripts_dir + $path_delimiter + "stage2.ps1"
