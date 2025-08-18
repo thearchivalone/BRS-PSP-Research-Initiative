@@ -5,6 +5,7 @@
 
 import std/[os, paths, strformat, strutils, json]
 import db_connector/db_sqlite
+import tools/[memory]
 
 # Variables
 var cache_dir:string
@@ -40,6 +41,8 @@ proc check_action() =
   var walk:bool
 
   case cache_action:
+    of "test":
+      read_all_files_into_buffer(p)
     of "files":
       tbl = "files"
       walk = true
