@@ -6,8 +6,8 @@
 import std/[os, strformat, strutils, sequtils]
 
 # Variables
-var file_name:string
-var file_output:string
+var file_name: string
+var file_output: string
 
 # Helper function for error handling
 proc check(e: bool) =
@@ -18,7 +18,7 @@ when declared(commandLineParams):
   file_name = paramStr(1)
   file_output = paramStr(2)
 
-proc reverse[T](a:seq[T]): string =
+proc reverse[T](a: seq[T]): string =
   var i = len(a) - 1
   # Setting this at the lowest value needed forces the string to only expand its length if absolutely needed
   var tmp = newStringOfCap(2)
@@ -31,7 +31,7 @@ proc reverse[T](a:seq[T]): string =
     dec(i)
   return tmp
 
-proc get_script_string(f:File, pos:int, l:int): string =
+proc get_script_string(f: File, pos: int, l: int): string =
   var s = newString(l)
   var o = newStringOfCap(2)
   var j = 0
@@ -46,7 +46,7 @@ proc get_script_string(f:File, pos:int, l:int): string =
       break
   return o
 
-proc get_byte_string(f:File, pos:int, l:int): string =
+proc get_byte_string(f: File, pos: int, l: int): string =
   var buffer: array[4, byte]
   # Grab byte value (always in 4-byte chunks)
   f.setFilePos(pos)
@@ -55,7 +55,7 @@ proc get_byte_string(f:File, pos:int, l:int): string =
   return r1
 
 # Parse each individual structure
-proc read_script_data_structure(f:File, start_pos:int, end_pos:int): string =
+proc read_script_data_structure(f: File, start_pos: int, end_pos: int): string =
   var offset_addr = 0x00
   var offset = newStringOfCap(2)
   var unk_addr = 0x02
@@ -86,7 +86,8 @@ proc read_script_data_structure(f:File, start_pos:int, end_pos:int): string =
   f.setFilePos(start_pos + parseHexInt(offset))
   return output
 
-proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[string] =
+proc read_all_strings(f: File, start_pos: int, payload_pos: int,
+    end_pos: int): seq[string] =
   var init_offset = 0x40
   var size = end_pos - payload_pos
   var scripts: seq[string]
@@ -99,9 +100,20 @@ proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[
 
   while i < 1000:
     if i == 0:
-      scripts.add(read_script_data_structure(f, start_pos, end_pos))
+      scripts.add(
+        read_script_data_structure(
+          f,
+          start_pos,
+          end_pos)
+      )
     else:
-      scripts.add(read_script_data_structure(f, f.getFilePos(), end_pos))
+      scripts.add(
+        read_script_data_structure(
+        f,
+        f.getFilePos(),
+        end_pos
+        )
+      )
     if f.getFilePos() >= payload_pos:
       break
     inc(i)
@@ -116,7 +128,7 @@ proc read_all_strings(f:File, start_pos:int, payload_pos:int, end_pos:int): seq[
   for s in final_scripts:
     w.writeLine(s)
 
-proc read_binary_data(f:File) =
+proc read_binary_data(f: File) =
   # Read Magic Number header
   var magic_number = newString(4)
   var script_start = newString(2)
@@ -140,8 +152,15 @@ proc read_binary_data(f:File) =
     f.setFilePos(parseHexInt(script_start) + 4)
 
     # Start reading the script data
-    add(scripts, read_all_strings(f, parseHexInt(script_start), parseHexInt(script_payload_start), parseHexInt(script_end)))
-  
+    add(scripts,
+      read_all_strings(
+          f,
+          parseHexInt(script_start),
+          parseHexInt(script_payload_start),
+          parseHexInt(script_end)
+      )
+    )
+
 proc main() =
   # Read bms script into memory in its entirety
   var f = open(file_name)

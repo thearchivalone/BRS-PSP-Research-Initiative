@@ -6,9 +6,9 @@
 import std/[os, strformat, strutils, sequtils, streams]
 
 # Variables
-var dump_data:seq[string]
-var file_name:string
-var file_output:string
+var dump_data: seq[string]
+var file_name: string
+var file_output: string
 
 # Helper function for error handling
 proc check(e: bool) =
@@ -21,7 +21,7 @@ when declared(commandLineParams):
 
 var fs = newFileStream(file_name, fmRead)
 
-proc get_magic_number_string(content:string, pos:int, l:int): string =
+proc get_magic_number_string(content: string, pos: int, l: int): string =
   var buffer = newStringOfCap(l - 2)
   var i = 0
   while i < l:
@@ -29,7 +29,7 @@ proc get_magic_number_string(content:string, pos:int, l:int): string =
     inc(i)
   return buffer
 
-proc trim_byte_string(s:string): string =
+proc trim_byte_string(s: string): string =
   var p = 0
   var o = newString(2)
   for i in s:
@@ -42,7 +42,7 @@ proc trim_byte_string(s:string): string =
       o.add(i)
   return o
 
-proc reverse[T](a:seq[T]): string =
+proc reverse[T](a: seq[T]): string =
   var i = len(a) - 1
   # Setting this at the lowest value needed forces the string to only expand its length if absolutely needed
   var tmp = newString(0)
@@ -54,7 +54,7 @@ proc reverse[T](a:seq[T]): string =
     dec(i)
   return tmp
 
-proc get_byte_string(content:string, pos:int, l:int): string =
+proc get_byte_string(content: string, pos: int, l: int): string =
   var buffer = newString(0)
   var i = 0
   while i < l:
@@ -62,7 +62,8 @@ proc get_byte_string(content:string, pos:int, l:int): string =
     inc(i)
   return reverse(toSeq(buffer))
 
-proc dump_model_data(content:string, pos:int, end_pos:int, offset:int, delimiter:string) =
+proc dump_model_data(content: string, pos: int, end_pos: int, offset: int,
+    delimiter: string) =
   var cur_pos = pos
   var count = 0
   var f = open(file_output, fmWrite)
@@ -78,7 +79,7 @@ proc dump_model_data(content:string, pos:int, end_pos:int, offset:int, delimiter
     f.writeLine(x)
   defer: f.close()
 
-proc jump_to_vertex_data(content:string) =
+proc jump_to_vertex_data(content: string) =
   var jump_1_addr = 0x24
   var jump_1 = newString(0)
   var killswitch = "3F800000"
@@ -95,7 +96,7 @@ proc jump_to_vertex_data(content:string) =
     var jump_4_addr = parseHexInt(jump_3) + 4 + 32
     dump_model_data(content, jump_4_addr, jump_2_addr, 0x18, killswitch)
 
-proc read_binary_data(content:string) =
+proc read_binary_data(content: string) =
   # Read Magic Number header
   var magic_number = newStringOfCap(2)
   magic_number.add(get_magic_number_string(content, 0, 4))

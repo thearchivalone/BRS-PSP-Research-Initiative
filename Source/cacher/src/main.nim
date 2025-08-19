@@ -3,17 +3,25 @@
 # Please include this header and that license for any derivative works.
 # NOTE: Only the documentation, tools and anything that's not directly a part of the game's data fall under this copyright. I don't claim any ownership of the game or any of its assets
 
-import std/[os, paths, strformat, strutils, json]
+import std/os
+import std/paths
+import std/strformat
+import std/strutils
+import std/json
 import db_connector/db_sqlite
-import tools/[memory]
+
+# custom code imports
+import tools/memory
+import extractors/shared
+import extractors/vol
 
 # Variables
-var cache_dir:string
-var cache_type:string
-var cache_action:string
-var cache_file:string
-var db_file:string
-var db:DbConn
+var cache_dir: string
+var cache_type: string
+var cache_action: string
+var cache_file: string
+var db_file: string
+var db: DbConn
 
 when declared(commandLineParams):
   cache_dir = paramStr(1)
@@ -21,24 +29,24 @@ when declared(commandLineParams):
   cache_action = paramStr(3)
   cache_file = paramStr(4)
 
-proc check_table_exists(tbl:string) =
+proc check_table_exists(tbl: string) =
   db.exec(sql"""CREATE TABLE if not exists ?(
       id INTEGER NOT NULL PRIMARY KEY,
       value BLOB
-    )""", 
+    )""",
     tbl)
 
-proc cache(tbl:string, id:int, value:string) =
+proc cache(tbl: string, id: int, value: string) =
   db.exec(sql"INSERT or IGNORE INTO ? (id, value) VALUES (?, ?)", tbl, id, value)
 
 proc check_action() =
   let p = joinPath("", cache_file)
   var full_path = cast[Path](p)
-  var tbl:string
+  var tbl: string
   var id = 0
-  var value:string
-  var action:string
-  var walk:bool
+  var value: string
+  var action: string
+  var walk: bool
 
   case cache_action:
     of "test":
@@ -52,11 +60,11 @@ proc check_action() =
     of "cache":
       if walk:
         # variables
-        var region:string
-        var archive:string
-        var file:string
-        var parent:string
-        var chash:int
+        var region: string
+        var archive: string
+        var file: string
+        var parent: string
+        var chash: int
         var file_json = %* []
         var region_json = %* []
         var json = %* []
@@ -100,7 +108,8 @@ proc check_action() =
           file = extractFilename(path)
           chash = hash(cast[Path](path))
           parent = fmt"{lastPathPart(parentDir(cast[Path](path)))}"
-          region_json = %* {"archive": archive, "region": region, "parent": parent, "file": file, "hash": toHex(chash)}
+          region_json = %* {"archive": archive, "region": region,
+              "parent": parent, "file": file, "hash": toHex(chash)}
           json.add(region_json)
         var p_json = pretty(json)
         cache(tbl, id, p_json)
@@ -116,5 +125,7 @@ proc main() =
   check_db()
   check_action()
   db.close()
+  var E = new_extractor(cache_file)
+  extract_data(cache_file)
 
 main()
