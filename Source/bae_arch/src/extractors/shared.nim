@@ -17,28 +17,16 @@ import ../tools/memory
 var
   # data blobs
   ext_json* = %* []
-  arbitrary_no = 1024 * 16 # A 16kb buffer value for iteration in case length of data section is unknown
- # These are specific to each unique file format type
+  arbitrary_no* = 1024 * 16 # A 16kb buffer value for iteration in case length of data section is unknown
+  # Shared variables
+  header_len* = 0x64 # 100 bytes is a reasonable chunk to cover all of the variations
+  data*: seq[byte]
+  file_path*: string
+  file_ext*: string
+  file_name*: string
+  file_size*: int
   magic_number*: string
   header_end*: int
-  size*: int
   primary_type*: string
   secondary_type*: string
   file_count*: int
-  files_list*: seq[string]
-  offsets_list*: seq[int]
-  sizes_list*: seq[int]
-  path*: string
-  ext*: string
-  file_name*: string
-
-# Make this a type so that only extractors have direct access to most of the shared vars
-type Extractor* = ref object of RootObj
-
-proc new_extractor*(p: string): Extractor =
-  var self: Extractor
-  # Sanitize the path just in case
-  path = p
-  ext = get_file_ext(path)
-  file_name = get_file_name(path)
-  return self

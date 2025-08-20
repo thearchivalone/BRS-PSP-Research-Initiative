@@ -12,7 +12,6 @@ import db_connector/db_sqlite
 
 # custom code imports
 import tools/memory
-import extractors/shared
 import extractors/vol
 
 # Variables
@@ -50,7 +49,7 @@ proc check_action() =
 
   case cache_action:
     of "test":
-      read_all_files_into_buffer(p)
+      extract_data(cache_file, 0, 1024)
     of "files":
       tbl = "files"
       walk = true
@@ -125,7 +124,6 @@ proc main() =
   check_db()
   check_action()
   db.close()
-  var E = new_extractor(cache_file)
-  extract_data(cache_file)
+  shutdown()
 
 main()

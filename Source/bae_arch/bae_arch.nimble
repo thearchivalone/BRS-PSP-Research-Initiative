@@ -1,8 +1,8 @@
 # Package
 
-version = "0.1.0"
+version = "0.0.1"
 author = "Brad D"
-description = "BRS research initiative archive cacher"
+description = "BRS Archive Excavator - Archive Viewer Tool written in Nim"
 license = "BSD-3-Clause"
 srcDir = "src"
 bin = @["main"]

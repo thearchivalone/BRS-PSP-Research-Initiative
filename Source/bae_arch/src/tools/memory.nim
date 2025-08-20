@@ -19,22 +19,23 @@ import std/sequtils
 import std/os
 
 var full_walk_buffer: seq[ptr seq[char]]
+
 # 256KB to help with optimizing reading and memory management
 var block_size = 4096 * 64 # Read game data in decently large chunks to speed up extraction
 
-proc trim_char_string*(buffer: string): string =
+proc trim_char_string*(buffer: seq[byte]): string =
   var s = newString(4)
   for i in buffer:
-    if i == '\x00':
+    if i == 0:
       break
-    s.add(i)
+    s.add(cast[char](i))
   return s
 
-proc read_char_string*(buffer: string, start: int, len: int): string =
+proc read_char_string*(buffer: seq[byte], start: int, len: int): string =
   var i = 0
-  var s = newStringOfCap(len)
+  var s: seq[byte]
   while i < len:
-    s.add(buffer[i])
+    s.add(buffer[i + start])
     inc(i)
   return trim_char_string(s)
 
@@ -42,22 +43,23 @@ proc reverse_long_string*[T](buffer: seq[T]): string =
   var i = len(buffer) - 1
   var s = newStringOfCap(2)
   while i > -1:
-    let b = parseInt(fmt"{buffer[i]}")
+    var b = buffer[i]
     if b != 0:
       s.add(toHex(b))
-    if b + i + len(s) == 0:
+    # Cover instances where either the long is 0 or is 2+ bytes long but ends with 00
+    if i + len(s) == 0 or (len(s) > 0 and b == 0):
       s.add("00")
     dec(i)
   return s
 
 # Read a 4 byte chunk of data
-proc read_long_string*(buffer: string, start: int, len: int): int =
+proc read_long_string*(buffer: seq[byte], start: int, len: int): int =
   var i = 0
-  var s = newStringOfCap(len)
+  var s: seq[byte]
   while i < len:
     s.add(buffer[i + start])
     inc(i)
-  let s1 = reverse_long_string(toSeq(s))
+  let s1 = reverse_long_string(s)
   return parseHexInt(s1)
 
 proc get_file_size*(p: string): int =
@@ -78,37 +80,13 @@ proc read_file_data*(p: string): string =
   fs.close()
   return s
 
-
-proc read_file_data_into_buffer*(path: string): seq[ptr seq[byte]] =
-  var i = 0
-  var size = get_file_size(path)
-  var b = read_file_data(path)
-  var curr_buffer: seq[byte]
-  var curr_byte: seq[char]
-  while i < size:
-    curr_byte.add(b[i])
-    if i mod 2 == 0:
-      curr_buffer.add(curr_byte)
-      curr_byte.setLen(0)
-    inc(i)
-  return curr_buffer
-
-
-# Read all files from directory into memory
-proc read_all_files_into_buffer*(path: string): void =
-  var i = 0
-  var full_path = parentDir(cast[Path](path))
-  for kind in walkDirRec(full_path):
-    var p = fmt"{kind}"
-    var size = get_file_size(p)
-    var b = read_file_data(p)
-    var curr_buffer: seq[byte]
-    while i < size:
-      curr_buffer.add(b[i])
-      if i mod block_size == 0 and i >= block_size:
-        full_walk_buffer.add(addr curr_buffer)
-        curr_buffer.setLen(0)
-      i += 1
+# Only the header data needs to be read in most instances, so why waste the memory?
+proc read_header_data*(path: string, start: int, len: int): seq[byte] =
+  var buffer: array[1024, byte]
+  var f = open(path, fmRead)
+  discard f.readBytes(buffer, start, len)
+  f.close()
+  return toSeq(buffer)
 
 # Hash all files
 # Print file name + hash
