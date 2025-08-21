@@ -13,12 +13,8 @@ import std/json
 import std/streams
 import std/paths
 import std/strformat
-import std/dirs
 import std/strutils
-import std/sequtils
 import std/os
-
-var full_walk_buffer: seq[ptr seq[char]]
 
 # 256KB to help with optimizing reading and memory management
 var block_size = 4096 * 64 # Read game data in decently large chunks to speed up extraction
@@ -82,18 +78,13 @@ proc read_file_data*(p: string): string =
 
 # Only the header data needs to be read in most instances, so why waste the memory?
 proc read_header_data*(path: string, start: int, len: int): seq[byte] =
-  var buffer: array[1024, byte]
+  var buffer: seq[byte]
+  buffer.setLen(len)
   var f = open(path, fmRead)
-  discard f.readBytes(buffer, start, len)
+  f.setFilePos(start)
+  discard f.readBytes(buffer, 0, len)
   f.close()
-  return toSeq(buffer)
+  return buffer
 
 # Hash all files
 # Print file name + hash
-
-proc shutdown*(): void =
-  # Empty out buffers
-  full_walk_buffer.setLen(0)
-
-proc init*(): void =
-  echo("")

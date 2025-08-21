@@ -11,7 +11,6 @@ import std/json
 import db_connector/db_sqlite
 
 # custom code imports
-import tools/memory
 import extractors/vol
 
 # Variables
@@ -124,6 +123,5 @@ proc main() =
   check_db()
   check_action()
   db.close()
-  shutdown()
 
 main()
