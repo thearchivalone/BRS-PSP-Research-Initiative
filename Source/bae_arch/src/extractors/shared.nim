@@ -10,6 +10,7 @@
 ##
 
 import std/json
+import std/strformat
 
 var
   # data blobs
@@ -26,6 +27,9 @@ var
   file_count*: int
   magic_number*: string
   header_end*: int
+
+proc print_extracted*(key: string, value: string): void =
+  echo fmt"{key}: {value}"
 
 proc populate_types_by_ext*(ext: string): seq[string] =
   var res: seq[string]

@@ -25,9 +25,6 @@ var
   offsets_list: seq[int]
   sizes_list: seq[int]
 
-proc print_extracted(key: string, value: string): void =
-  echo fmt"{key}: {value}"
-
 proc extract_data*(path: string, start: int, len: int): void =
   var local_data: seq[byte]
   magic_number = "RTDP"
