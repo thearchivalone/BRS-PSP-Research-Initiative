@@ -20,6 +20,11 @@
 * Notes:
 	* Can contain multiple INSM mdls and PTMD ptms embedded with names
 * Structure:
+	* 0x0c - 1-byte embedded esb count
+	* 0x0d - 1-byte embedded model count
+	* 0x0e - 1-byte embedded animation count
+	* 0x0f - 1-byte Index Value (?) - This value doesn't seem to correspond with any direct count so far
+	* 0x10 - 4-byte Offset from 0x30 to first INSA structure
 	* 0x18 - 24-byte first internal INSM mdl or PTMD ptm name string
 	* 0x30 - Address of first internal INSM mdl structure
 

@@ -13,7 +13,7 @@
 ---
 
 * Name: Light PaK
-* Type: Data archive
+* Type: Container
 * Extension: .lpk
 * Header: LPK
 * Purpose: Store data of similar or same types in a listed structure that can be quickly extracted due to being a small size
@@ -22,8 +22,9 @@
 	* Can either be a single archive with multiple files within or be multiple LPKs within (which aren't scripted for extraction yet due to having 
 		a bit of a different structure)
 	* Seems to be the standard way to store data outside of gzip compressed BIN or GZ archives
+	* This container format doesn't contain the total file size in its data
 * Structure:
 	* 0x04 - Number of files within the archive
-	* 0x0c - List of all file offsets and sizes within the archive. See BRS-LPK.bms for how this particle section is structured. There's some math involved
-
+	* 0x08 - List of all file offsets up to value at 0x04 with 0x04 offset between them
+	* Address where the count ends - List of all file sizes
 ---

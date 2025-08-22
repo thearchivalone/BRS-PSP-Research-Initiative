@@ -17,7 +17,10 @@
 * Extension: .esb
 * Header: None
 * Purpose: Unknown
+* Notes:
+	* These are enigmatic, but EFPs/EFCs can contain multiple and their count is important; see EFP format docs for more information on this
 * Structure:
-	* 0x00 (2 bytes) - Size of data
-
+	* 0x00 - 4-byte Size of file
+	* 0x04 - Unknown 4-byte value
+	* 0x08 - 20-byte filename
 ---

@@ -41,7 +41,10 @@
 		* jump 3 - Address pointed to at jump 2 + 0x04
 		* jump 4 - Address pointed to at jump 3; should follow general Vertex Data Structure below with the Killswitch value becoming a delimiter for sections instead
 * Header Structure:
-	* 0x0c - Vertex count (value + 1)
+	* 0x04 - 1-byte Model / Animation Count
+	* 0x05 - 1-byte Texture Count (only applicable to mdl files)
+	* 0x06 - 2-byte Unknown Value (could be an ID or unknown file type that's missing)
+	* 0x0c - 4-byte Vertex count (value + 1)
 	* 0x08 - Address to Unknown Data Section with possible model data; after rounding this, this gives a start region to start expecting offset shifts to happen
 	* 0x10 - Address to Unkown 4-byte Value
 	* 0x14 - Address to first model data structure

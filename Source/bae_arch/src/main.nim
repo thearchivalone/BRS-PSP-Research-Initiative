@@ -10,7 +10,16 @@ import std/strutils
 import std/json
 import db_connector/db_sqlite
 
-# custom code imports
+# extractor imports
+import extractors/anm
+import extractors/at3
+import extractors/cam
+import extractors/efp
+import extractors/esb
+import extractors/lpk
+import extractors/mdl
+import extractors/ptm
+import extractors/sc
 import extractors/vol
 
 # Variables
@@ -45,10 +54,82 @@ proc check_action() =
   var value: string
   var action: string
   var walk: bool
+  var json_blob: seq[string]
 
   case cache_action:
     of "test":
-      extract_data(cache_file, 0, 1024)
+      var v: VOL
+      json_blob.add(
+        extract_vol_headers(
+          v,
+          cache_file,
+          0,
+          1024
+        ).pretty()
+      )
+      var a: ANM
+      discard extract_anm_headers(
+        a,
+        cache_file,
+        0,
+        0xff
+      )
+      var at: AT3
+      discard extract_at3_headers(
+        at,
+        cache_file,
+        0,
+        0xff
+      )
+      var c: CAM
+      discard extract_cam_headers(
+        c,
+        cache_file,
+        0,
+        0xff
+      )
+      var ef: EFP
+      discard extract_efp_headers(
+        ef,
+        cache_file,
+        0,
+        0xff
+      )
+      var es: ESB
+      discard extract_esb_headers(
+        es,
+        cache_file,
+        0,
+        0xff
+      )
+      var l: LPK
+      discard extract_lpk_headers(
+        l,
+        cache_file,
+        0,
+        0xff
+      )
+      var m: MDL
+      discard extract_mdl_headers(
+        m,
+        cache_file,
+        0,
+        0xff
+      )
+      var p: PTMD
+      discard extract_ptm_headers(
+        p,
+        cache_file,
+        0,
+        0xff
+      )
+      var s: SC
+      discard extract_sc_headers(
+        s,
+        cache_file,
+        0,
+        0xff
+      )
     of "files":
       tbl = "files"
       walk = true

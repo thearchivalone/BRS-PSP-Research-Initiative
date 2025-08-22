@@ -14,9 +14,12 @@ import std/strformat
 import std/strutils
 import std/paths
 import std/base64
+import std/tables
 
 import shared
 import ../tools/memory
+
+type VOL* = ref Extractor
 
 var
   xorkey: int
@@ -25,25 +28,17 @@ var
   offsets_list: seq[int]
   sizes_list: seq[int]
 
-proc extract_data*(path: string, start: int, len: int): void =
+proc extract_vol_headers*(e: VOL, path: string, start: int, len: int): JsonNode =
   var local_data: seq[byte]
-  magic_number = "RTDP"
+  # Create a table to map values to and send to macro
+  var tbl = newTable[string, string]()
+  tbl["path"] = path
+  tbl["header_end_addr"] = "0x04"
+  tbl["file_count_addr"] = "0x08"
+  tbl["file_size_addr"] = "0x0c"
+
   local_data = read_header_data(path, start, len)
-  header_end = read_long_string(
-    local_data,
-    0x04,
-    4
-  )
-  file_count = read_long_string(
-    local_data,
-    0x08,
-    4
-  )
-  file_size = read_long_string(
-    local_data,
-    0x0c,
-    4
-  )
+  ext_json.add(extract_header_data(local_data, tbl))
   xorkey = read_long_string(local_data, 0x10, 1)
   # Start working through file name list in header
   var list_init = 0x20
@@ -126,4 +121,4 @@ proc extract_data*(path: string, start: int, len: int): void =
     }
     ext_json.add(local_json)
   data.setLen(0)
-  echo ext_json.pretty()
+  return ext_json
