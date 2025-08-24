@@ -13,3 +13,9 @@ bin = @["main"]
 requires "nim >= 2.2.4"
 
 requires "db_connector >= 0.1.0"
+
+requires "naylib >= 25.33.0"
+
+requires "puppy >= 2.1.2"
+
+requires "zigcc >= 3.0.0"

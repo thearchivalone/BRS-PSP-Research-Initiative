@@ -43,12 +43,26 @@ custom_dir = sys.argv[4]
 deps_dir = sys.argv[5]
 
 # temporary
-quickbms_dir = os.getcwd() + path_delimiter + tools_dir + path_delimiter + OS + path_delimiter + "quickbms"
-quickbms_zip = "quickbms_" + OS + '.zip'
+quickbms_dir = (
+    os.getcwd()
+    + path_delimiter
+    + tools_dir
+    + path_delimiter
+    + OS
+    + path_delimiter
+    + "quickbms"
+)
+quickbms_zip = "quickbms_" + OS + ".zip"
 quickbms_cache = deps_dir + path_delimiter + quickbms_zip
-quickbms_url = "https://github.com/LittleBigBug/QuickBMS/releases/download/" + quickbms_version + "/" + quickbms_zip
+quickbms_url = (
+    "https://github.com/LittleBigBug/QuickBMS/releases/download/"
+    + quickbms_version
+    + "/"
+    + quickbms_zip
+)
 quickbms_command = quickbms_dir + path_delimiter + "quickbms" + exe
 quickbms_zip = quickbms_dir + path_delimiter + quickbms_zip
+
 
 def download_quickbms(quickbms_url):
     print("Downloading QuickBMS")
@@ -59,9 +73,12 @@ def download_quickbms(quickbms_url):
         with open(quickbms_zip, mode="wb") as file:
             file.write(response.content)
     else:
-        print("QuickBMS files failed to download; please check your internet connection and try again later")
+        print(
+            "QuickBMS files failed to download; please check your internet connection and try again later"
+        )
         with open(kill_file, mode="w") as file:
             file.write("")
+
 
 def prepare_quickbms(quickbms_zip, quickbms_dir):
     global quickbms_cache
@@ -73,6 +90,7 @@ def prepare_quickbms(quickbms_zip, quickbms_dir):
     else:
         with ZipFile(quickbms_cache, "r") as archive:
             archive.extractall(path=quickbms_dir)
+
 
 if not pathlib.Path(quickbms_dir).exists():
     pathlib.Path(quickbms_dir).mkdir(parents=True, exist_ok=True)
@@ -87,26 +105,44 @@ custom_tools_dir = os.getcwd() + path_delimiter + custom_dir
 if not pathlib.Path(custom_tools_dir).exists():
     pathlib.Path(custom_tools_dir).mkdir(parents=True, exist_ok=True)
 
+
 def install_extraction_tool(stem, custom_tools_dir):
     global exe
     global path_delimiter
-    print(f'Installing {stem}')
+    print(f"Installing {stem}")
     tmp = custom_tools_dir + path_delimiter + stem + exe
     pathlib.Path("main" + exe).replace(tmp)
 
+
 def build_extraction_tool(stem, custom_dir):
-    print(f'Building {stem}')
+    print(f"Building {stem}")
     cmd = ""
     if OS == "win":
         cmd = ".cmd"
-    nimble_deps_dir = os.getcwd() + path_delimiter + deps_dir + path_delimiter + "nimbledeps"
+    nimble_deps_dir = (
+        os.getcwd() + path_delimiter + deps_dir + path_delimiter + "nimbledeps"
+    )
     nimble_pkgs_dir = nimble_deps_dir + path_delimiter + "pkgs2"
     zigcc = nimble_deps_dir + path_delimiter + "bin" + path_delimiter + "zigcc" + cmd
     os.chdir(custom_dir)
-    subprocess.call(['nimble', 'install', f'--nimbleDir:{nimble_deps_dir}', 'zigcc'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    subprocess.call(['nimble', 'install', f'--nimbleDir:{nimble_deps_dir}'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    subprocess.call(['nim', 'c', '--cc:clang', f'--clang.exe={zigcc}', f'--clang.linkerexe={zigcc}', '--opt:speed', f'--nimblePath:{nimble_pkgs_dir}', '-d:release', 'src/main.nim'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    
+    subprocess.call(
+        ["nimble", "install", f"--nimbleDir:{nimble_deps_dir}"],
+    )
+    subprocess.call(
+        [
+            "nim",
+            "c",
+            "--cc:clang",
+            f"--clang.exe={zigcc}",
+            f"--clang.linkerexe={zigcc}",
+            "--opt:speed",
+            f"--nimblePath:{nimble_pkgs_dir}",
+            "-d:release",
+            "src/main.nim",
+        ],
+    )
+
+
 def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
     print("Preparing Extraction Tools")
     trees = pathlib.Path(custom_source_dir).rglob("*.nimble")
@@ -118,6 +154,7 @@ def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
         install_extraction_tool(stem, custom_tools_dir)
         os.chdir(tmp)
 
+
 # Prevent building of tools if not needed
 source_tmp = pathlib.Path(custom_source_dir).rglob(".")
 bin_tmp = pathlib.Path(custom_tools_dir).rglob("*")
@@ -125,7 +162,7 @@ count = 0
 built = 0
 
 for s in source_tmp:
-    if not s.stem == "src" and not s.stem == source_dir:
+    if s.parent.stem == source_dir:
         count += 1
 
 for b in bin_tmp:

@@ -6,9 +6,10 @@
 $cwd = (Get-Item . | % { $_.FullName })
 
 $requests_version = "2.32.4"
+$py7zr_version = "1.0.0"
 
 $python3_version = "3.11.13"
-$python3_modules = @("pip", "setuptools", "requests==$requests_version", "git+https://github.com/bitranox/pathlib3x.git")
+$python3_modules = @("pip", "setuptools", "requests==$requests_version", "git+https://github.com/bitranox/pathlib3x.git", "py7zr==$py7zr_version")
 $download_python3 = 0
 $extract_from_cache = 0
 
