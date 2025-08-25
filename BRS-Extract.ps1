@@ -25,6 +25,9 @@ else {
 	}
 }
 
+# Save original path variable so we can rset to it at close
+$old_path = $env:PATH
+
 # Directory variables
 $game_dir = "Game"
 $docs_dir = "Docs"
@@ -82,3 +85,6 @@ Check_If_Stage_Kill("stage4")
 # Run Stage5 - Run Extraction Scripts
 $tmp = $init_scripts_dir + $path_delimiter + "stage5.ps1"
 & $tmp
+
+# Reset path to original
+$env:PATH = $old_path
