@@ -22,6 +22,8 @@ import extractors/ptm
 import extractors/sc
 import extractors/vol
 
+import ui/app
+
 # Variables
 var cache_dir: string
 var cache_type: string

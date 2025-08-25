@@ -8,3 +8,4 @@
 **/.bin
 **/.db
 **/*.pdb
+**/nim.cfg

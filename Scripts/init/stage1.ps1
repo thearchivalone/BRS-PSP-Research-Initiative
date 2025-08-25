@@ -5,125 +5,47 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
-$requests_version = "2.32.4"
-$py7zr_version = "1.0.0"
+Function Activate_Llvm() {
+  $clang_version = "18"
+  $wrapper = "clang-target-wrapper"
+	Write-Output "Activating LLVM Toolchain"
+  $llvm_dir = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "llvm"
+  $libclang_dir = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "libclang"
+	$env:PATH = $llvm_dir + $path_delimiter + "bin" + ";" + $env:PATH
+  $env:COMPILER_PATH = $llvm_dir + $path_delimiter + "bin" 
+  $env:INCLUDE = $libclang_dir + $path_delimiter + "include" + $path_delimiter + "clang-c" + ";" + $llvm_dir + $path_delimiter + "lib" + $path_delimiter + "clang" + $path_delimiter + $clang_version + $path_delimiter + "include" + ";" + $llvm_dir + $path_delimiter + "include" + ";" + $env:INCLUDE
+  $env:LIB = $llvm_dir + $path_delimiter + "lib" + $path_delimiter + "clang" + $path_delimiter + $clang_version + $path_delimiter + "lib" + ";" + $llvm_dir + $path_delimiter + "bin" + ";" + $libclang_dir + $path_delimiter + "bin" + ";" + $llvm_dir + $path_delimiter + "lib" + ";" + $llvm_dir  + $env:LIB
+  $env:LIBRARY_PATH = $env:LIB
 
-$python3_version = "3.11.13"
-$python3_modules = @("pip", "setuptools", "requests==$requests_version", "git+https://github.com/bitranox/pathlib3x.git", "py7zr==$py7zr_version")
-$download_python3 = 0
-$extract_from_cache = 0
-
-# Set this to prevent some of the extra info on screen
-$global:ProgressPreference = "SilentlyContinue"
-
-# Platform specific variables
-if ($os -eq "win") {
-	$platform = "windows"
-	$arch = "x86_64"
-} elseif ($os -eq "linux") {
-	$platform = $os
-	$arch = "x86_64"
-} elseif ($os -eq "macosx") {
-	$platform = "darwin"
-	$arch = "universal2"
-}
-
-Write-Output "Checking Required Tools"
-Start-Sleep $sleep
-
-$tools_dir = $tools_dir + $path_delimiter + $os
-$deps_dir = $cwd + $path_delimiter + $cache_dir + $path_delimiter + "deps"
-$db_dir = $cwd + $path_delimiter + $db_dir
-
-$python3_url = 'https://github.com/bjia56/portable-python/releases/download/cpython-v' + $python3_version + '-build.2/python-headless-' + $python3_version + '-' + $platform + '-' + $arch + '.zip'
-$python3_zip = $(Split-Path -Path $python3_url -Leaf)
-$python3_deps_cache = $deps_dir + $path_delimiter + "python3"
-
-# Only create directory if tools are being downloaded on initial run
-if (!(Test-Path -Path $tools_dir -PathType Container)) {
-	New-Item -Path . -Name $tools_dir -ItemType Directory | Out-Null
-}
-
-# Create the cache directory if it doesn't exist yet
-if (!(Test-Path -Path $deps_dir -PathType Container)) {
-	New-Item -Path $deps_dir -ItemType Directory -Force | Out-Null
-}
-
-# Create the db directory if it doesn't exist yet
-if (!(Test-Path -Path $db_dir -PathType Container)) {
-	New-Item -Path $db_dir -ItemType Directory -Force | Out-Null
-}
-
-# Quick and dirty hack to solve a pathing issue when moving this to external script
-$output = Get-Item -Path $tools_dir | % { $_.FullName }
-
-$python3_output = $output + $path_delimiter + "python3"
-if (!(Test-Path -Path $python3_output -PathType Container)) {
-	if ($os -eq "win") {
-		Write-Output "Windows Only Warning:"
-		Write-Output "If you haven't enabled long directory names in the Windows Registry yet,"
-		Write-Output "	please do it before continuing. This script will most likely hit the 260 character"
-		Write-Output "	limit, so expect errors without it enabled. Thanks for understanding"
-		Start-Sleep $sleep
-		Start-Sleep $sleep
-	}
-}
-
-$python3_cache = $deps_dir + $path_delimiter + $python3_zip
-if (!(Test-Path -Path $python3_cache) -and !(Test-Path -Path $python3_output)) {
-  $download_python3 = 1
-}
-
-if (($download_python3 -eq 0)) {
-  if (!(Test-Path -Path $python3_output)) {
-    $extract_from_cache = 1
+  # Run target wrapper based on platform
+  if ($os -eq "win") {
+    $wrapper = $wrapper + $exe
+  } else {
+    $wrapper = $wrapper + ".sh"
   }
+  $env:CC = $wrapper
 }
 
-$python3_dir = $output + $path_delimiter + "python3"
+Activate_Llvm
 
-Function Download_Python3 {
-	$tmp = $output + $path_delimiter + $python3_zip
-  if ($download_python3 -eq 1) {
-    Write-Output "Downloading Python3"
-    Invoke-WebRequest -Uri $python3_url -OutFile $tmp
-    Write-Output "Preparing Python3"
-    Expand-Archive -Path $tmp -DestinationPath $output
-    $extracted = $output + $path_delimiter + "python-headless-" + $python3_version + '-' + $platform + '-' + $arch
-    Move-Item -Path $extracted -Destination $python3_dir
-    Move-Item -Path $tmp -Destination $deps_dir
-  } elseif ($extract_from_cache -eq 1) {
-    Write-Output "Preparing Python3"
-    Expand-Archive -Path $python3_cache -DestinationPath $output
-    $extracted = $output + $path_delimiter + "python-headless-" + $python3_version + '-' + $platform + '-' + $arch
-    Move-Item -Path $extracted -Destination $python3_dir
+Function Activate_Zig() {
+	Write-Output "Activating Zig Compiler"
+  $extra = ""
+  if ($os -eq "win") {
+    $extra = "C:\Windows\System32;"
   }
+  $zig_dir = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "zig" 
+	$env:PATH = $zig_dir + ";" + $extra + $env:PATH
+  $env:ZIGCC = $zig_dir + $path_delimiter + "zig" + $exe + " cc"
+  $env:ZIG_LOCAL_CACHE_DIR = $cwd + $path_delimiter + $cache_dir + $path_delimiter + "zig"
+  $env:CC = $env:ZIGCC
 }
 
-# Add portable python to internal path so that it and its modules can be used without polluting system python
-Function Activate_Python3 {
-	Write-Output "Activating Python3 Interpretor"
-	$env:PATH = $python3_dir + $path_delimiter + "Scripts" + ";" + $python3_dir + $path_delimiter + "bin" + ";" + $env:PATH
+Activate_Zig
+
+Function Run_Python3_Stage1() {
+	$tmp = $init_scripts_dir + $path_delimiter + "stage1.py"
+	& python $tmp $os $tools_dir $deps_dir $scripts_dir
 }
 
-Function Install_Init_Python3_Modules {
-  if (($download_python3 -eq 1) -or ($extract_from_cache -eq 1)) {
-    Write-Output "Downloading Required Python3 Modules."
-    Write-Output "Please wait. This should only run once."
-    $tmp = $output + $path_delimiter + $python3_zip
-    foreach ($mod in $python3_modules) {
-      python -m pip install --cache-dir $python3_deps_cache $mod -qqq | Out-Null
-    }
-  }
-}
-
-Function Run_Python3_Init {
-	$init = $cwd + $path_delimiter + $scripts_dir + $path_delimiter + "init" + $path_delimiter + "stage1.py"
-	& python $init $os $tools_dir $deps_dir
-}
-
-Download_Python3
-Activate_Python3
-Install_Init_Python3_Modules
-
-Run_Python3_Init
+Run_Python3_Stage1

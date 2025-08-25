@@ -14,8 +14,6 @@ requires "nim >= 2.2.4"
 
 requires "db_connector >= 0.1.0"
 
-requires "naylib >= 25.33.0"
+requires "https://github.com/floooh/sokol-nim.git"
 
-requires "puppy >= 2.1.2"
-
-requires "zigcc >= 3.0.0"
+requires "https://github.com/treeform/pixie.git"

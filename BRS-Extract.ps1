@@ -57,15 +57,15 @@ Function Check_If_Stage_Kill($stage) {
 	}
 }
 
-# Run Stage1 - Bootstrap Nim
-$tmp = $init_scripts_dir + $path_delimiter + "stage1.ps1"
-& $tmp
-Check_If_Stage_Kill("stage1")
-
 # Run Stage10 - Download Compilation Tools
 $tmp = $init_scripts_dir + $path_delimiter + "stage10.ps1"
 & $tmp
 Check_If_Stage_Kill("stage10")
+
+# Run Stage1 - Bootstrap Nim
+$tmp = $init_scripts_dir + $path_delimiter + "stage1.ps1"
+& $tmp
+Check_If_Stage_Kill("stage1")
 
 # Run Stage2 - Build and Install Nimble + Nim Toolchain
 $tmp = $init_scripts_dir + $path_delimiter + "stage2.ps1"

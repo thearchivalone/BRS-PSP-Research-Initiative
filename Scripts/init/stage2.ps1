@@ -5,16 +5,22 @@
 
 $cwd = (Get-Item . | % { $_.FullName })
 
-Function Run_Python3_Stage2() {
-	$tmp = $init_scripts_dir + $path_delimiter + "stage2.py"
-	& python $tmp $os $tools_dir $deps_dir
+Function Cleanup_Nim() {
+  $nim_src_dir = $deps_dir + $path_delimiter + "nim"
+  if (Test-Path -Path $nim_src_dir) {
+      Write-Output "Cleaning up Nim source code. Please wait"
+      & Start-Sleep $sleep
+      & Remove-Item -Path $nim_src_dir -Force -Recurse
+    }
 }
 
-Run_Python3_Stage2
+Cleanup_Nim
 
 Function Activate_Nim() {
 	Write-Output "Activating Nim Toolchain"
-	$env:PATH = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "nim" + $path_delimiter + "custom" + ";" + $env:PATH
+  $nim_path = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "nim"
+	$env:PATH = $nim_path + $path_delimiter + "bin" + ";" + $env:PATH
+  $env:PATH = $nim_path + $path_delimiter + "lib" + ";" + $env:PATH
 }
 
 Activate_Nim

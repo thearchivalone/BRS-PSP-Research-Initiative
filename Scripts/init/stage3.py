@@ -111,26 +111,45 @@ def install_extraction_tool(stem, custom_tools_dir):
     global path_delimiter
     print(f"Installing {stem}")
     tmp = custom_tools_dir + path_delimiter + stem + exe
-    pathlib.Path("main" + exe).replace(tmp)
+    exe_path = "src" + path_delimiter + "main" + exe
+    pathlib.Path(exe_path).replace(tmp)
 
 
 def build_extraction_tool(stem, custom_dir):
+    global nimble_deps
+    global exe
     print(f"Building {stem}")
-    cmd = ""
-    if OS == "win":
-        cmd = ".cmd"
     nimble_deps_dir = (
         os.getcwd() + path_delimiter + deps_dir + path_delimiter + "nimbledeps"
     )
     nimble_pkgs_dir = nimble_deps_dir + path_delimiter + "pkgs2"
-    zigcc = nimble_deps_dir + path_delimiter + "bin" + path_delimiter + "zigcc" + cmd
-    os.chdir(custom_dir)
-    subprocess.call(
-        ["nimble", "install", f"--nimbleDir:{nimble_deps_dir}"],
+    nim_dir = (
+        os.getcwd()
+        + path_delimiter
+        + tools_dir
+        + path_delimiter
+        + OS
+        + path_delimiter
+        + "nim"
     )
+    nim_bin_dir = nim_dir + path_delimiter + "bin"
+    nimble_bin = nim_bin_dir + path_delimiter + "atlas" + exe
+    nim_bin = nim_bin_dir + path_delimiter + "nim" + exe
+    zigcc = (
+        nim_dir
+        + path_delimiter
+        + "zigcc"
+        + path_delimiter
+        + "src"
+        + path_delimiter
+        + "zigcc"
+        + exe
+    )
+    os.chdir(custom_dir)
+    subprocess.call([nimble_bin, "install"])
     subprocess.call(
         [
-            "nim",
+            nim_bin,
             "c",
             "--cc:clang",
             f"--clang.exe={zigcc}",
@@ -144,6 +163,7 @@ def build_extraction_tool(stem, custom_dir):
 
 
 def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
+    global path_delimiter
     print("Preparing Extraction Tools")
     trees = pathlib.Path(custom_source_dir).rglob("*.nimble")
     tmp = os.getcwd()
