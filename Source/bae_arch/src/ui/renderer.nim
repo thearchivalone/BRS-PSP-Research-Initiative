@@ -11,3 +11,4 @@
 
 import sokol/app as sapp
 import pixie
+import clay

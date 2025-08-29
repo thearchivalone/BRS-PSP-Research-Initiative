@@ -19,8 +19,12 @@ Cleanup_Nim
 Function Activate_Nim() {
 	Write-Output "Activating Nim Toolchain"
   $nim_path = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "nim"
+  $nim_zig_path = $nim_path + $path_delimiter + "zig" + $path_delimiter + "src"
 	$env:PATH = $nim_path + $path_delimiter + "bin" + ";" + $env:PATH
   $env:PATH = $nim_path + $path_delimiter + "lib" + ";" + $env:PATH
+  $env:PATH = $nim_zig_path + ";" + $env:PATH
+  $env:NIMDEPS = $cwd + $path_delimiter + $deps_dir + $path_delimiter + "nimbledeps"
+  $env:NIMCACHE = $cwd + $path_delimiter + $deps_dir + $path_delimiter + "nimcache"
 }
 
 Activate_Nim

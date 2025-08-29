@@ -17,3 +17,5 @@ requires "db_connector >= 0.1.0"
 requires "https://github.com/floooh/sokol-nim.git"
 
 requires "https://github.com/treeform/pixie.git"
+
+requires "https://github.com/thearchivalone/nimclay.git"
