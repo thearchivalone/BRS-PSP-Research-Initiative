@@ -157,6 +157,7 @@ def build_extraction_tool(stem, custom_dir):
             "--opt:speed",
             f"--nimblePath:{nimble_pkgs_dir}",
             "-d:release",
+            "--deepcopy:on",
             "src/main.nim",
         ],
     )
@@ -175,18 +176,21 @@ def prepare_extraction_tools(custom_source_dir, custom_tools_dir):
         os.chdir(tmp)
 
 
-# Prevent building of tools if not needed
-source_tmp = pathlib.Path(custom_source_dir).rglob(".")
-bin_tmp = pathlib.Path(custom_tools_dir).rglob("*")
-count = 0
-built = 0
+prepare_extraction_tools(custom_source_dir, custom_tools_dir)
 
-for s in source_tmp:
-    if s.parent.stem == source_dir:
-        count += 1
+odin_bin = "odin" + exe
 
-for b in bin_tmp:
-    built += 1
+def build_frontend(odin_bin):
+    subprocess.call(
+        [
+            odin_bin,
+            "build",
+            "Source/bae_arch/frontend/src/main.odin",
+            "-file",
+            "-build-mode:exe",
+            "-o:speed",
+            "-out:test.exe"
+        ],
+    )
 
-if built < count:
-    prepare_extraction_tools(custom_source_dir, custom_tools_dir)
+build_frontend(odin_bin)

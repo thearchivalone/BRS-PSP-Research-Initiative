@@ -37,8 +37,8 @@ Function Activate_Zig() {
   $zig_dir = $cwd + $path_delimiter + $tools_dir + $path_delimiter + $os + $path_delimiter + "zig" 
 	$env:PATH = $zig_dir + ";" + $extra + $env:PATH
   $env:ZIGCC = $zig_dir + $path_delimiter + "zig" + $exe + " cc"
+  $env:ZIGCPP = $zig_dir + $path_delimiter + "zig" + $exe + " c++"
   $env:ZIG_LOCAL_CACHE_DIR = $cwd + $path_delimiter + $cache_dir + $path_delimiter + "zig"
-  $env:CC = $env:ZIGCC
 }
 
 Activate_Zig

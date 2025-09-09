@@ -72,6 +72,11 @@ $tmp = $init_scripts_dir + $path_delimiter + "stage2.ps1"
 & $tmp
 Check_If_Stage_Kill("stage2")
 
+# Run Stage15 - Build and Install Odin Toolchain
+$tmp = $init_scripts_dir + $path_delimiter + "stage15.ps1"
+& $tmp
+Check_If_Stage_Kill("stage15")
+
 # Run Stage3 - Install QuickBMS
 $tmp = $init_scripts_dir + $path_delimiter + "stage3.ps1"
 & $tmp
