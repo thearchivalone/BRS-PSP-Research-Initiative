@@ -1,0 +1,15 @@
+[project]
+name = "BRS-PSP-Research-Initiative"
+version = "0.0.1"
+description = "Python Build System for the BRS-PSP-Research-Initiative"
+authors = [
+    {name = "thearchivalone", email = "convent-scoff-envy@duck.com"},
+]
+dependencies = ["dotenv>=0.9.9", "requests>=2.32.5"]
+requires-python = ">=3.11,<3.12"
+readme = "README.md"
+license = {text = "BSD-3"}
+
+
+[tool.pdm]
+distribution = false

@@ -2,6 +2,8 @@
 /Game
 /Tools
 /Assets
+**/__pycache__
+**/.venv
 **/*.~lock*
 **/*.exe
 **/.cache
@@ -10,3 +12,5 @@
 **/*.pdb
 **/nim.cfg
 **/*.o
+**/*.lock
+**/.pdm-python

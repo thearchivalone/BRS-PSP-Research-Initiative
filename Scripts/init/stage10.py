@@ -20,7 +20,7 @@ from zipfile import ZipFile
 # Version of tools used
 # llvm_version = "20250709"
 llvm_version = "20240619"
-zig_version = "0.14.1"
+zig_version = "0.15.1"
 
 # Platform specific variables
 exe = ""
