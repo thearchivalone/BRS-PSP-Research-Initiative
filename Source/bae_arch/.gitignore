@@ -1,5 +1,0 @@
-*.exe
-*.db
-/nimbledeps
-nimble.develop
-nimble.paths

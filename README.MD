@@ -71,6 +71,16 @@ This repository will host my findings and various scripts, tools and documentati
 
 ---
 
+---
+
+## Links to New Repositories
+
+I've been working on slowly splitting up this repository into separate parts in order to make navigating, using and updating more manageable for me, as a single developer, and you, the user. These links are to each of those separate repositories in order to make things more convenient for those that have been following this project:
+
+* [Original Quickbms Scripts](https://github.com/BRS-PSP-Research-Initiative/Original-Quickbms-Scripts) - my original extraction scripts with a python runner to automate the process
+
+* [Unofficial Development Docs](https://github.com/BRS-PSP-Research-Initiative/Unofficial-Development-Docs) - where my notes about file formats, theories and anything I find that will help improve figuring out the game's structure, all of that will be found here
+
 ## Navigating This Repository
 
 The folder structure is meant to be pretty straight forward, but here's what they represent:
@@ -78,10 +88,6 @@ The folder structure is meant to be pretty straight forward, but here's what the
 * Game - Where the game files go
 
 * Scripts - QuickBMS scripts can be found here. See accompanying README in the directory and notes in the script if you need to learn how to use them. Also, feel free to open an issue and / or pull request (if you want to improve the documentation) if they're not clear enough.
-
-* Docs/Repository - Mirror information, contributions, and other documentation related to the project as a whole can be found here
-
-* Docs/Technical - Originally called Specifications, this is where you can find information about file formats, how certain systems work and (slowly, mind you) the file structure of the game disc
 
 * Tools - Where the tools are downloaded and installed for extracting the game files; right now, this only supports Windows but shouldn't be difficult to get working on the BSDs, Linux, Mac, etc
 
